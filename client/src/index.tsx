@@ -1,17 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDom from 'react-dom'
+import { createLogger } from 'redux-logger'
+import thunk from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
+import reducer from './reducers'
+import App from './containers/app'
+import { alert } from './actions/alert'
 
-ReactDOM.render(
+const initialState = {}
+
+const store = createStore(
+  reducer,
+  initialState,
+  applyMiddleware(thunk, createLogger({
+    level: 'info',
+  }), storeStateMiddleWare),
+)
+
+const renderApp = () => ReactDom.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App message='test message'/>
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+renderApp()
+store.dispatch(alert('Soon, will be here a fantastic Tetris ...'))
+
+// renderApp()
+// store.subscribe(renderApp)
