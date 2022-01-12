@@ -1,8 +1,8 @@
-import { State } from '../types'
+import { RootState } from '../store'
 
 declare global {
   interface Window {
-      state: State;
+      state: RootState;
   }
 }
 

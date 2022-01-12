@@ -3,4 +3,8 @@ type Action = {
   message: string
 }
 
-export type { Action }
+type AlertState = {
+  message: string
+} | Record<string, never>;
+
+export type { Action, AlertState }

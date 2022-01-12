@@ -1,5 +1,7 @@
-type State = {
-  message: string
-} | {}
+// type State = {
+//   message: string
+// } | Record<string, never>;
 
-export type { State }
+// export type { State }
+
+export {}

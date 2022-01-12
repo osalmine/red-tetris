@@ -21,7 +21,8 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "client"
   },
   "settings": {
     "react": {
