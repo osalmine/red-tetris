@@ -22,7 +22,7 @@
       "jsx": true
     },
     "project": "./tsconfig.json",
-    "tsconfigRootDir": "client"
+    "tsconfigRootDir": "./client/"
   },
   "settings": {
     "react": {

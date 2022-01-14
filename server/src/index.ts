@@ -1,5 +1,15 @@
 import fs from 'fs'
 import debug from 'debug'
+import http from 'http'
+import * as socketio from 'socket.io';
+
+// const socketIO = require('socket.io')
+
+// import socketIO from 'socket.io'
+import params from '../params'
+import { ClientToServerEvents, ServerToClientEvents } from './types'
+
+type ServerParams = typeof params.server
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info')
@@ -27,34 +37,41 @@ const initApp = (app, params, cb) => {
   })
 }
 
-const initEngine = io => {
-  io.on('connection', (socket) => {
+const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEvents>) => {
+  io.on('connection', (socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>) => {
+
     loginfo(`Socket connected: ${ socket.id}`)
+
     socket.on('action', (action) => {
+      console.log('ACTION', action)
       if (action.type === 'server/ping') {
-        socket.emit('action', { type: 'pong' })
+        socket.emit('pingAction', { type: 'server/ping', message: 'pong' })
       }
     })
   })
 }
 
-export function create(params) {
-  const promise = new Promise((resolve, reject) => {
-    const app = require('http').createServer()
-    initApp(app, params, () => {
-      const io = require('socket.io')(app)
-      const stop = (cb) => {
-        io.close()
-        app.close(() => {
-          app.unref()
-        })
-        loginfo('Engine stopped.')
-        cb()
-      }
+export const create = (server: ServerParams) => new Promise(resolve => {
 
-      initEngine(io)
-      resolve({ stop })
-    })
+  const app = http.createServer()
+
+  initApp(app, server, () => {
+    const io = new socketio.Server<ServerToClientEvents, ClientToServerEvents>(app, {
+      cors: {
+        origin: ['http://localhost:3000'],
+      },
+    });
+    const stopApp = (cb: () => void) => {
+      io.close()
+      app.close(() => {
+        app.unref()
+      })
+      loginfo('Engine stopped.')
+      cb()
+    }
+
+    initEngine(io)
+    resolve({ stopApp })
+
   })
-  return promise
-}
+})

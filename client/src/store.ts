@@ -1,13 +1,18 @@
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
-import alertReducer from './reducers'
+import { alertReducer, pingReducer } from './reducers'
 
 const initialState = {}
 
+const reducer = combineReducers({
+  alert: alertReducer,
+  ping: pingReducer,
+})
+
 export const store = createStore(
-  alertReducer,
+  reducer,
   initialState,
   applyMiddleware(thunk, createLogger({
     level: 'info',

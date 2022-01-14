@@ -1,3 +1,4 @@
-import alert from './alert'
-export default alert
+import alertReducer from './alert'
+import pingReducer from './ping'
 
+export { alertReducer, pingReducer }
