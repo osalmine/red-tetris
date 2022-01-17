@@ -22,7 +22,7 @@
       "jsx": true
     },
     "project": "./tsconfig.json",
-    "tsconfigRootDir": "./client/"
+    // "tsconfigRootDir": "./client/"
   },
   "settings": {
     "react": {
@@ -133,7 +133,8 @@
 	  "no-undef-init": 1, //disallow use of undefined when initializing variables
 	  "no-undef": 1, //disallow use of undeclared variables unless mentioned in a /*global */ block (recommended)
 	  "no-undefined": 1, //disallow use of undefined variable
-	  "no-unused-vars": [1, { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
 	  "no-use-before-define": 1, //disallow use of variables before they are defined
   
 	  /* Node.js */
