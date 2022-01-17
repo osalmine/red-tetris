@@ -119,7 +119,8 @@
 	  "no-undef-init": 1, //disallow use of undefined when initializing variables
 	  "no-undef": 1, //disallow use of undeclared variables unless mentioned in a /*global */ block (recommended)
 	  "no-undefined": 1, //disallow use of undefined variable
-	  "no-unused-vars": [1, { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
 	  "no-use-before-define": 1, //disallow use of variables before they are defined
   
 	  /* Node.js */
@@ -227,6 +228,6 @@
 	  "max-params": 0, //limits the number of parameters that can be used in the function declaration.
 	  "max-statements": 0, //specify the maximum number of statement allowed in a function
 	  "no-bitwise": 1, //disallow use of bitwise operators
-	  "no-plusplus": 1, //disallow use of unary operators, ++ and --
+	  "no-plusplus": 1 //disallow use of unary operators, ++ and --
 	}
 }

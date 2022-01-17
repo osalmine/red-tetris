@@ -1,11 +1,8 @@
 import fs from 'fs'
 import debug from 'debug'
-import http from 'http'
+import { join } from 'path';
+import http, { IncomingMessage, ServerResponse } from 'http'
 import * as socketio from 'socket.io';
-
-// const socketIO = require('socket.io')
-
-// import socketIO from 'socket.io'
 import params from '../params'
 import { ClientToServerEvents, ServerToClientEvents } from './types'
 
@@ -14,17 +11,20 @@ type ServerParams = typeof params.server
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info')
 
-const initApp = (app, params, cb) => {
+const ERR = 500
+const OK = 200
+
+const initApp = (app: http.Server, params: ServerParams, cb: () => void) => {
   const { host, port } = params
-  const handler = (req, res) => {
+  const handler = (req: IncomingMessage, res: ServerResponse) => {
     const file = req.url === '/bundle.js' ? '/../../build/bundle.js' : '/../../index.html'
-    fs.readFile(__dirname + file, (err, data) => {
+    fs.readFile(join(__dirname, file), (err, data) => {
       if (err) {
         logerror(err)
-        res.writeHead(500)
+        res.writeHead(ERR)
         return res.end('Error loading index.html')
       }
-      res.writeHead(200)
+      res.writeHead(OK)
       res.end(data)
     })
   }
@@ -43,9 +43,11 @@ const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEven
     loginfo(`Socket connected: ${ socket.id}`)
 
     socket.on('action', (action) => {
-      console.log('ACTION', action)
+      // console.log('ACTION', action)
+      loginfo(`Socket action: ${ action.type}`)
       if (action.type === 'server/ping') {
-        socket.emit('pingAction', { type: 'server/ping', message: 'pong' })
+        loginfo('Emit ping')
+        socket.emit('server/ping', { type: 'server/ping', message: 'pong' })
       }
     })
   })
