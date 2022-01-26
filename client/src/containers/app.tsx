@@ -2,29 +2,35 @@ import React from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { alert as addAlert } from '../actions/alert';
 
-// import pingServer from '../services/ping';
+import pingServer from '../services/ping';
 import socket from '../socket/socket';
 import { pingAction } from '../actions/server';
-import { useDispatch } from 'react-redux';
+
+// import { useDispatch } from 'react-redux';
+import { PingState, PongState } from '../reducers/types';
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const dis = useDispatch()
+
+  // const dis = useDispatch()
   const alert = useAppSelector(state => state.alert.message);
+  const pongs: PongState[] = useAppSelector(state => state.pong);
+  const pings: PingState = useAppSelector(state => state.ping);
+
+  console.log('pings', pings);
 
   const onAddAlert = () => {
     dispatch(addAlert('Tetris kohta...'));
   }
 
-  const onPingServer = async() => {
+  const onPingServer = () => {
     console.log('pinging server...');
 
-    // pingServer();
-    dis(pingAction())
+    dispatch(pingAction());
 
-    // socket.on('server/ping', (data) => {
-    //   console.log('Ping: ', data);
-    // })
+    // pingServer();
+
+    // dis(pingAction())
   }
 
   return (
@@ -32,7 +38,11 @@ const App = () => {
       <button onClick={onAddAlert}>Add alert</button>
       <span>{alert}</span>
       <br/>
-      <button onClick={onPingServer}>Ping server</button>
+      <button onClick={onPingServer}>Ping server {pings.count} times</button>
+      <ul>{pongs.map((pong, i) => (
+        <li key={i}>{pong.message}</li>
+      ))}
+      </ul>
     </>
   )
 }

@@ -2,8 +2,12 @@ type AlertState = {
   message: string
 } | Record<string, never>;
 
-type PingState = {
+type PongState = {
   message: string
-} | Record<string, never>;
+};
 
-export type { AlertState, PingState }
+type PingState = {
+  count: number
+};
+
+export type { AlertState, PongState, PingState }

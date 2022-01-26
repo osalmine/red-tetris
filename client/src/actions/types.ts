@@ -6,8 +6,12 @@ type AlertAction = BaseAction<'ALERT_POP'> & {
   message: string
 }
 
-type PingAction = BaseAction<'server/ping'> & {
+type PingAction = {
+  type: string
+}
+
+type PongAction = BaseAction<'server/pong'> & {
   message: string
 }
 
-export type { AlertAction, PingAction }
+export type { AlertAction, PingAction, PongAction }

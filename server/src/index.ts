@@ -47,7 +47,7 @@ const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEven
       loginfo(`Socket action: ${ action.type}`)
       if (action.type === 'server/ping') {
         loginfo('Emit ping')
-        socket.emit('server/ping', { type: 'server/ping', message: 'pong' })
+        socket.emit('server/pong', { message: 'pong' })
       }
     })
   })

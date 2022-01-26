@@ -1,10 +1,8 @@
-type server_ping = 'server/ping';
-
 type ServerToClientEvents = {
   noArg: () => void;
   basicEmit: (a: number, b: string, c: Buffer) => void;
   withAck: (d: string, callback: (e: number) => void) => void;
-  'server/ping': (arg: { type: server_ping, message: string }) => void;
+  'server/pong': (arg: { message: string }) => void;
 }
 
 type BaseAction<T> = {

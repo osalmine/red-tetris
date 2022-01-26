@@ -6,14 +6,12 @@ type BaseAction<T> = {
   type: T
 }
 
-type AlertAction = BaseAction<'ALERT_POP'> & {
+type PingAction = BaseAction<'server/ping'> & {
   message: string
 }
 
-type PingAction = BaseAction<'server/ping'>
-
 type ServerToClientEvents = {
-  action: (action: AlertAction | PingAction) => void;
+  action: (action: PingAction) => void;
   hello: () => void
 }
 

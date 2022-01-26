@@ -1,20 +1,23 @@
-import { ThunkDispatch } from 'redux-thunk';
-import pingServer from '../services/ping';
-import socket from '../socket/socket';
-import { RootState } from '../store';
-import { PingAction } from './types';
+import * as incomingEvents from '../constants/incomingEvents';
+import * as outgoingEvents from '../constants/outgoingEvents';
 
 // export const ping = (): PingAction => ({
 //   type: 'server/ping',
 // })
 
-export const SERVER_PING = 'server/ping';
+export const pongAction = (message: string) => {
+  console.log('pongAction');
 
-export const pingAction = () => (dispatch: ThunkDispatch<RootState, Record<string, never>, PingAction>) => {
-  pingServer();
+  // socket.on(SERVER_PING, ({ message }: {message: string}) => {
+  //   console.log('pingAction message:', message);
 
-  // socket.on(SERVER_PING, (message: string) => {
-  //   console.log('pingAction:', message);
   //   dispatch({ type: SERVER_PING, message });
   // })
+  return ({ type: incomingEvents.PONG, message });
+
+}
+
+export const pingAction = () => {
+  console.log('pingAction');
+  return ({ type: outgoingEvents.PING });
 }

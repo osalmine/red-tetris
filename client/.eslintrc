@@ -16,14 +16,14 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "prettier"],
-  "parserOptions": {
-    "ecmaVersion": 11,
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "project": "./tsconfig.json",
-    // "tsconfigRootDir": "./client/"
-  },
+  // "parserOptions": {
+  //   "ecmaVersion": 11,
+  //   "ecmaFeatures": {
+  //     "jsx": true
+  //   },
+  //   "project": "./tsconfig.json",
+  //   // "tsconfigRootDir": "./client/"
+  // },
   "settings": {
     "react": {
       "pragma": "React",
