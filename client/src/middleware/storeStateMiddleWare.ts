@@ -1,5 +1,3 @@
-import { Dispatch } from 'redux'
-import { AlertAction, PingAction } from '../actions/types'
 import { RootState } from '../store'
 
 declare global {
@@ -8,11 +6,11 @@ declare global {
   }
 }
 
-export const storeStateMiddleWare = ({ getState }: {getState: any}) => (next: Dispatch) =>
-  (action: PingAction | AlertAction) => {
-    const returnValue = next(action)
-    if (window.top) {
-      window.top.state = getState()
-    }
-    return returnValue
-  }
+// export const storeStateMiddleWare = ({ getState }: {getState: any}) => (next: Dispatch) =>
+//   (action: PingAction | AlertAction) => {
+//     const returnValue = next(action)
+//     if (window.top) {
+//       window.top.state = getState()
+//     }
+//     return returnValue
+//   }

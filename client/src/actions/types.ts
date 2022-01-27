@@ -14,4 +14,6 @@ type PongAction = BaseAction<'server/pong'> & {
   message: string
 }
 
-export type { AlertAction, PingAction, PongAction }
+type AllActions = AlertAction | PingAction | PongAction
+
+export type { AllActions, AlertAction, PingAction, PongAction }

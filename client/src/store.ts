@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
+// import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
 import { alertReducer, pingReducer, pongReducer } from './reducers'
 import { socketMiddleWare } from './middleware/socketMiddleWare'
 import socket from './socket/socket'
@@ -27,7 +27,8 @@ export const store = createStore(
       createLogger({
         level: 'info',
       }),
-      storeStateMiddleWare,
+
+      // storeStateMiddleWare,
       socketMiddleWare(socket),
     ),
   ),
