@@ -14,7 +14,6 @@ const J = [
   [O, O, O, O],
 ];
 
-
 const L = [
   [O, X, O, O],
   [O, X, O, O],

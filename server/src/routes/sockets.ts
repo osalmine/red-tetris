@@ -1,9 +1,13 @@
 import * as socketio from 'socket.io';
 import debug from 'debug'
 import { ClientToServerEvents, ServerToClientEvents } from '../types'
+import Controller from '../models/controller';
+import * as incomingEvents from '../constants/incomingEvents'
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info')
+
+const controller = new Controller()
 
 const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEvents>) => {
   io.on('connection', (socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>) => {
@@ -17,6 +21,10 @@ const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEven
         loginfo('Emit ping')
         socket.emit('server/pong', { message: 'pong' })
       }
+    })
+
+    socket.on(incomingEvents.JOIN, ({ roomName, playerName }: {roomName: string, playerName: string}) => {
+      loginfo(`JOIN ROOM: room: ${roomName} player: ${playerName}`)
     })
   })
 }
