@@ -3,6 +3,10 @@ import debug from 'debug'
 import { ClientToServerEvents, ServerToClientEvents } from '../types'
 import Controller from '../models/controller';
 import * as incomingEvents from '../constants/incomingEvents'
+import Game from '../models/game';
+import Player from '../models/player';
+import params from '../../params';
+import onRoomJoin from '../service/joinRoom';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info')
@@ -23,8 +27,8 @@ const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEven
       }
     })
 
-    socket.on(incomingEvents.JOIN, ({ roomName, playerName }: {roomName: string, playerName: string}) => {
-      loginfo(`JOIN ROOM: room: ${roomName} player: ${playerName}`)
+    socket.once(incomingEvents.JOIN, ({ roomName, playerName }) => {
+      onRoomJoin({ controller, roomName, playerName })
     })
   })
 }

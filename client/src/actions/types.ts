@@ -14,6 +14,11 @@ type PongAction = BaseAction<'server/pong'> & {
   message: string
 }
 
-type AllActions = AlertAction | PingAction | PongAction
+type JoinRoomAction = BaseAction<'joinRoom'> & {
+  roomName: string;
+  playerName: string;
+}
 
-export type { AllActions, AlertAction, PingAction, PongAction }
+type AllActions = AlertAction | PingAction | PongAction | JoinRoomAction;
+
+export type { AllActions, AlertAction, PingAction, PongAction, JoinRoomAction }

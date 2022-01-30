@@ -14,7 +14,12 @@ export default class Game implements GameType {
   }
 
   addPlayer(player: Player) {
+    console.log(`ADD PLAYER" ${JSON.stringify(player)}`)
     this.players.set(player.name, player);
+  }
+
+  playerExists(playerName: string) {
+    return Boolean(this.players.get(playerName));
   }
 
   getPlayer(playerName: string) {

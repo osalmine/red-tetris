@@ -1,15 +1,10 @@
 import Game from './game'
-import Player from './player';
 
 export default class Controller {
   games: Map<string, Game>;
 
-  // players: Map<string, Player>
-
   constructor() {
     this.games = new Map<string, Game>()
-
-    // this.players = new Map<string, Player>()
   }
 
   addGame(game: Game) {
@@ -17,6 +12,10 @@ export default class Controller {
   }
 
   gameExists(roomName: string) {
+    return Boolean(this.games.get(roomName))
+  }
+
+  getGame(roomName: string) {
     return this.games.get(roomName)
   }
 }
