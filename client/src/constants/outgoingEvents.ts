@@ -1,3 +1,5 @@
 const PING = 'server/ping';
 
-export { PING };
+const JOIN = 'joinRoom';
+
+export { PING, JOIN };
