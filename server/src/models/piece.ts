@@ -8,6 +8,6 @@ export default class Piece {
   }
 
   addPieces(count: number) {
-    return 
+    return
   }
 }
