@@ -19,6 +19,6 @@ type ClientToServerEvents = {
   action: (action: AlertAction | PingAction) => void;
   hello: () => void;
   joinRoom: ({ roomName, playerName }: {roomName: string, playerName: string}) => void;
-}
+};
 
-export type { ServerToClientEvents, ClientToServerEvents }
+export type { ServerToClientEvents, ClientToServerEvents };

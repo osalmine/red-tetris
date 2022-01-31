@@ -1,4 +1,4 @@
-import { EMPTY as O, FILLED as X } from './cellType'
+import { EMPTY as O, FILLED as X } from './cellType';
 
 const I = [
   [O, O, X, O],
@@ -49,6 +49,6 @@ const Z = [
   [O, O, O, O],
 ];
 
-const count = 7
+const count = 7;
 
-export { I, J, L, O_ as O, S, T, Z, count }
+export { I, J, L, O_ as O, S, T, Z, count };
