@@ -13,8 +13,8 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "project": "./tsconfig.json",
-    "tsconfigRootDir": "server"
+    // "project": "./tsconfig.json",
+    // "tsconfigRootDir": "server"
   },
 	"rules": {
 	  /* Possible Errors */
