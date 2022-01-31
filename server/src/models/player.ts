@@ -4,6 +4,7 @@ export default class Player {
   name: string;
   roomName: string;
   isAdmin: boolean;
+  state: 'pending' | 'playing' | 'finished';
   board: Board;
 
   constructor(playerName: string, roomName: string, { rows, cols }: {rows: number, cols: number}) {
@@ -11,6 +12,7 @@ export default class Player {
     this.name = playerName;
     this.roomName = roomName;
     this.isAdmin = false;
+    this.state = 'pending';
     this.board = new Board(rows, cols);
   }
 }
