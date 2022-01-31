@@ -1,15 +1,15 @@
-import { ALERT_POP } from '../actions/alert'
-import { AlertAction } from '../actions/types'
-import { AlertState } from './types'
+import { ALERT_POP } from '../actions/alert';
+import { AlertAction } from '../actions/types';
+import { AlertState } from './types';
 
 const alertReducer = (state: AlertState = {}, action: AlertAction) => {
   switch (action.type) {
   case ALERT_POP:
-    return { message: action.message }
+    return { message: action.message };
   default:
-    return state
+    return state;
   }
-}
+};
 
-export default alertReducer
+export default alertReducer;
 

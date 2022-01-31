@@ -1,5 +1,5 @@
-import { PingAction } from '../actions/types'
-import { PingState } from './types'
+import { PingAction } from '../actions/types';
+import { PingState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
 const pingReducer = (state: PingState = { count: 0 }, action: PingAction) => {
@@ -9,9 +9,9 @@ const pingReducer = (state: PingState = { count: 0 }, action: PingAction) => {
     const newState = { count: state.count + 1 };
     return newState;
   default:
-    return state
+    return state;
   }
-}
+};
 
-export default pingReducer
+export default pingReducer;
 

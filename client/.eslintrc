@@ -204,6 +204,7 @@
 	  "require-jsdoc": 0, //Require JSDoc comment
 	  "semi-spacing": [1, { "before": false, "after": true }], //enforce spacing before and after semicolons
 	  "semi": [0, "always"], //require or disallow use of semicolons instead of ASI (fixable)
+    "@typescript-eslint/semi": ["error"],
 	  "sort-vars": 0, //sort variables within the same declaration block
 	  "space-after-keywords": 0, //require a space after certain keywords (fixable)
 	  "space-before-blocks": [1, "always"], //require or disallow a space before blocks (fixable)

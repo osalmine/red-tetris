@@ -1,4 +1,4 @@
-import * as piece from '../constants/pieces'
+import * as piece from '../constants/pieces';
 
 export default class Piece {
   pieces: number[][][];
@@ -8,6 +8,6 @@ export default class Piece {
   }
 
   addPieces(count: number) {
-    return
+    return;
   }
 }

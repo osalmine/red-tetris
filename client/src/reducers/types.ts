@@ -10,4 +10,4 @@ type PingState = {
   count: number
 };
 
-export type { AlertState, PongState, PingState }
+export type { AlertState, PongState, PingState };

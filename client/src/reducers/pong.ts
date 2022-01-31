@@ -1,5 +1,5 @@
-import { PongAction } from '../actions/types'
-import { PongState } from './types'
+import { PongAction } from '../actions/types';
+import { PongState } from './types';
 import * as incomingEvents from '../constants/incomingEvents';
 
 const pongReducer = (state: PongState[] = [], action: PongAction): PongState[] => {
@@ -10,8 +10,8 @@ const pongReducer = (state: PongState[] = [], action: PongAction): PongState[] =
     const newState = [...state, action.message] as PongState[];
     return newState;
   default:
-    return state
+    return state;
   }
-}
+};
 
-export default pongReducer
+export default pongReducer;

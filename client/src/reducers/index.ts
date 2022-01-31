@@ -1,5 +1,5 @@
-import alertReducer from './alert'
-import pingReducer from './ping'
-import pongReducer from './pong'
+import alertReducer from './alert';
+import pingReducer from './ping';
+import pongReducer from './pong';
 
-export { alertReducer, pingReducer, pongReducer }
+export { alertReducer, pingReducer, pongReducer };

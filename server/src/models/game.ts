@@ -1,8 +1,8 @@
-import Player from './player'
+import Player from './player';
 
 type GameType = {
   getPlayer(playerName: string): Player;
-}
+};
 
 export default class Game implements GameType {
   roomName: string;
@@ -14,7 +14,7 @@ export default class Game implements GameType {
   }
 
   addPlayer(player: Player) {
-    console.log(`ADD PLAYER" ${JSON.stringify(player)}`)
+    console.log(`ADD PLAYER" ${JSON.stringify(player)}`);
     this.players.set(player.name, player);
   }
 

@@ -1,20 +1,20 @@
-import { createLogger } from 'redux-logger'
-import thunk from 'redux-thunk'
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
-import { alertReducer, pingReducer, pongReducer } from './reducers'
-import { socketMiddleWare } from './middleware/socketMiddleWare'
-import socket from './socket/socket'
+import { alertReducer, pingReducer, pongReducer } from './reducers';
+import { socketMiddleWare } from './middleware/socketMiddleWare';
+import socket from './socket/socket';
 
-const initialState = {}
+const initialState = {};
 
 const reducer = combineReducers({
   alert: alertReducer,
   ping: pingReducer,
   pong: pongReducer,
-})
+});
 
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });
 
@@ -32,9 +32,9 @@ export const store = createStore(
       socketMiddleWare(socket),
     ),
   ),
-)
+);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 

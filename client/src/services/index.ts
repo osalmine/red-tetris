@@ -1,3 +1,3 @@
 import joinRoom from './joinRoom';
 
-export { joinRoom }
+export { joinRoom };

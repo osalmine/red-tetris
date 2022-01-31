@@ -4,13 +4,13 @@ export default class Player {
   name: string;
   roomName: string;
   isAdmin: boolean;
-  board: Board
+  board: Board;
 
   constructor(playerName: string, roomName: string, { rows, cols }: {rows: number, cols: number}) {
-    console.log('CONSTRUCT PLAYER')
+    console.log('CONSTRUCT PLAYER');
     this.name = playerName;
     this.roomName = roomName;
     this.isAdmin = false;
-    this.board = new Board(rows, cols)
+    this.board = new Board(rows, cols);
   }
 }
