@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { alert as addAlert } from '../actions/alert';
 import { pingAction } from '../actions/server';
@@ -14,12 +14,12 @@ const App = () => {
 
   const onAddAlert = () => {
     dispatch(addAlert('Tetris kohta...'));
-  }
+  };
 
   const onPingServer = () => {
     console.log('pinging server...');
     dispatch(pingAction());
-  }
+  };
 
   return (
     <>
@@ -32,7 +32,7 @@ const App = () => {
       ))}
       </ul>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

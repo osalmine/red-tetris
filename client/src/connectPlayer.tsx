@@ -14,41 +14,41 @@ type UrlParams = {
   playerName: string | null;
 };
 
-const RoomJoinWarning = styled.header``
+const RoomJoinWarning = styled.header``;
 
-const hashReg = /(^#[^[\]]+\[[^[\]]+\]$)/
+const hashReg = /(^#[^[\]]+\[[^[\]]+\]$)/;
 
 const getHashUrl = (hash: string): UrlParams => {
-  const test = hashReg.test(hash)
+  const test = hashReg.test(hash);
   console.log('test result:', test);
   if (test) {
-    const roomName = ((/([^[#\]]+)/).exec(hash) as RegExpExecArray)[0]
+    const roomName = ((/([^[#\]]+)/).exec(hash) as RegExpExecArray)[0];
 
     // console.log('ROOMNAME:', roomName)
-    const playerName = ((/[^[](.+)[^\]]/).exec(((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[0]) as RegExpExecArray)[0]
+    const playerName = ((/[^[](.+)[^\]]/).exec(((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[0]) as RegExpExecArray)[0];
 
     // console.log('PLAYERNAME:', playerName)
-    return { roomName, playerName }
+    return { roomName, playerName };
   }
-  return { roomName: null, playerName: null }
-}
+  return { roomName: null, playerName: null };
+};
 
 const ConnectPlayer = ({ children }: Props) => {
   const { hash } = useLocation();
   const dispatch = useAppDispatch();
 
-  console.log('HASH', hash)
-  const { roomName, playerName } = getHashUrl(hash)
-  console.log('ROOMNAME:', roomName)
-  console.log('PLAYERNAME:', playerName)
+  console.log('HASH', hash);
+  const { roomName, playerName } = getHashUrl(hash);
+  console.log('ROOMNAME:', roomName);
+  console.log('PLAYERNAME:', playerName);
   if (roomName && playerName) {
-    dispatch(joinRoom({ roomName, playerName }))
+    dispatch(joinRoom({ roomName, playerName }));
   }
   return (
     <>
       {(!roomName || !playerName) && <RoomJoinWarning>Enter in the following format: #42[onni]</RoomJoinWarning>}
       {children}
-    </>)
-}
+    </>);
+};
 
-export default ConnectPlayer
+export default ConnectPlayer;
