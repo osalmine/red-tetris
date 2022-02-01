@@ -5,10 +5,18 @@ type Props = {
   children: React.ReactNode;
 };
 
+export const theme = {
+  black: '#202124',
+  red: '#FF0035',
+  green: '#4D8B31',
+  grey: '#848FA5',
+  white: '#FFFFFF',
+};
+
 const BodyStyle = createGlobalStyle`
   body {
-    background-color: #202124;
-    color: #FFFFFF;
+    background-color: ${theme.black};
+    color: ${theme.white};
   }
 `;
 

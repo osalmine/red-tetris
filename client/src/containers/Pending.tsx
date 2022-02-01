@@ -25,7 +25,7 @@ const Title = styled.h1`
   animation: ${glow} 3s ease-in-out infinite alternate; */
 
 const Red = styled.span`
-  color: #FF0035;
+  color: ${props => props.theme.red};
 `;
 
 const Pending = () => (
