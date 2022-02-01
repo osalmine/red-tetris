@@ -7,7 +7,8 @@ type Props = {
 
 const BodyStyle = createGlobalStyle`
   body {
-    background-color: #343F3E;
+    background-color: #202124;
+    color: #FFFFFF;
   }
 `;
 

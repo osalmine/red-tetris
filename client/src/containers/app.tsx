@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { alert as addAlert } from '../actions/alert';
 import { pingAction } from '../actions/server';
 import styled from 'styled-components';
+import Pending from './Pending';
 
 const Root = styled.div``;
 
@@ -26,6 +27,7 @@ const App = () => {
 
   return (
     <Root>
+      <Pending />
       <button onClick={onAddAlert}>Add alert</button>
       <span>{alert}</span>
       <br/>

@@ -17,3 +17,7 @@ export const joinRoom = ({ roomName, playerName }: {roomName: string, playerName
   roomName,
   playerName,
 });
+
+export const updateState = () => ({
+
+});
