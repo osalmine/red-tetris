@@ -6,23 +6,41 @@ type GameType = {
 
 export default class Game implements GameType {
   roomName: string;
-  players: Map<string, Player>;
+  players: Player[];
+  gameState: 'pending' | 'playing' | 'finished';
 
   constructor(roomName: string) {
     this.roomName = roomName;
-    this.players = new Map<string, Player>();
+    this.players = [];
+    this.gameState = 'pending';
   }
 
   addPlayer(player: Player) {
     console.log(`ADD PLAYER" ${JSON.stringify(player)}`);
-    this.players.set(player.name, player);
+    this.players.push(player);
   }
 
   playerExists(playerName: string) {
-    return Boolean(this.players.get(playerName));
+    return this.players.some(player => player.name === playerName);
   }
 
   getPlayer(playerName: string) {
-    return this.players.get(playerName);
+    return this.players.find(player => player.name === playerName);
+  }
+
+  private transformPlayersMap(players: Player[]) {
+    return players.map(player => ({
+      name: player.name,
+      roomName: player.roomName,
+      isAdmin: player.isAdmin,
+      state: player.state,
+    }));
+  }
+
+  get state() {
+    return ({
+      gameState: this.gameState,
+      players: this.transformPlayersMap(this.players),
+    });
   }
 }

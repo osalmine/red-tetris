@@ -7,10 +7,26 @@ import { pongAction } from '../actions/server';
 import { Dispatch } from 'redux';
 import { AllActions, JoinRoomAction } from '../actions/types';
 
+type PlayerObject = {
+  name: string;
+  roomName: string;
+  isAdmin: boolean;
+  state: 'pending' | 'playing' | 'finished';
+};
+
+type UpdateState = {
+  gameState: 'pending' | 'playing' | 'finished';
+  players: PlayerObject[];
+};
+
 export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }: {dispatch: Dispatch}) => {
   socket.on(incomingEvents.PONG, (message: string) => {
     console.log('receive PONG: ', message);
     dispatch(pongAction(message));
+  });
+
+  socket.on(incomingEvents.UPDATE, (data: UpdateState) => {
+    console.log('receive UPDATE: ', data);
   });
 
   return (next: Dispatch<AllActions>) => (action: AllActions) => {

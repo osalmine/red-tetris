@@ -26,7 +26,7 @@ export const create = (server: ServerParams) => new Promise(resolve => {
   const app = http.createServer();
 
   initApp(app, server, () => {
-    const io = new socketio.Server<ServerToClientEvents, ClientToServerEvents>(app, {
+    const io = new socketio.Server<ClientToServerEvents, ServerToClientEvents>(app, {
       cors: {
         origin: ['http://localhost:3000'],
       },

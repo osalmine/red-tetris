@@ -1,23 +1,28 @@
+type PlayerObject = {
+  name: string;
+  roomName: string;
+  isAdmin: boolean;
+  state: 'pending' | 'playing' | 'finished';
+};
+
+type UpdateState = {
+  gameState: 'pending' | 'playing' | 'finished';
+  players: PlayerObject[];
+};
+
 type ServerToClientEvents = {
-  noArg: () => void;
-  basicEmit: (a: number, b: string, c: Buffer) => void;
-  withAck: (d: string, callback: (e: number) => void) => void;
   'server/pong': (arg: { message: string }) => void;
+  updateState: ({ gameState, players }: UpdateState) => void;
 };
 
 type BaseAction<T> = {
   type: T;
 };
 
-type AlertAction = BaseAction<'ALERT_POP'> & {
-  message: string;
-};
-
 type PingAction = BaseAction<'server/ping'>;
 
 type ClientToServerEvents = {
-  action: (action: AlertAction | PingAction) => void;
-  hello: () => void;
+  action: (action: PingAction) => void;
   joinRoom: ({ roomName, playerName }: {roomName: string, playerName: string}) => void;
 };
 

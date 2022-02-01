@@ -3,23 +3,23 @@ import debug from 'debug';
 import { ClientToServerEvents, ServerToClientEvents } from '../types';
 import Controller from '../models/controller';
 import * as incomingEvents from '../constants/incomingEvents';
+import * as outgoingEvents from '../constants/outgoingEvents';
 import Game from '../models/game';
 import Player from '../models/player';
 import params from '../../params';
-import onRoomJoin from '../handler/joinRoom';
+import { addClientToRoom } from '../handler/joinRoom';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
 
 const controller = new Controller();
 
-const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEvents>) => {
+const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEvents>) => {
   io.on('connection', (socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>) => {
 
     loginfo(`Socket connected: ${ socket.id}`);
 
     socket.on('action', (action) => {
-      // console.log('ACTION', action)
       loginfo(`Socket action: ${ action.type}`);
       if (action.type === 'server/ping') {
         loginfo('Emit ping');
@@ -28,8 +28,9 @@ const initEngine = (io: socketio.Server<ServerToClientEvents, ClientToServerEven
     });
 
     socket.once(incomingEvents.JOIN, ({ roomName, playerName }) => {
-      onRoomJoin({ controller, roomName, playerName });
+      controller.addClientToRoom({ roomName, playerName });
       socket.join(roomName);
+      io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
     });
   });
 };
