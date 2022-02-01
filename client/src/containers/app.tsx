@@ -2,6 +2,9 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { alert as addAlert } from '../actions/alert';
 import { pingAction } from '../actions/server';
+import styled from 'styled-components';
+
+const Root = styled.div``;
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +25,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <Root>
       <button onClick={onAddAlert}>Add alert</button>
       <span>{alert}</span>
       <br/>
@@ -31,7 +34,7 @@ const App = () => {
         <li key={i}>{pong.message}</li>
       ))}
       </ul>
-    </>
+    </Root>
   );
 };
 

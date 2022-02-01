@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import ConnectPlayer from './connectPlayer';
-import App from './containers/app';
+import App from './containers/App';
+import GlobalStyle from './containers/GlobalStyle';
 import { store } from './store';
 
 ReactDom.render(
@@ -13,7 +14,9 @@ ReactDom.render(
     <Router>
       <Provider store={store}>
         <ConnectPlayer>
-          <App/>
+          <GlobalStyle>
+            <App/>
+          </GlobalStyle>
         </ConnectPlayer>
       </Provider>
     </Router>
