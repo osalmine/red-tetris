@@ -28,7 +28,7 @@ export default class Game implements GameType {
     return this.players.find(player => player.name === playerName);
   }
 
-  private transformPlayersMap(players: Player[]) {
+  private transformPlayers(players: Player[]) {
     return players.map(player => ({
       name: player.name,
       roomName: player.roomName,
@@ -40,7 +40,7 @@ export default class Game implements GameType {
   get state() {
     return ({
       gameState: this.gameState,
-      players: this.transformPlayersMap(this.players),
+      players: this.transformPlayers(this.players),
     });
   }
 }
