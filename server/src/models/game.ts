@@ -28,6 +28,15 @@ export default class Game implements GameType {
     return this.players.find(player => player.name === playerName);
   }
 
+  removePlayer(playerName: string) {
+    if (this.playerExists(playerName)) {
+      this.players.splice(this.players.indexOf(this.getPlayer(playerName), 1));
+    }
+    else {
+      throw new Error(`Could not remove ${playerName}, player not found`);
+    }
+  }
+
   private transformPlayers(players: Player[]) {
     return players.map(player => ({
       name: player.name,
