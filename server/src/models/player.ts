@@ -15,4 +15,8 @@ export default class Player {
     this.state = 'pending';
     this.board = new Board(rows, cols);
   }
+
+  assignAdmin() {
+    this.isAdmin = true;
+  }
 }

@@ -39,6 +39,11 @@ export default class Controller {
     loginfo(`room: ${JSON.stringify(room)}`);
     room.addPlayer(new Player(playerName, roomName, params.board));
     loginfo(`room after add player: ${JSON.stringify(room)}`);
+    loginfo(`Room hasAdmin: ${room.hasAdmin}`);
+    if (!room.hasAdmin) {
+      room.getPlayer(playerName).assignAdmin();
+      loginfo(`Room hasAdmin: ${room.hasAdmin}`);
+    }
     loginfo(`Room getPlayer: ${JSON.stringify(room.getPlayer(playerName))}`);
   }
 }

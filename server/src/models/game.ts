@@ -37,6 +37,10 @@ export default class Game implements GameType {
     }
   }
 
+  get hasAdmin() {
+    return this.players.some(player => player.isAdmin);
+  }
+
   private transformPlayers(players: Player[]) {
     return players.map(player => ({
       name: player.name,
