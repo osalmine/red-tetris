@@ -33,6 +33,7 @@ const Red = styled.span`
 
 const Text = styled.p`
   font-size: 3rem;
+  margin: 10px 0;
 `;
 
 const Player = styled.p`
