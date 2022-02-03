@@ -3,21 +3,10 @@ import pingServer from '../services/ping';
 import { joinRoom } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { pongAction } from '../actions/server';
+import { pongAction, updateState } from '../actions/server';
 import { Dispatch } from 'redux';
 import { AllActions, JoinRoomAction } from '../actions/types';
-
-type PlayerObject = {
-  name: string;
-  roomName: string;
-  isAdmin: boolean;
-  state: 'pending' | 'playing' | 'finished';
-};
-
-type UpdateState = {
-  gameState: 'pending' | 'playing' | 'finished';
-  players: PlayerObject[];
-};
+import { UpdateState } from '../types';
 
 export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }: {dispatch: Dispatch}) => {
   socket.on(incomingEvents.PONG, (message: string) => {
@@ -27,6 +16,7 @@ export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }
 
   socket.on(incomingEvents.UPDATE, (data: UpdateState) => {
     console.log('receive UPDATE: ', data);
+    dispatch(updateState(data));
   });
 
   return (next: Dispatch<AllActions>) => (action: AllActions) => {

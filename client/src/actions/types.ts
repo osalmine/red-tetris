@@ -1,3 +1,5 @@
+import { UpdateState } from '../types';
+
 type BaseAction<T> = {
   type: T
 };
@@ -19,6 +21,10 @@ type JoinRoomAction = BaseAction<'joinRoom'> & {
   playerName: string;
 };
 
-type AllActions = AlertAction | PingAction | PongAction | JoinRoomAction;
+type UpdateAction = BaseAction<'serverUpdateState'> & {
+  state: UpdateState;
+};
 
-export type { AllActions, AlertAction, PingAction, PongAction, JoinRoomAction };
+type AllActions = AlertAction | PingAction | PongAction | JoinRoomAction | UpdateAction;
+
+export type { AllActions, AlertAction, PingAction, PongAction, JoinRoomAction, UpdateAction };

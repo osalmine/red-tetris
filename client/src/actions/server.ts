@@ -1,5 +1,6 @@
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
+import { UpdateState } from '../types';
 
 export const pongAction = (message: string) => {
   console.log('pongAction');
@@ -18,6 +19,7 @@ export const joinRoom = ({ roomName, playerName }: {roomName: string, playerName
   playerName,
 });
 
-export const updateState = () => ({
-
+export const updateState = (state: UpdateState) => ({
+  type: incomingEvents.UPDATE,
+  state,
 });

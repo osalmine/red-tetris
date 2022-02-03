@@ -32,6 +32,7 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
       controller.addClientToRoom({ roomName, playerName });
       socketClients.set(socket.id, { roomName, playerName });
       socket.join(roomName);
+      loginfo(`Emit to ${roomName}: ${outgoingEvents.UPDATE}`);
       io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
     });
 

@@ -1,5 +1,5 @@
 const PONG = 'server/pong';
 
-const UPDATE = 'updateState';
+const UPDATE = 'serverUpdateState';
 
 export { PONG, UPDATE };

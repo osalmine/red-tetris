@@ -1,3 +1,3 @@
-const UPDATE = 'updateState';
+const UPDATE = 'serverUpdateState';
 
 export { UPDATE };

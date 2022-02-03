@@ -12,7 +12,7 @@ type UpdateState = {
 
 type ServerToClientEvents = {
   'server/pong': (arg: { message: string }) => void;
-  updateState: ({ gameState, players }: UpdateState) => void;
+  serverUpdateState: ({ gameState, players }: UpdateState) => void;
 };
 
 type BaseAction<T> = {
