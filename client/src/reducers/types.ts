@@ -10,4 +10,8 @@ type PingState = {
   count: number
 };
 
-export type { AlertState, PongState, PingState };
+type PlayerState = {
+  playerName: string;
+} | Record<string, never>;
+
+export type { AlertState, PongState, PingState, PlayerState };

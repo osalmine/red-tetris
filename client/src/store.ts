@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
-import { alertReducer, pingReducer, pongReducer, updateStateReducer } from './reducers';
+import { alertReducer, pingReducer, pongReducer, updateStateReducer, joinRoomReducer } from './reducers';
 import { socketMiddleWare } from './middleware/socketMiddleWare';
 import socket from './socket/socket';
 
@@ -15,6 +15,7 @@ const reducer = combineReducers({
   ping: pingReducer,
   pong: pongReducer,
   state: updateStateReducer,
+  player: joinRoomReducer,
 });
 
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });
