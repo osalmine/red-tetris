@@ -13,6 +13,7 @@ const App = () => {
   const alert = useAppSelector(state => state.alert.message);
   const pongs = useAppSelector(state => state.pong);
   const pings = useAppSelector(state => state.ping);
+  const gameState = useAppSelector(state => state.state.gameState);
 
   console.log('pings', pings);
 
@@ -27,7 +28,7 @@ const App = () => {
 
   return (
     <Root>
-      <Pending />
+      {gameState === 'pending' && <Pending />}
       <button onClick={onAddAlert}>Add alert</button>
       <span>{alert}</span>
       <br/>

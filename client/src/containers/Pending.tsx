@@ -1,9 +1,12 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useAppSelector } from '../hooks';
 
 const Root = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`
@@ -28,10 +31,26 @@ const Red = styled.span`
   color: ${props => props.theme.red};
 `;
 
-const Pending = () => (
-  <Root>
-    <Title><Red>Red</Red> Tetris</Title>
-  </Root>
-);
+const Text = styled.p`
+  font-size: 3rem;
+`;
+
+const Player = styled.p`
+  font-size: 1rem;  
+`;
+
+const Pending = () => {
+  const players = useAppSelector(state => state.state.players);
+
+  return (
+    <Root>
+      <Title><Red>Red</Red> Tetris</Title>
+      <Text>Waiting to start</Text>
+      <Text>Players:</Text>
+      {players.map((player, i) => (
+        <Player key={i}>{player.name}</Player>
+      ))}
+    </Root>);
+};
 
 export default Pending;
