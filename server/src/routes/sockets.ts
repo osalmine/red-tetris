@@ -7,7 +7,6 @@ import * as outgoingEvents from '../constants/outgoingEvents';
 import Game from '../models/game';
 import Player from '../models/player';
 import params from '../../params';
-import { addClientToRoom } from '../handler/joinRoom';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');

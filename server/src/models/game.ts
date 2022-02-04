@@ -1,8 +1,12 @@
+import debug from 'debug';
 import Player from './player';
 
 type GameType = {
   getPlayer(playerName: string): Player;
 };
+
+const logerror = debug('tetris:error'),
+  loginfo = debug('tetris:info');
 
 export default class Game implements GameType {
   roomName: string;
@@ -29,6 +33,8 @@ export default class Game implements GameType {
   }
 
   removePlayer(playerName: string) {
+    loginfo(`GAME METHOD removePlayer ${playerName}`);
+    loginfo(`GAME METHOD this.playerExists(playerName) ${this.playerExists(playerName)}`);
     if (this.playerExists(playerName)) {
       this.players.splice(this.players.indexOf(this.getPlayer(playerName), 1));
     }
