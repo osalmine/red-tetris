@@ -14,13 +14,13 @@ ReactDom.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
-        <ConnectPlayer>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle>
+            <ConnectPlayer>
               <App/>
-            </GlobalStyle>
-          </ThemeProvider>
-        </ConnectPlayer>
+            </ConnectPlayer>
+          </GlobalStyle>
+        </ThemeProvider>
       </Provider>
     </Router>
   </React.StrictMode>,

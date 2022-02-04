@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { joinRoom } from './actions/server';
+import RedTetrisTitle from './components/RedTetrisTitle';
 import { useAppDispatch } from './hooks';
 
 type Props = {
@@ -13,6 +14,13 @@ type UrlParams = {
   roomName: string | null;
   playerName: string | null;
 };
+
+const Root = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const RoomJoinWarning = styled.header``;
 
@@ -46,8 +54,14 @@ const ConnectPlayer = ({ children }: Props) => {
   }
   return (
     <>
-      {(!roomName || !playerName) && <RoomJoinWarning>Enter in the following format: #42[onni]</RoomJoinWarning>}
-      {children}
+      {(!roomName || !playerName) ?
+        <Root>
+          <RoomJoinWarning>
+            Enter in the following format in the URL: #{'<'}room{'>'}[{'<'}yourName{'>'}]
+          </RoomJoinWarning>
+          <RedTetrisTitle />
+        </Root> :
+        children}
     </>);
 };
 

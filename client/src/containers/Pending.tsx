@@ -1,5 +1,6 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import RedTetrisTitle from '../components/RedTetrisTitle';
 import { useAppSelector } from '../hooks';
 
 const Root = styled.div`
@@ -7,28 +8,6 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
-
-const Title = styled.h1`
-  font-family: 'Poppins', sans-serif;
-  font-size: 10rem;
-`;
-
-// const glow = keyframes
-//   from {
-//     text-shadow: 0 0 0 #FF0035;
-//   }
-//   to {
-//     text-shadow: 5px 5px 10px #FF0035;
-//   }
-// `;
-
-/* -webkit-animation: ${glow} 3s ease-in-out infinite alternate;
-  -moz-animation: ${glow} 3s ease-in-out infinite alternate;
-  animation: ${glow} 3s ease-in-out infinite alternate; */
-
-const Red = styled.span`
-  color: ${props => props.theme.red};
 `;
 
 const Text = styled.p`
@@ -42,15 +21,21 @@ const Player = styled.p`
 
 const Pending = () => {
   const players = useAppSelector(state => state.state.players);
+  const clientName = useAppSelector(state => state.player.playerName);
+  const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean | undefined>(false);
+
+  useEffect(() => setPlayerIsAdmin(players.find(player => player.name === clientName)?.isAdmin), [players, clientName]);
 
   return (
     <Root>
-      <Title><Red>Red</Red> Tetris</Title>
+      <RedTetrisTitle />
       <Text>Waiting to start</Text>
       <Text>Players:</Text>
       {players.map((player, i) => (
         <Player key={i}>{player.name}</Player>
       ))}
+      {console.log('playerIsAdmin:', playerIsAdmin)}
+      {playerIsAdmin && <button>Start game</button>}
     </Root>);
 };
 
