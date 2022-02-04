@@ -32,10 +32,13 @@ const getHashUrl = (hash: string): UrlParams => {
   if (test) {
     const roomName = ((/([^[#\]]+)/).exec(hash) as RegExpExecArray)[0];
 
-    // console.log('ROOMNAME:', roomName)
-    const playerName = ((/[^[](.+)[^\]]/).exec(((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[0]) as RegExpExecArray)[0];
+    console.log('ROOMNAME:', roomName);
+    console.log('playerName exec:', (/\[+(.*)\]/).exec(hash));
+    const playerName = ((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[1];
 
-    // console.log('PLAYERNAME:', playerName)
+    // const playerName = ((/[^[](.+)[^\]]/).exec(((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[0]) as RegExpExecArray)[0];
+
+    console.log('PLAYERNAME:', playerName);
     return { roomName, playerName };
   }
   return { roomName: null, playerName: null };
