@@ -24,17 +24,15 @@ export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }
     switch (action.type) {
     case outgoingEvents.PING:
       pingServer();
-      break;
+      return next(action);
     case outgoingEvents.JOIN:
       console.log('JOIN action:', action);
       const { roomName, playerName } = action as JoinRoomAction;
       console.log(`roomName: ${roomName}, playername: ${playerName}`);
       joinRoom({ roomName, playerName });
-      break;
+      return next(action);
     default:
-      break;
+      return next(action);
     }
-
-    return next(action);
   };
 };
