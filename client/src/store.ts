@@ -1,10 +1,10 @@
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
-import { alertReducer, pingReducer, pongReducer, updateStateReducer, joinRoomReducer } from './reducers';
+import { alertReducer, joinRoomReducer, pingReducer, pongReducer, updateStateReducer } from './reducers';
 import { socketMiddleWare } from './middleware/socketMiddleWare';
 import socket from './socket/socket';
 

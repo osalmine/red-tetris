@@ -5,6 +5,8 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import { ReactNotifications } from 'react-notifications-component';
+
 import ConnectPlayer from './connectPlayer';
 import App from './containers/App';
 import GlobalStyle, { theme } from './containers/GlobalStyle';
@@ -17,6 +19,7 @@ ReactDom.render(
         <ThemeProvider theme={theme}>
           <GlobalStyle>
             <ConnectPlayer>
+              <ReactNotifications />
               <App/>
             </ConnectPlayer>
           </GlobalStyle>

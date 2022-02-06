@@ -7,6 +7,7 @@ import * as outgoingEvents from '../constants/outgoingEvents';
 import Game from '../models/game';
 import Player from '../models/player';
 import params from '../../params';
+import { PlayerAlreadyExistsError } from '../models/error';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
@@ -28,11 +29,22 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
     });
 
     socket.once(incomingEvents.JOIN, ({ roomName, playerName }) => {
-      controller.addClientToRoom({ roomName, playerName });
-      socketClients.set(socket.id, { roomName, playerName });
-      socket.join(roomName);
-      loginfo(`Emit to ${roomName}: ${outgoingEvents.UPDATE} state: ${JSON.stringify(controller.getGame(roomName).state)}`);
-      io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
+      try {
+        controller.addClientToRoom({ roomName, playerName });
+        socketClients.set(socket.id, { roomName, playerName });
+        socket.join(roomName);
+        loginfo(`Emit to ${roomName}: ${outgoingEvents.UPDATE} state: ${JSON.stringify(controller.getGame(roomName).state)}`);
+        io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
+      }
+      catch (error) {
+        if (error instanceof PlayerAlreadyExistsError) {
+          logerror(`PlayerAlreadyExistsError catched: ${error}`);
+          socket.emit(outgoingEvents.ERROR, { error });
+        }
+        else {
+          logerror(error);
+        }
+      }
     });
 
     socket.on(incomingEvents.START, ({ roomName, initiator }) => {

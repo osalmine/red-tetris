@@ -10,4 +10,13 @@ type UpdateState = {
   players: PlayerObject[];
 };
 
-export type { UpdateState };
+type PlayerAlreadyExistsError = {
+  error: {
+    name: 'PlayerAlreadyExistsError';
+    data: {
+      playerName: string;
+    }
+  }
+};
+
+export type { UpdateState, PlayerAlreadyExistsError };

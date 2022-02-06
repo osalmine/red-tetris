@@ -2,4 +2,6 @@ const PONG = 'server/pong';
 
 const UPDATE = 'serverUpdateState';
 
-export { PONG, UPDATE };
+const ERROR = 'serverError';
+
+export { PONG, UPDATE, ERROR };

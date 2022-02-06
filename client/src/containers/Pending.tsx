@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+
 import { startGame } from '../actions/server';
 import RedTetrisTitle from '../components/RedTetrisTitle';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -66,6 +69,21 @@ const Pending = () => {
     dispatch(startGame({ playerName: clientName, roomName }));
   };
 
+  const onNotification = () => {
+    Store.addNotification({
+      title: 'Error with game',
+      message: 'Reload the page',
+      container: 'top-right',
+      type: 'danger',
+      insert: 'top',
+      dismiss: {
+        duration: 2000,
+        onScreen: true,
+        pauseOnHover: true,
+      },
+    });
+  };
+
   return (
     <Root>
       <RedTetrisTitle />
@@ -74,6 +92,7 @@ const Pending = () => {
       {players.map((player, i) => (
         <Player key={i}>{player.name}</Player>
       ))}
+      <StartGame onClick={onNotification}>Notification</StartGame>
       {playerIsAdmin && <StartGame onClick={onStartGame}>Start</StartGame>}
     </Root>);
 };

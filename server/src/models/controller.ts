@@ -3,6 +3,7 @@ import debug from 'debug';
 import Game from './game';
 import Player from './player';
 import params from '../../params';
+import { PlayerAlreadyExistsError } from './error';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
@@ -40,7 +41,7 @@ export default class Controller {
     const room = this.getGame(roomName);
     if (room.playerExists(playerName)) {
       logerror('Player already exists');
-      throw new Error('Player already exists');
+      throw new PlayerAlreadyExistsError(playerName);
     }
     room.addPlayer(new Player(playerName, roomName, params.board));
     loginfo(`Room hasAdmin: ${room.hasAdmin}`);

@@ -1,3 +1,5 @@
 const UPDATE = 'serverUpdateState';
 
-export { UPDATE };
+const ERROR = 'serverError';
+
+export { UPDATE, ERROR };
