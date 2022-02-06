@@ -35,6 +35,18 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
       io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
     });
 
+    socket.on(incomingEvents.START, ({ roomName, initiator }) => {
+      loginfo(`Start game emit received from room ${roomName} initiated by ${initiator}`);
+      const game = controller.getGame(roomName);
+      if (game.getPlayer(initiator).isAdmin) {
+        game.setGameState('playing');
+        io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
+      }
+      else {
+        logerror(`Can't start the game: ${initiator} is not admin`);
+      }
+    });
+
     socket.on('disconnect', () => {
       loginfo(`Socket disconnected: ${socket.id}`);
       loginfo(`Client is stored in socketClients: ${socketClients.has(socket.id)}`);

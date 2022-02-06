@@ -42,6 +42,10 @@ export default class Game implements GameType {
     }
   }
 
+  setGameState(state: typeof this.gameState) {
+    this.gameState = state;
+  }
+
   get hasAdmin() {
     return this.players.some(player => player.isAdmin);
   }

@@ -1,3 +1,5 @@
 const JOIN = 'joinRoom';
 
-export { JOIN };
+const START = 'startGame';
+
+export { JOIN, START };

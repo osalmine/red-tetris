@@ -24,6 +24,7 @@ type PingAction = BaseAction<'server/ping'>;
 type ClientToServerEvents = {
   action: (action: PingAction) => void;
   joinRoom: ({ roomName, playerName }: {roomName: string, playerName: string}) => void;
+  startGame: ({ roomName, initiator }: {roomName: string, initiator: string}) => void;
 };
 
 export type { ServerToClientEvents, ClientToServerEvents };
