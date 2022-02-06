@@ -35,7 +35,7 @@ export default class Game implements GameType {
     loginfo(`GAME METHOD removePlayer ${playerName}`);
     loginfo(`GAME METHOD this.playerExists(playerName) ${this.playerExists(playerName)}`);
     if (this.playerExists(playerName)) {
-      this.players.splice(this.players.indexOf(this.getPlayer(playerName), 1));
+      this.players.splice(this.players.indexOf(this.getPlayer(playerName)), 1);
     }
     else {
       throw new Error(`Could not remove ${playerName}, player not found`);
@@ -44,6 +44,16 @@ export default class Game implements GameType {
 
   get hasAdmin() {
     return this.players.some(player => player.isAdmin);
+  }
+
+  get hasPlayers() {
+    return this.players.length !== 0;
+  }
+
+  get firstPlayer() {
+    if (this.hasPlayers) {
+      return this.players[0];
+    }
   }
 
   private transformPlayers(players: Player[]) {

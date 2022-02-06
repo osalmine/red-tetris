@@ -26,6 +26,12 @@ export default class Controller {
     return this.games.get(roomName);
   }
 
+  removeGame(roomName: string) {
+    if (this.gameExists(roomName)) {
+      this.games.delete(roomName);
+    }
+  }
+
   addClientToRoom({ roomName, playerName }: {roomName: string, playerName: string}) {
     loginfo(`JOIN ROOM: room: ${roomName} player: ${playerName}`);
     if (!this.gameExists(roomName)) {
