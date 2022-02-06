@@ -19,6 +19,10 @@ const BodyStyle = createGlobalStyle`
     color: ${theme.white};
     font-family: 'Roboto', sans-serif;
   }
+
+  button {
+    font-family: 'Roboto', sans-serif;
+  }
 `;
 
 const GlobalStyle = ({ children }: Props) => (

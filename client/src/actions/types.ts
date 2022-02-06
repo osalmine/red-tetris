@@ -25,6 +25,11 @@ type UpdateAction = BaseAction<'serverUpdateState'> & {
   state: UpdateState;
 };
 
-type AllActions = AlertAction | PingAction | PongAction | JoinRoomAction | UpdateAction;
+type StartGameAction = BaseAction<'startGame'> & {
+  roomName: string;
+  initiator: string;
+};
 
-export type { AllActions, AlertAction, PingAction, PongAction, JoinRoomAction, UpdateAction };
+type AllActions = AlertAction | PingAction | PongAction | JoinRoomAction | UpdateAction | StartGameAction;
+
+export type { AllActions, AlertAction, PingAction, PongAction, JoinRoomAction, UpdateAction, StartGameAction };

@@ -2,4 +2,6 @@ const PING = 'server/ping';
 
 const JOIN = 'joinRoom';
 
-export { PING, JOIN };
+const START = 'startGame';
+
+export { PING, JOIN, START };

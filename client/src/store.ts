@@ -15,7 +15,7 @@ const reducer = combineReducers({
   ping: pingReducer,
   pong: pongReducer,
   state: updateStateReducer,
-  player: joinRoomReducer,
+  client: joinRoomReducer,
 });
 
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });

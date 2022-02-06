@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { startGame } from '../actions/server';
 import RedTetrisTitle from '../components/RedTetrisTitle';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 const Root = styled.div`
   display: flex;
@@ -19,12 +20,51 @@ const Player = styled.p`
   font-size: 1rem;  
 `;
 
+const StartGame = styled.button.attrs(() => ({
+  type: 'submit',
+}))`
+  background: ${props => props.theme.green};
+  border: 1px solid ${props => props.theme.green};
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: ${props => props.theme.white};
+  cursor: pointer;
+  display: inline-block;
+  font-size: 22px;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 16px 18px;
+  text-align: center;
+  user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+
+&:hover,
+&:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: ${props => props.theme.green};
+}
+
+&:active {
+  opacity: .5;
+}
+`;
+
 const Pending = () => {
+  const dispatch = useAppDispatch();
+
   const players = useAppSelector(state => state.state.players);
-  const clientName = useAppSelector(state => state.player.playerName);
+  const { playerName: clientName, roomName } = useAppSelector(state => state.client);
   const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean | undefined>(false);
 
   useEffect(() => setPlayerIsAdmin(players.find(player => player.name === clientName)?.isAdmin), [players, clientName]);
+
+  const onStartGame = () => {
+    console.log('Start game');
+    dispatch(startGame({ playerName: clientName, roomName }));
+  };
 
   return (
     <Root>
@@ -34,8 +74,7 @@ const Pending = () => {
       {players.map((player, i) => (
         <Player key={i}>{player.name}</Player>
       ))}
-      {console.log('playerIsAdmin:', playerIsAdmin)}
-      {playerIsAdmin && <button>Start game</button>}
+      {playerIsAdmin && <StartGame onClick={onStartGame}>Start</StartGame>}
     </Root>);
 };
 

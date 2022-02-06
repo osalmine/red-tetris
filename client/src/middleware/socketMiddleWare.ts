@@ -1,11 +1,11 @@
 import * as SocketIOClient from 'socket.io-client';
 import pingServer from '../services/ping';
-import { joinRoom } from '../services';
+import { joinRoom, startGame } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { pongAction, updateState } from '../actions/server';
 import { Dispatch } from 'redux';
-import { AllActions, JoinRoomAction } from '../actions/types';
+import { AllActions, JoinRoomAction, StartGameAction } from '../actions/types';
 import { UpdateState } from '../types';
 
 export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }: {dispatch: Dispatch}) => {
@@ -25,12 +25,21 @@ export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }
     case outgoingEvents.PING:
       pingServer();
       return next(action);
-    case outgoingEvents.JOIN:
+    case outgoingEvents.JOIN: {
       console.log('JOIN action:', action);
       const { roomName, playerName } = action as JoinRoomAction;
       console.log(`roomName: ${roomName}, playername: ${playerName}`);
       joinRoom({ roomName, playerName });
       return next(action);
+    }
+    case outgoingEvents.START: {
+      console.log('JOIN action:', action);
+      const { roomName, initiator } = action as StartGameAction;
+      console.log(`roomName: ${roomName}, initiator: ${initiator}`);
+      startGame({ roomName, initiator });
+      return next(action);
+    }
+
     default:
       return next(action);
     }
