@@ -20,7 +20,6 @@ export default class Game implements GameType {
   }
 
   addPlayer(player: Player) {
-    console.log(`ADD PLAYER" ${JSON.stringify(player)}`);
     this.players.push(player);
   }
 
