@@ -15,13 +15,28 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
-const Text = styled.p`
-  font-size: 3rem;
+const Heading = styled.h2`
+  font-size: 36px;
   margin: 10px 0;
 `;
 
-const Player = styled.p`
-  font-size: 1rem;  
+const Players = styled.p`
+  font-size: 28px;
+  margin: 30px 0 15px;
+`;
+
+type PlayerProps = {
+  isClient: boolean;
+};
+
+const Player = styled.p<PlayerProps>`
+  font-size: 18px;
+  margin: 8px 0;
+  color: ${props => (props.isClient ? props.theme.green : props.theme.white)};
+
+  &:last-of-type {
+    margin-bottom: 50px;
+  }
 `;
 
 const Pending = () => {
@@ -56,10 +71,10 @@ const Pending = () => {
   return (
     <Root>
       <RedTetrisTitle />
-      <Text>Waiting to start</Text>
-      <Text>Players:</Text>
+      <Heading>Waiting to start in lobby {roomName}</Heading>
+      <Players>Players:</Players>
       {players.map((player, i) => (
-        <Player key={i}>{player.name}</Player>
+        <Player isClient={player.name === clientName} key={i}>{player.name}{player.isAdmin && ' ★'}</Player>
       ))}
       <StartGame color={'grey'} onClick={onNotification}>Notification</StartGame>
       {playerIsAdmin && <StartGame onClick={onStartGame}>Start</StartGame>}
