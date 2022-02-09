@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { alert as addAlert } from '../actions/alert';
 import { pingAction } from '../actions/server';
+import { Board } from '../components/Board';
 
 const Root = styled.div``;
 
@@ -26,6 +27,7 @@ const Game = () => {
   };
   return (
     <Root>
+      <Board />
       <button onClick={onAddAlert}>Add alert</button>
       <span>{alert}</span>
       <br/>

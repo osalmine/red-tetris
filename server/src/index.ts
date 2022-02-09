@@ -28,7 +28,7 @@ export const create = (server: ServerParams) => new Promise(resolve => {
   initApp(app, server, () => {
     const io = new socketio.Server<ClientToServerEvents, ServerToClientEvents>(app, {
       cors: {
-        origin: ['http://localhost:3000'],
+        origin: ['http://localhost:3000', 'http://localhost:3001'],
       },
     });
     const stopApp = (cb: () => void) => {
