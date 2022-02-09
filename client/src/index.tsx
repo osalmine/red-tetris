@@ -9,14 +9,14 @@ import { ReactNotifications } from 'react-notifications-component';
 
 import ConnectPlayer from './connectPlayer';
 import App from './containers/App';
-import GlobalStyle, { theme } from './containers/GlobalStyle';
+import GlobalStyle, { globalColorTheme } from './containers/GlobalStyle';
 import { store } from './store';
 
 ReactDom.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={globalColorTheme}>
           <GlobalStyle>
             <ConnectPlayer>
               <ReactNotifications />

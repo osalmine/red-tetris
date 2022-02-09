@@ -6,6 +6,7 @@ import 'react-notifications-component/dist/theme.css';
 import { startGame } from '../actions/server';
 import RedTetrisTitle from '../components/RedTetrisTitle';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import { default as StartGame } from '../components/Button';
 
 const Root = styled.div`
   display: flex;
@@ -21,38 +22,6 @@ const Text = styled.p`
 
 const Player = styled.p`
   font-size: 1rem;  
-`;
-
-const StartGame = styled.button.attrs(() => ({
-  type: 'submit',
-}))`
-  background: ${props => props.theme.green};
-  border: 1px solid ${props => props.theme.green};
-  border-radius: 6px;
-  box-sizing: border-box;
-  color: ${props => props.theme.white};
-  cursor: pointer;
-  display: inline-block;
-  font-size: 22px;
-  line-height: 16px;
-  min-height: 40px;
-  outline: 0;
-  padding: 16px 18px;
-  text-align: center;
-  user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-
-&:hover,
-&:active {
-  background-color: initial;
-  background-position: 0 0;
-  color: ${props => props.theme.green};
-}
-
-&:active {
-  opacity: .5;
-}
 `;
 
 const Pending = () => {
@@ -92,7 +61,7 @@ const Pending = () => {
       {players.map((player, i) => (
         <Player key={i}>{player.name}</Player>
       ))}
-      <StartGame onClick={onNotification}>Notification</StartGame>
+      <StartGame color={'grey'} onClick={onNotification}>Notification</StartGame>
       {playerIsAdmin && <StartGame onClick={onStartGame}>Start</StartGame>}
     </Root>);
 };

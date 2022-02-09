@@ -5,7 +5,9 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const theme = {
+type GlobalColorProps = 'black' | 'red' | 'green' | 'grey' | 'white';
+
+const globalColorTheme: {[K in GlobalColorProps]: string } = {
   black: '#202124',
   red: '#FF0035',
   green: '#4D8B31',
@@ -15,8 +17,8 @@ export const theme = {
 
 const BodyStyle = createGlobalStyle`
   body {
-    background-color: ${theme.black};
-    color: ${theme.white};
+    background-color: ${globalColorTheme.black};
+    color: ${globalColorTheme.white};
     font-family: 'Roboto', sans-serif;
   }
 
@@ -32,4 +34,5 @@ const GlobalStyle = ({ children }: Props) => (
   </>
 );
 
+export { type GlobalColorProps, globalColorTheme };
 export default GlobalStyle;
