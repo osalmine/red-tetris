@@ -1,4 +1,4 @@
-type PieceName = 'I' | 'J' | 'L' | 'O' | 'S' | 'T' | 'Z';
+import { PieceName } from './constants/pieces';
 
 type PlayerObject = {
   name: string;
