@@ -8,6 +8,7 @@ import Game from '../models/game';
 import Player from '../models/player';
 import params from '../../params';
 import { PlayerAlreadyExistsError } from '../models/error';
+import Piece from '../models/piece';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
@@ -19,6 +20,9 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
   io.on('connection', (socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>) => {
 
     loginfo(`Socket connected: ${socket.id}`);
+
+    const piece = new Piece();
+    piece.generateBatch();
 
     socket.on('action', (action) => {
       loginfo(`Socket action: ${action.type}`);
@@ -52,6 +56,7 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
       const game = controller.getGame(roomName);
       if (game.getPlayer(initiator).isAdmin) {
         game.setGameState('playing');
+        game.addPiecesToPlayers(game.pieceHandler.generateBatch());
         io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
       }
       else {

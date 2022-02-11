@@ -1,54 +1,57 @@
-import { EMPTY as O, FILLED as X } from './cellType';
+import { EMPTY as E, FILLED as X } from './cellType';
 
 const I = [
-  [O, O, X, O],
-  [O, O, X, O],
-  [O, O, X, O],
-  [O, O, X, O],
+  [E, E, X, E],
+  [E, E, X, E],
+  [E, E, X, E],
+  [E, E, X, E],
 ];
 
 const J = [
-  [O, O, X, O],
-  [O, O, X, O],
-  [O, X, X, O],
-  [O, O, O, O],
+  [E, E, X, E],
+  [E, E, X, E],
+  [E, X, X, E],
+  [E, E, E, E],
 ];
 
 const L = [
-  [O, X, O, O],
-  [O, X, O, O],
-  [O, X, X, O],
-  [O, O, O, O],
+  [E, X, E, E],
+  [E, X, E, E],
+  [E, X, X, E],
+  [E, E, E, E],
 ];
 
-const O_ = [
-  [O, O, O, O],
-  [O, X, X, O],
-  [O, X, X, O],
-  [O, O, O, O],
+const O = [
+  [E, E, E, E],
+  [E, X, X, E],
+  [E, X, X, E],
+  [E, E, E, E],
 ];
 
 const S = [
-  [O, X, O, O],
-  [O, X, X, O],
-  [O, O, X, O],
-  [O, O, O, O],
+  [E, X, E, E],
+  [E, X, X, E],
+  [E, E, X, E],
+  [E, E, E, E],
 ];
 
 const T = [
-  [O, O, X, O],
-  [O, X, X, O],
-  [O, O, X, O],
-  [O, O, O, O],
+  [E, E, X, E],
+  [E, X, X, E],
+  [E, E, X, E],
+  [E, E, E, E],
 ];
 
 const Z = [
-  [O, O, X, O],
-  [O, X, X, O],
-  [O, X, O, O],
-  [O, O, O, O],
+  [E, E, X, E],
+  [E, X, X, E],
+  [E, X, E, E],
+  [E, E, E, E],
 ];
 
-const count = 7;
+const pieces = [I, J, L, O, S, T, Z];
 
-export { I, J, L, O_ as O, S, T, Z, count };
+export const pieceNames = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+export type PieceName = 'I' | 'J' | 'L' | 'O' | 'S' | 'T' | 'Z';
+
+export default pieces;

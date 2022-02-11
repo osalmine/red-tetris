@@ -1,4 +1,6 @@
 import debug from 'debug';
+import { PieceName } from '../constants/pieces';
+import Piece from './piece';
 import Player from './player';
 
 type GameType = {
@@ -12,11 +14,13 @@ export default class Game implements GameType {
   roomName: string;
   players: Player[];
   gameState: 'pending' | 'playing' | 'finished';
+  pieceHandler: Piece;
 
   constructor(roomName: string) {
     this.roomName = roomName;
     this.players = [];
     this.gameState = 'pending';
+    this.pieceHandler = new Piece();
   }
 
   addPlayer(player: Player) {
@@ -46,6 +50,10 @@ export default class Game implements GameType {
     this.gameState = state;
   }
 
+  addPiecesToPlayers(pieces: PieceName[]) {
+    this.players.forEach(player => player.addPieces(pieces));
+  }
+
   get hasAdmin() {
     return this.players.some(player => player.isAdmin);
   }
@@ -66,6 +74,7 @@ export default class Game implements GameType {
       roomName: player.roomName,
       isAdmin: player.isAdmin,
       state: player.state,
+      pieces: player.pieces,
     }));
   }
 
