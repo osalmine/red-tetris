@@ -21,9 +21,6 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
 
     loginfo(`Socket connected: ${socket.id}`);
 
-    const piece = new Piece();
-    piece.generateBatch();
-
     socket.on('action', (action) => {
       loginfo(`Socket action: ${action.type}`);
       if (action.type === 'server/ping') {
