@@ -50,6 +50,15 @@ export default class Game implements GameType {
     this.gameState = state;
   }
 
+  setAllPlayersState(state: typeof this.gameState) {
+    this.players.forEach(player => player.setState(state));
+  }
+
+  setGameToPlaying() {
+    this.setGameState('playing');
+    this.setAllPlayersState('playing');
+  }
+
   addPiecesToPlayers(pieces: PieceName[]) {
     this.players.forEach(player => player.addPieces(pieces));
   }

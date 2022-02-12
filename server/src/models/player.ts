@@ -33,4 +33,8 @@ export default class Player {
     this.pieces = [...this.pieces, ...pieces];
     loginfo(`PLAYER METHOD this.pieces ${this.pieces}`);
   }
+
+  setState(state: typeof this.state) {
+    this.state = state;
+  }
 }

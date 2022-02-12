@@ -34,7 +34,8 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
         controller.addClientToRoom({ roomName, playerName });
         socketClients.set(socket.id, { roomName, playerName });
         socket.join(roomName);
-        loginfo(`Emit to ${roomName}: ${outgoingEvents.UPDATE} state: ${JSON.stringify(controller.getGame(roomName).state)}`);
+        loginfo(`Emit to ${roomName}: ${outgoingEvents.UPDATE} state: ${
+          JSON.stringify(controller.getGame(roomName).state)}`);
         io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
       }
       catch (error) {
@@ -52,8 +53,7 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
       loginfo(`Start game emit received from room ${roomName} initiated by ${initiator}`);
       const game = controller.getGame(roomName);
       if (game.getPlayer(initiator).isAdmin) {
-        game.setGameState('playing');
-        game.addPiecesToPlayers(game.pieceHandler.generateBatch());
+        game.setGameToPlaying();
         io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
       }
       else {
