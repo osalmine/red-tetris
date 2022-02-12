@@ -4,6 +4,12 @@ import params from '../params';
 import Cell from './Cell';
 import Row from './Row';
 
+type Props = {
+  rows: number;
+  cols: number;
+  width?: number;
+};
+
 const Root = styled.div`
   display: flex;
   flex: initial;
@@ -13,26 +19,26 @@ const Root = styled.div`
   margin-top: 75px;
 `;
 
-const BoardContainer = styled.div`
+const BoardContainer = styled.div<{containerWidth?: number}>`
   display: flex;
   flex: 1 1 auto;
   box-sizing: border-box;
   justify-content: center;
   border: 8px solid ${props => props.theme.white};
   box-shadow: 0 0 8px ${props => props.theme.white};
-  width: 35vh;
+  width: ${props => (props.containerWidth ? `${props.containerWidth}vh` : '35vh')};
   padding: 1rem;
   justify-content: space-between;
   flex-direction: column;
   border-radius: 5px;
 `;
 
-export const Board = () => (
+export const Board = ({ rows, cols, width }: Props) => (
   <Root>
-    <BoardContainer>
-      {[...Array(params.board.rows)].map((_, i) =>
+    <BoardContainer containerWidth={width} >
+      {[...Array(rows)].map((_, i) =>
         <Row key={i}>
-          {[...Array(params.board.cols)].map((_, j) => <Cell key={j} />)}
+          {[...Array(cols)].map((_, j) => <Cell key={j} />)}
         </Row>)}
     </BoardContainer>
   </Root>
