@@ -62,6 +62,7 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
       const game = controller.getGame(roomName);
       if (game.getPlayer(initiator).isAdmin) {
         game.setGameToPlaying();
+        game.addPiecesToPlayers(game.pieceHandler.generateBatch());
         io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
       }
       else {
