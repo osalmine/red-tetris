@@ -1,4 +1,4 @@
-import { PlayerAlreadyExistsError } from './models/error';
+import { PlayerAlreadyExistsError, GameAlreadyStartedError } from './models/error';
 
 type PlayerObject = {
   name: string;
@@ -15,7 +15,7 @@ type UpdateState = {
 type ServerToClientEvents = {
   'server/pong': (arg: { message: string }) => void;
   serverUpdateState: ({ gameState, players }: UpdateState) => void;
-  serverError: ({ error }: { error: PlayerAlreadyExistsError }) => void;
+  serverError: ({ error }: { error: PlayerAlreadyExistsError | GameAlreadyStartedError }) => void;
 };
 
 type BaseAction<T> = {

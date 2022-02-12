@@ -7,7 +7,7 @@ import * as outgoingEvents from '../constants/outgoingEvents';
 import Game from '../models/game';
 import Player from '../models/player';
 import params from '../../params';
-import { PlayerAlreadyExistsError } from '../models/error';
+import { GameAlreadyStartedError, PlayerAlreadyExistsError } from '../models/error';
 import Piece from '../models/piece';
 
 const logerror = debug('tetris:error'),
@@ -31,6 +31,10 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
 
     socket.once(incomingEvents.JOIN, ({ roomName, playerName }) => {
       try {
+        if (controller.gameAlreadyStarted(roomName)) {
+          logerror('Game already started');
+          throw new GameAlreadyStartedError(roomName);
+        }
         controller.addClientToRoom({ roomName, playerName });
         socketClients.set(socket.id, { roomName, playerName });
         socket.join(roomName);
@@ -41,6 +45,10 @@ const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEven
       catch (error) {
         if (error instanceof PlayerAlreadyExistsError) {
           logerror(`PlayerAlreadyExistsError catched: ${error}`);
+          socket.emit(outgoingEvents.ERROR, { error });
+        }
+        if (error instanceof GameAlreadyStartedError) {
+          logerror(`GameAlreadyStartedError catched: ${error}`);
           socket.emit(outgoingEvents.ERROR, { error });
         }
         else {

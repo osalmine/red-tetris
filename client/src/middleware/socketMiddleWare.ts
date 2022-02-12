@@ -8,7 +8,8 @@ import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { pongAction, updateState } from '../actions/server';
 import { AllActions, JoinRoomAction, StartGameAction } from '../actions/types';
-import { PlayerAlreadyExistsError, UpdateState } from '../types';
+import { Errors, UpdateState } from '../types';
+import handleError from '../handlers/errorHandler';
 
 export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }: {dispatch: Dispatch}) => {
   socket.on(incomingEvents.PONG, (message: string) => {
@@ -21,20 +22,8 @@ export const socketMiddleWare = (socket: SocketIOClient.Socket) => ({ dispatch }
     dispatch(updateState(data));
   });
 
-  socket.on(incomingEvents.ERROR, ({ error }: PlayerAlreadyExistsError) => {
-    console.log('receive ERROR: ', error);
-    Store.addNotification({
-      title: 'Player already exists',
-      message: `Player named ${error.data.playerName} has already joined the game`,
-      container: 'top-right',
-      type: 'danger',
-      insert: 'top',
-      dismiss: {
-        duration: 4000,
-        onScreen: true,
-        pauseOnHover: true,
-      },
-    });
+  socket.on(incomingEvents.ERROR, (error: Errors) => {
+    handleError(error);
   });
 
   return (next: Dispatch<AllActions>) => (action: AllActions) => {

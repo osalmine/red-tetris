@@ -22,4 +22,15 @@ type PlayerAlreadyExistsError = {
   }
 };
 
-export type { UpdateState, PlayerAlreadyExistsError };
+type GameAlreadyStartedError = {
+  error: {
+    name: 'GameAlreadyStartedError';
+    data: {
+      roomName: string;
+    }
+  }
+};
+
+type Errors = PlayerAlreadyExistsError | GameAlreadyStartedError;
+
+export type { UpdateState, Errors, PlayerAlreadyExistsError, GameAlreadyStartedError };

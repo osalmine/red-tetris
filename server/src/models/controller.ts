@@ -33,6 +33,13 @@ export default class Controller {
     }
   }
 
+  gameAlreadyStarted(roomName: string) {
+    if (this.gameExists(roomName)) {
+      return this.getGame(roomName).gameState === 'playing';
+    }
+    return false;
+  }
+
   addClientToRoom({ roomName, playerName }: {roomName: string, playerName: string}) {
     loginfo(`JOIN ROOM: room: ${roomName} player: ${playerName}`);
     if (!this.gameExists(roomName)) {

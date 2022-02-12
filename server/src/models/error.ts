@@ -24,4 +24,13 @@ class PlayerAlreadyExistsError extends DomainError {
   }
 }
 
-export { PlayerNotFoundError, PlayerAlreadyExistsError };
+class GameAlreadyStartedError extends DomainError {
+  data: { roomName: string };
+
+  constructor(roomName: string) {
+    super(`Game ${roomName} already started`);
+    this.data = { roomName };
+  }
+}
+
+export { PlayerNotFoundError, PlayerAlreadyExistsError, GameAlreadyStartedError };
