@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { alert as addAlert } from '../actions/alert';
 import { pingAction } from '../actions/server';
-import { Board } from '../components/Board';
 import { Tetris } from '../components/Tetris';
 
 const Root = styled.div``;
