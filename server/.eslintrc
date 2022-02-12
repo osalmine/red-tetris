@@ -16,6 +16,9 @@
     // "project": "./tsconfig.json",
     // "tsconfigRootDir": "server"
   },
+  "globals": {
+    "this": true
+  },
 	"rules": {
 	  /* Possible Errors */
 	  "comma-dangle": [1, "always-multiline"], //disallow or enforce trailing commas (recommended)
