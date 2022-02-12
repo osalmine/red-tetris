@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import params from '../params';
 import Cell from './Cell';
 import Row from './Row';
 
 type Props = {
   rows: number;
   cols: number;
+  values: number[][];
   width?: number;
 };
 
@@ -21,8 +21,8 @@ const Root = styled.div`
 
 const BoardContainer = styled.div<{containerWidth?: number}>`
   display: flex;
-  flex: 1 1 auto;
-  box-sizing: border-box;
+  /* flex: 1; */
+  /* box-sizing: border-box; */
   justify-content: center;
   border: 8px solid ${props => props.theme.white};
   box-shadow: 0 0 8px ${props => props.theme.white};
@@ -33,12 +33,12 @@ const BoardContainer = styled.div<{containerWidth?: number}>`
   border-radius: 5px;
 `;
 
-export const Board = ({ rows, cols, width }: Props) => (
+export const Board = ({ rows, cols, values, width }: Props) => (
   <Root>
     <BoardContainer containerWidth={width} >
-      {[...Array(rows)].map((_, i) =>
-        <Row key={i}>
-          {[...Array(cols)].map((_, j) => <Cell key={j} />)}
+      {[...Array(rows)].map((_, rowNb) =>
+        <Row key={rowNb}>
+          {[...Array(cols)].map((_, colNb) => <Cell key={colNb} value={values[rowNb][colNb]} />)}
         </Row>)}
     </BoardContainer>
   </Root>

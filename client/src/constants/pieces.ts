@@ -49,9 +49,9 @@ const Z = [
   [E, E, E, E],
 ];
 
-const pieces = [I, J, L, O, S, T, Z];
+const pieces = { I, J, L, O, S, T, Z };
 
-export const pieceNames = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
 export type PieceName = 'I' | 'J' | 'L' | 'O' | 'S' | 'T' | 'Z';
+export const pieceNames: PieceName[] = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
 
 export default pieces;

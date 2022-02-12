@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { PieceName } from '../constants/pieces';
 import NextPiece from './NextPiece';
 
 type Props = {
-  nextPieces: string[];
+  nextPieces: PieceName[];
 };
 
 const Root = styled.div`

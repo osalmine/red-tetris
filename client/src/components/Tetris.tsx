@@ -17,6 +17,8 @@ const InvinsibleBalancePiece = styled.div`
   visibility: hidden;
 `;
 
+const empty = Array(params.board.rows).fill(Array(params.board.cols).fill(0));
+
 export const Tetris = () => {
   const player = useAppSelector(state => state.state.players.find(player => player.name === state.client.playerName));
 
@@ -28,7 +30,7 @@ export const Tetris = () => {
           <InvinsibleBalancePiece>
             <NextPieces nextPieces={player.pieces} />
           </InvinsibleBalancePiece>
-          <Board cols={params.board.cols} rows={params.board.rows}/>
+          <Board cols={params.board.cols} rows={params.board.rows} values={empty}/>
           <NextPieces nextPieces={player.pieces}/>
         </> :
         <div>Loading...</div>}
