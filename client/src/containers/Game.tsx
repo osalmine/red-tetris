@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { alert as addAlert } from '../actions/alert';
 import { pingAction } from '../actions/server';
 import { Board } from '../components/Board';
+import { Tetris } from '../components/Tetris';
 
 const Root = styled.div``;
 
@@ -27,7 +28,7 @@ const Game = () => {
   };
   return (
     <Root>
-      <Board />
+      <Tetris />
       <button onClick={onAddAlert}>Add alert</button>
       <span>{alert}</span>
       <br/>
