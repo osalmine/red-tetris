@@ -1,5 +1,4 @@
 import * as SocketIOClient from 'socket.io-client';
-import { Store } from 'react-notifications-component';
 import { Dispatch } from 'redux';
 
 import pingServer from '../services/ping';

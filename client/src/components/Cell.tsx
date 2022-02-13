@@ -11,7 +11,6 @@ type CellProps = {
 
 const CellContainer = styled.div<CellProps>`
   display: flex;
-  /* border: 2px solid ${props => props.theme.red}; */
   flex: auto;
   margin: 2px;
   background-color: ${props => (props.cellValue ? props.theme.white : '#313338')};

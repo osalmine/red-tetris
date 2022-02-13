@@ -30,6 +30,28 @@ type StartGameAction = BaseAction<'startGame'> & {
   initiator: string;
 };
 
-type AllActions = AlertAction | PingAction | PongAction | JoinRoomAction | UpdateAction | StartGameAction;
+type AddNewActivePieceAction = BaseAction<'addNewActivePiece'> & {
+  activePiece: number[][];
+  pieceXOffset: number;
+  pieceYOffset: number;
+};
 
-export type { AllActions, AlertAction, PingAction, PongAction, JoinRoomAction, UpdateAction, StartGameAction };
+type AllActions =
+    AlertAction
+  | PingAction
+  | PongAction
+  | JoinRoomAction
+  | UpdateAction
+  | StartGameAction
+  | AddNewActivePieceAction;
+
+export type {
+  AllActions,
+  AlertAction,
+  PingAction,
+  PongAction,
+  JoinRoomAction,
+  UpdateAction,
+  StartGameAction,
+  AddNewActivePieceAction,
+};

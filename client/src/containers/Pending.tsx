@@ -50,7 +50,9 @@ const Pending = () => {
 
   const onStartGame = () => {
     console.log('Start game');
-    dispatch(startGame({ playerName: clientName, roomName }));
+    if (clientName && roomName) {
+      dispatch(startGame({ playerName: clientName, roomName }));
+    }
   };
 
   const onNotification = () => {

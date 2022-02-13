@@ -11,8 +11,13 @@ type PingState = {
 };
 
 type ClientState = {
-  playerName: string;
-  roomName: string;
+  playerName?: string;
+  roomName?: string;
+  piece?: {
+    activePiece: number[][];
+    pieceXOffset: number;
+    pieceYOffset: number;
+  }
 } | Record<string, never>;
 
 export type { AlertState, PongState, PingState, ClientState };
