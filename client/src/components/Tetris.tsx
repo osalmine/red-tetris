@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
 import { addNewActivePiece } from '../actions/client';
+import { ActivePiece } from '../reducers/types';
 
 const Root = styled.div`
   display: flex;
@@ -18,11 +19,16 @@ const InvinsibleBalancePiece = styled.div`
   visibility: hidden;
 `;
 
-const empty = Array(params.board.rows).fill(Array(params.board.cols).fill(0));
+const empty = {
+  values: Array(params.board.rows).fill(Array(params.board.cols).fill(0)) as number[][],
+  pieceXOffset: 0,
+  pieceYOffset: 0,
+};
 
 export const Tetris = () => {
   const dispatch = useAppDispatch();
   const player = useAppSelector(state => state.state.players.find(player => player.name === state.client.playerName));
+  const activePiece = useAppSelector(state => state.client.activePiece);
 
   useEffect(() => {
     if (player) {
@@ -31,6 +37,7 @@ export const Tetris = () => {
   }, [player, dispatch]);
 
   console.log(`player: ${JSON.stringify(player)}`);
+  console.log(`activePiece: ${JSON.stringify(activePiece)}`);
   return (
     <Root>
       {player ?
@@ -38,7 +45,7 @@ export const Tetris = () => {
           <InvinsibleBalancePiece>
             <NextPieces nextPieces={player.pieces} />
           </InvinsibleBalancePiece>
-          <Board cols={params.board.cols} rows={params.board.rows} values={empty}/>
+          {activePiece && <Board activePiece={activePiece} cols={params.board.cols} rows={params.board.rows}/>}
           <NextPieces nextPieces={player.pieces}/>
         </> :
         <div>Loading...</div>}

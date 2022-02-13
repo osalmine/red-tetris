@@ -11,8 +11,8 @@ const joinRoomReducer = (state: ClientState = {}, action: JoinRoomAction | AddNe
     return newState;
   }
   case internalEvents.ACTIVE_PIECE: {
-    const newState = { ...state, piece: {
-      activePiece: action.activePiece,
+    const newState = { ...state, activePiece: {
+      values: action.activePiece,
       pieceXOffset: action.pieceXOffset,
       pieceYOffset: action.pieceYOffset,
     } };

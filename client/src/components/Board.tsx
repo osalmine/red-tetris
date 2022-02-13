@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ActivePiece } from '../reducers/types';
 import Cell from './Cell';
 import Row from './Row';
 
 type Props = {
   rows: number;
   cols: number;
-  values: number[][];
+  activePiece: ActivePiece;
   width?: number;
 };
 
@@ -31,13 +32,30 @@ const BoardContainer = styled.div<{containerWidth?: number}>`
   border-radius: 5px;
 `;
 
-export const Board = ({ rows, cols, values, width }: Props) => (
-  <Root>
-    <BoardContainer containerWidth={width} >
-      {[...Array(rows)].map((_, rowNb) =>
-        <Row key={rowNb}>
-          {[...Array(cols)].map((_, colNb) => <Cell key={colNb} value={values[rowNb][colNb]} />)}
-        </Row>)}
-    </BoardContainer>
-  </Root>
-);
+export const Board = ({ rows, cols, activePiece, width }: Props) => {
+  console.log(`activePieces values len: ${activePiece.values.length}`);
+  const { values, pieceYOffset, pieceXOffset } = activePiece;
+  const getPieceValue = (rowNb: number, colNb: number) => {
+    // console.log(`rowNb: ${rowNb} values.length + pieceYOffset: ${values.length + pieceYOffset}`);
+    // console.log(`colNb: ${colNb} values.length + pieceXOffset: ${values.length + pieceXOffset}`);
+    if (rowNb < values.length + pieceYOffset && colNb < values.length + pieceXOffset) {
+      return values[rowNb - pieceYOffset][colNb - pieceXOffset];
+    }
+    return 0;
+  };
+
+  return (
+    <Root>
+      <BoardContainer containerWidth={width} >
+        {[...Array(rows)].map((_, rowNb) =>
+          <Row key={rowNb}>
+            {[...Array(cols)].map((_, colNb) =>
+              <Cell
+                key={colNb}
+                value={getPieceValue(rowNb, colNb)}
+              />,
+            )}
+          </Row>)}
+      </BoardContainer>
+    </Root>);
+};

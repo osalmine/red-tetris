@@ -4,11 +4,12 @@ import * as internalEvents from '../constants/internalEvents';
 
 const addNewActivePiece = (nextPieceCharacter: PieceName): AddNewActivePieceAction => {
   const activePiece = pieces[nextPieceCharacter];
+  const centerPieceOffset = 3;
   return {
     type: internalEvents.ACTIVE_PIECE,
     activePiece,
-    pieceXOffset: 0,
-    pieceYOffset: 0,
+    pieceXOffset: centerPieceOffset,
+    pieceYOffset: nextPieceCharacter === 'O' ? -1 : 0,
   };
 };
 
