@@ -1,3 +1,5 @@
 const ACTIVE_PIECE = 'addNewActivePiece';
 
-export { ACTIVE_PIECE };
+const MOVE_DOWN = 'pieceMoveDown';
+
+export { ACTIVE_PIECE, MOVE_DOWN };

@@ -1,9 +1,11 @@
-import { AddNewActivePieceAction, JoinRoomAction } from '../actions/types';
+import { AddNewActivePieceAction, JoinRoomAction, MovePieceDownAction } from '../actions/types';
 import { ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import * as internalEvents from '../constants/internalEvents';
 
-const joinRoomReducer = (state: ClientState = {}, action: JoinRoomAction | AddNewActivePieceAction): ClientState => {
+type ClientAction = JoinRoomAction | AddNewActivePieceAction | MovePieceDownAction;
+
+const joinRoomReducer = (state: ClientState = {}, action: ClientAction): ClientState => {
   console.log('joinRoomReducer action:', action);
   switch (action.type) {
   case outgoingEvents.JOIN: {
@@ -17,6 +19,16 @@ const joinRoomReducer = (state: ClientState = {}, action: JoinRoomAction | AddNe
       pieceYOffset: action.pieceYOffset,
     } };
     return newState;
+  }
+  case internalEvents.MOVE_DOWN: {
+    if (state.activePiece) {
+      const newState = { ...state, activePiece: {
+        ...state.activePiece,
+        pieceYOffset: state.activePiece.pieceYOffset + 1,
+      } };
+      return newState;
+    }
+    return state;
   }
   default:
     return state;

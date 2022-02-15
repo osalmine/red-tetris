@@ -33,12 +33,17 @@ const BoardContainer = styled.div<{containerWidth?: number}>`
 `;
 
 export const Board = ({ rows, cols, activePiece, width }: Props) => {
-  console.log(`activePieces values len: ${activePiece.values.length}`);
+
+  // console.log(`activePieces values len: ${activePiece.values.length}`);
   const { values, pieceYOffset, pieceXOffset } = activePiece;
   const getPieceValue = (rowNb: number, colNb: number) => {
     // console.log(`rowNb: ${rowNb} values.length + pieceYOffset: ${values.length + pieceYOffset}`);
     // console.log(`colNb: ${colNb} values.length + pieceXOffset: ${values.length + pieceXOffset}`);
-    if (rowNb < values.length + pieceYOffset && colNb < values.length + pieceXOffset) {
+    if (rowNb < values.length + pieceYOffset &&
+      rowNb - pieceYOffset >= 0 &&
+      colNb < values.length + pieceXOffset &&
+      colNb - pieceXOffset >= 0) {
+      // console.log(`Reading from [${rowNb - pieceYOffset}][${colNb - pieceXOffset}]`);
       return values[rowNb - pieceYOffset][colNb - pieceXOffset];
     }
     return 0;

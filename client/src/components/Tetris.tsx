@@ -4,7 +4,7 @@ import NextPieces from './NextPieces';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
-import { addNewActivePiece } from '../actions/client';
+import { addNewActivePiece, movePieceDown } from '../actions/client';
 import { ActivePiece } from '../reducers/types';
 
 const Root = styled.div`
@@ -25,6 +25,8 @@ const empty = {
   pieceYOffset: 0,
 };
 
+const pieceMoveInterval = 1500;
+
 export const Tetris = () => {
   const dispatch = useAppDispatch();
   const player = useAppSelector(state => state.state.players.find(player => player.name === state.client.playerName));
@@ -35,6 +37,14 @@ export const Tetris = () => {
       dispatch(addNewActivePiece(player.pieces[0]));
     }
   }, [player, dispatch]);
+
+  useEffect(() => {
+    const timer = setTimeout(
+      () => dispatch(movePieceDown()),
+      pieceMoveInterval,
+    );
+    return () => clearTimeout(timer);
+  });
 
   console.log(`player: ${JSON.stringify(player)}`);
   console.log(`activePiece: ${JSON.stringify(activePiece)}`);

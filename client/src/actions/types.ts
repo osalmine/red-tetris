@@ -36,6 +36,8 @@ type AddNewActivePieceAction = BaseAction<'addNewActivePiece'> & {
   pieceYOffset: number;
 };
 
+type MovePieceDownAction = BaseAction<'pieceMoveDown'>;
+
 type AllActions =
     AlertAction
   | PingAction
@@ -43,7 +45,8 @@ type AllActions =
   | JoinRoomAction
   | UpdateAction
   | StartGameAction
-  | AddNewActivePieceAction;
+  | AddNewActivePieceAction
+  | MovePieceDownAction;
 
 export type {
   AllActions,
@@ -54,4 +57,5 @@ export type {
   UpdateAction,
   StartGameAction,
   AddNewActivePieceAction,
+  MovePieceDownAction,
 };
