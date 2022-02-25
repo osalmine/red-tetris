@@ -18,8 +18,8 @@ type PlayerAlreadyExistsError = {
     name: 'PlayerAlreadyExistsError';
     data: {
       playerName: string;
-    }
-  }
+    };
+  };
 };
 
 type GameAlreadyStartedError = {
@@ -27,8 +27,8 @@ type GameAlreadyStartedError = {
     name: 'GameAlreadyStartedError';
     data: {
       roomName: string;
-    }
-  }
+    };
+  };
 };
 
 type Errors = PlayerAlreadyExistsError | GameAlreadyStartedError;

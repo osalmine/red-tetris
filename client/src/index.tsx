@@ -11,6 +11,9 @@ import ConnectPlayer from './connectPlayer';
 import App from './containers/App';
 import GlobalStyle, { globalColorTheme } from './containers/GlobalStyle';
 import { store } from './store';
+import { pieceMoveDownHandler } from './handlers/pieceMovement';
+
+store.subscribe(pieceMoveDownHandler);
 
 ReactDom.render(
   <React.StrictMode>

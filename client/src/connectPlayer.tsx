@@ -28,17 +28,19 @@ const hashReg = /(^#[^[\]]+\[[^[\]]+\]$)/;
 
 const getHashUrl = (hash: string): UrlParams => {
   const test = hashReg.test(hash);
-  console.log('test result:', test);
+
+  // console.log('test result:', test);
   if (test) {
     const roomName = ((/([^[#\]]+)/).exec(hash) as RegExpExecArray)[0];
 
-    console.log('ROOMNAME:', roomName);
-    console.log('playerName exec:', (/\[+(.*)\]/).exec(hash));
+    // console.log('ROOMNAME:', roomName);
+    // console.log('playerName exec:', (/\[+(.*)\]/).exec(hash));
     const playerName = ((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[1];
 
-    // const playerName = ((/[^[](.+)[^\]]/).exec(((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[0]) as RegExpExecArray)[0];
+    // const playerName =
+    // ((/[^[](.+)[^\]]/).exec(((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[0]) as RegExpExecArray)[0];
 
-    console.log('PLAYERNAME:', playerName);
+    // console.log('PLAYERNAME:', playerName);
     return { roomName, playerName };
   }
   return { roomName: null, playerName: null };
@@ -48,10 +50,11 @@ const ConnectPlayer = ({ children }: Props) => {
   const { hash } = useLocation();
   const dispatch = useAppDispatch();
 
-  console.log('HASH', hash);
+  // console.log('HASH', hash);
   const { roomName, playerName } = getHashUrl(hash);
-  console.log('ROOMNAME:', roomName);
-  console.log('PLAYERNAME:', playerName);
+
+  // console.log('ROOMNAME:', roomName);
+  // console.log('PLAYERNAME:', playerName);
   if (roomName && playerName) {
     dispatch(joinRoom({ roomName, playerName }));
   }

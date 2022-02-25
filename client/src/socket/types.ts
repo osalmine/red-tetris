@@ -3,16 +3,16 @@ type ClientToServerEvents = {
 };
 
 type BaseAction<T> = {
-  type: T
+  type: T;
 };
 
 type PingAction = BaseAction<'server/ping'> & {
-  message: string
+  message: string;
 };
 
 type ServerToClientEvents = {
   action: (action: PingAction) => void;
-  hello: () => void
+  hello: () => void;
 };
 
 export type { ServerToClientEvents, ClientToServerEvents };

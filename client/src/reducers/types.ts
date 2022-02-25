@@ -1,13 +1,13 @@
 type AlertState = {
-  message: string
+  message: string;
 } | Record<string, never>;
 
 type PongState = {
-  message: string
+  message: string;
 };
 
 type PingState = {
-  count: number
+  count: number;
 };
 
 type ActivePiece = {
@@ -19,7 +19,8 @@ type ActivePiece = {
 type ClientState = {
   playerName?: string;
   roomName?: string;
-  activePiece?: ActivePiece
+  activePiece?: ActivePiece | null;
+  pieceIndex?: number;
 } | Record<string, never>;
 
 export type { AlertState, PongState, PingState, ClientState, ActivePiece };

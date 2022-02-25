@@ -14,15 +14,11 @@ const PieceContainer = styled.div`
 `;
 
 const NextPiece = ({ pieceCharacter }: Props) => {
-  console.log(`nextPiece: ${pieceCharacter}`);
-
-  // const renderPiece = pieces[pieceCharacter];
   const renderPiece: ActivePiece = useMemo(() => ({
     values: pieces[pieceCharacter],
     pieceXOffset: 0,
     pieceYOffset: 0,
   }), [pieceCharacter]);
-  console.log(`renderPiece: ${renderPiece.values}`);
   return (
     <PieceContainer>
       <Board activePiece={renderPiece} cols={4} rows={4} width={12} />

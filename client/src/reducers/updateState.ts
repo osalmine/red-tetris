@@ -8,11 +8,9 @@ const defaultState: UpdateState = {
 };
 
 const updateStateReducer = (state: UpdateState = defaultState, action: UpdateAction): UpdateState => {
-  console.log('updateStateReducer action:', action);
   switch (action.type) {
   case incomingEvents.UPDATE:
     const newState = { ...state, ...action.state };
-    console.log('newState', newState);
     return newState;
   default:
     return state;

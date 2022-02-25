@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
 import { addNewActivePiece, movePieceDown } from '../actions/client';
-import { ActivePiece } from '../reducers/types';
+import { pieceMoveDownHandler } from '../handlers/pieceMovement';
 
 const Root = styled.div`
   display: flex;
@@ -19,32 +19,24 @@ const InvinsibleBalancePiece = styled.div`
   visibility: hidden;
 `;
 
-const empty = {
-  values: Array(params.board.rows).fill(Array(params.board.cols).fill(0)) as number[][],
-  pieceXOffset: 0,
-  pieceYOffset: 0,
-};
-
 const pieceMoveInterval = 1500;
 
 export const Tetris = () => {
   const dispatch = useAppDispatch();
   const player = useAppSelector(state => state.state.players.find(player => player.name === state.client.playerName));
   const activePiece = useAppSelector(state => state.client.activePiece);
+  const pieceIndex = useAppSelector(state => state.client.pieceIndex);
 
   useEffect(() => {
-    if (player) {
-      dispatch(addNewActivePiece(player.pieces[0]));
+    if (player && !activePiece) {
+      dispatch(addNewActivePiece(player.pieces[pieceIndex ? pieceIndex : 0]));
     }
-  }, [player, dispatch]);
+  }, [player, dispatch, activePiece, pieceIndex]);
 
-  useEffect(() => {
-    const timer = setTimeout(
-      () => dispatch(movePieceDown()),
-      pieceMoveInterval,
-    );
-    return () => clearTimeout(timer);
-  });
+  // useEffect(() => {
+  //   const timer = pieceMoveDownHandler(dispatch);
+  //   return () => clearTimeout(timer);
+  // });
 
   console.log(`player: ${JSON.stringify(player)}`);
   console.log(`activePiece: ${JSON.stringify(activePiece)}`);
@@ -56,7 +48,7 @@ export const Tetris = () => {
             <NextPieces nextPieces={player.pieces} />
           </InvinsibleBalancePiece>
           {activePiece && <Board activePiece={activePiece} cols={params.board.cols} rows={params.board.rows}/>}
-          <NextPieces nextPieces={player.pieces}/>
+          <NextPieces nextPieces={player.pieces.slice(pieceIndex)}/>
         </> :
         <div>Loading...</div>}
     </Root>);

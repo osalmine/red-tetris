@@ -21,15 +21,12 @@ const Heading = styled.h2`
 
 const nextPiecesAmount = 3;
 
-const NextPieces = ({ nextPieces }: Props) => {
-  console.log(`nextPieces: ${nextPieces}`);
-  return (
-    <Root>
-      <Heading>Next pieces:</Heading>
-      {nextPieces.slice(1, 1 + nextPiecesAmount).map((piece, i) =>
-        <NextPiece key={i} pieceCharacter={piece} />,
-      )}
-    </Root>);
-};
+const NextPieces = ({ nextPieces }: Props) => (
+  <Root>
+    <Heading>Next pieces:</Heading>
+    {nextPieces.slice(1, 1 + nextPiecesAmount).map((piece, i) =>
+      <NextPiece key={i} pieceCharacter={piece} />,
+    )}
+  </Root>);
 
 export default NextPieces;

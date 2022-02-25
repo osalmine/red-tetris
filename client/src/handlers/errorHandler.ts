@@ -1,5 +1,5 @@
 import { Store } from 'react-notifications-component';
-import { Errors, PlayerAlreadyExistsError } from '../types';
+import { Errors } from '../types';
 
 const addErrorNotification = ({ title, message }: { title: string, message: string }) => {
   Store.addNotification({
