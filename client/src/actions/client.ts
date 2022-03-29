@@ -1,5 +1,5 @@
 import pieces, { PieceName } from '../constants/pieces';
-import { AddNewActivePieceAction, MovePieceDownAction } from './types';
+import { AddNewActivePieceAction, MovePieceDownAction, RotatePieceLeftAction } from './types';
 import * as internalEvents from '../constants/internalEvents';
 
 const addNewActivePiece = (nextPieceCharacter: PieceName): AddNewActivePieceAction => {
@@ -17,4 +17,8 @@ const movePieceDown = (): MovePieceDownAction => ({
   type: internalEvents.MOVE_DOWN,
 });
 
-export { addNewActivePiece, movePieceDown };
+const rotatePieceLeft = (): RotatePieceLeftAction => ({
+  type: internalEvents.ROTATE_RIGHT,
+});
+
+export { addNewActivePiece, movePieceDown, rotatePieceLeft };

@@ -38,6 +38,8 @@ type AddNewActivePieceAction = BaseAction<'addNewActivePiece'> & {
 
 type MovePieceDownAction = BaseAction<'pieceMoveDown'>;
 
+type RotatePieceLeftAction = BaseAction<'pieceRotateLeft'>;
+
 type AllActions =
     AlertAction
   | PingAction
@@ -46,7 +48,8 @@ type AllActions =
   | UpdateAction
   | StartGameAction
   | AddNewActivePieceAction
-  | MovePieceDownAction;
+  | MovePieceDownAction
+  | RotatePieceLeftAction;
 
 export type {
   AllActions,
@@ -58,4 +61,5 @@ export type {
   StartGameAction,
   AddNewActivePieceAction,
   MovePieceDownAction,
+  RotatePieceLeftAction,
 };
