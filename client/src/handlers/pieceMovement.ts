@@ -3,7 +3,7 @@ import { movePieceDown } from '../actions/client';
 import params from '../params';
 import { store } from '../store';
 
-const pieceMoveInterval = 500;
+const pieceMoveInterval = 1500;
 
 // const pieceMoveDownHandler = (dispatch: Dispatch) => {
 //   // const dispatch = useAppDispatch();

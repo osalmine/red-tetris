@@ -6,6 +6,21 @@ import params from '../params';
 
 type ClientAction = JoinRoomAction | AddNewActivePieceAction | MovePieceDownAction;
 
+const pieceCanMoveDown = (state: ClientState) => {
+  if (state.activePiece) {
+    let lastRowWithFilledCell = 0;
+    state.activePiece.values.forEach((row, i) => {
+      if (row.includes(1)) {
+        lastRowWithFilledCell = i;
+      }
+    });
+    console.log('lastRowWithFilledCell', lastRowWithFilledCell);
+
+    return state.activePiece.pieceYOffset + lastRowWithFilledCell < params.board.rows - 1;
+  }
+  return false;
+};
+
 const joinRoomReducer = (state: ClientState = {}, action: ClientAction): ClientState => {
   switch (action.type) {
   case outgoingEvents.JOIN: {
@@ -22,7 +37,7 @@ const joinRoomReducer = (state: ClientState = {}, action: ClientAction): ClientS
   }
   case internalEvents.MOVE_DOWN: {
     if (state.activePiece) {
-      if (state.activePiece.pieceYOffset + state.activePiece.values.length < params.board.rows - 1) {
+      if (pieceCanMoveDown(state)) {
         const newState = { ...state, activePiece: {
           ...state.activePiece,
           pieceYOffset: state.activePiece.pieceYOffset + 1,
