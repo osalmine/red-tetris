@@ -84,6 +84,7 @@ export default class Game implements GameType {
       isAdmin: player.isAdmin,
       state: player.state,
       pieces: player.pieces,
+      board: player.board,
     }));
   }
 

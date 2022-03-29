@@ -1,24 +1,21 @@
 import { AddNewActivePieceAction, JoinRoomAction, MovePieceDownAction } from '../actions/types';
-import { ClientState } from './types';
+import { ActivePiece, ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import * as internalEvents from '../constants/internalEvents';
 import params from '../params';
 
 type ClientAction = JoinRoomAction | AddNewActivePieceAction | MovePieceDownAction;
 
-const pieceCanMoveDown = (state: ClientState) => {
-  if (state.activePiece) {
-    let lastRowWithFilledCell = 0;
-    state.activePiece.values.forEach((row, i) => {
-      if (row.includes(1)) {
-        lastRowWithFilledCell = i;
-      }
-    });
-    console.log('lastRowWithFilledCell', lastRowWithFilledCell);
+const pieceCanMoveDown = (activePiece: ActivePiece) => {
+  let lastRowWithFilledCell = 0;
+  activePiece.values.forEach((row, i) => {
+    if (row.includes(1)) {
+      lastRowWithFilledCell = i;
+    }
+  });
+  console.log('lastRowWithFilledCell', lastRowWithFilledCell);
 
-    return state.activePiece.pieceYOffset + lastRowWithFilledCell < params.board.rows - 1;
-  }
-  return false;
+  return activePiece.pieceYOffset + lastRowWithFilledCell < params.board.rows - 1;
 };
 
 const joinRoomReducer = (state: ClientState = {}, action: ClientAction): ClientState => {
@@ -37,7 +34,7 @@ const joinRoomReducer = (state: ClientState = {}, action: ClientAction): ClientS
   }
   case internalEvents.MOVE_DOWN: {
     if (state.activePiece) {
-      if (pieceCanMoveDown(state)) {
+      if (pieceCanMoveDown(state.activePiece)) {
         const newState = { ...state, activePiece: {
           ...state.activePiece,
           pieceYOffset: state.activePiece.pieceYOffset + 1,
