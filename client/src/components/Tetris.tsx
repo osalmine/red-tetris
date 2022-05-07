@@ -4,8 +4,7 @@ import NextPieces from './NextPieces';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
-import { addNewActivePiece, movePieceDown } from '../actions/client';
-import { pieceMoveDownHandler } from '../handlers/pieceMovement';
+import { addNewActivePiece } from '../actions/client';
 
 const Root = styled.div`
   display: flex;
@@ -18,8 +17,6 @@ const Root = styled.div`
 const InvinsibleBalancePiece = styled.div`
   visibility: hidden;
 `;
-
-const pieceMoveInterval = 1500;
 
 export const Tetris = () => {
   const dispatch = useAppDispatch();
@@ -37,13 +34,6 @@ export const Tetris = () => {
     }
   }, [player, dispatch, activePiece, pieceIndex]);
 
-  // useEffect(() => {
-  //   const timer = pieceMoveDownHandler(dispatch);
-  //   return () => clearTimeout(timer);
-  // });
-
-  console.log(`player: ${JSON.stringify(player)}`);
-  console.log(`activePiece: ${JSON.stringify(activePiece)}`);
   return (
     <Root>
       {player ? (
