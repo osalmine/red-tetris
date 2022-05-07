@@ -3,7 +3,7 @@ import {
   JoinRoomAction,
   MovePieceDownAction,
 } from '../actions/types';
-import { ClientState } from './types';
+import { ActivePiece, ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import * as internalEvents from '../constants/internalEvents';
 import params from '../params';

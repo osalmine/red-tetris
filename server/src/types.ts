@@ -1,10 +1,17 @@
+import { PieceName } from './constants/pieces';
 import { PlayerAlreadyExistsError, GameAlreadyStartedError } from './models/error';
+
+type BoardObject = {
+  field: number[][];
+};
 
 type PlayerObject = {
   name: string;
   roomName: string;
   isAdmin: boolean;
   state: 'pending' | 'playing' | 'finished';
+  pieces: PieceName[];
+  board: BoardObject;
 };
 
 type UpdateState = {

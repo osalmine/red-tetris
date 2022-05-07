@@ -67,7 +67,7 @@ const Pending = () => {
 
   const onNotification = () => {
     Store.addNotification({
-      title: 'Error with game',
+      title: 'Error with the game',
       message: 'Reload the page',
       container: 'top-right',
       type: 'danger',

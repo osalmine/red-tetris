@@ -1,31 +1,54 @@
-import { Dispatch } from 'redux';
+import { Dispatch, Store } from 'redux';
 import { movePieceDown } from '../actions/client';
+import { startGame } from '../actions/server';
 import params from '../params';
-import { store } from '../store';
+import { RootState, store } from '../store';
 
 const pieceMoveInterval = 5000;
 
-// const pieceMoveDownHandler = (dispatch: Dispatch) => {
-//   // const dispatch = useAppDispatch();
-
-//   // return setInterval(() => dispatch(movePieceDown()), 1500);
-//   const timer = setTimeout(
-//     () => dispatch(movePieceDown()),
-//     pieceMoveInterval,
-//   );
-//   return timer;
-// };
-
 // eslint-disable-next-line no-undef
-let interval: NodeJS.Timer | undefined;
+let interval: NodeJS.Timer | null;
+
+const playerIsAdmin = (state: RootState) => {
+  const adminPlayerName = state.state.players.find(
+    (player) => player.isAdmin === true
+  )?.name;
+  return state.client.playerName === adminPlayerName;
+};
+
+const startPieceMoveInterval = () =>
+  setInterval(() => {
+    store.dispatch(movePieceDown());
+  }, pieceMoveInterval);
+
+document.addEventListener('keydown', (e) => {
+  console.log(`EVENT LISTENER event ${e.code}`);
+  const state = store.getState();
+  if (
+    e.code === 'Enter' &&
+    state.state.gameState === 'pending' &&
+    playerIsAdmin(state)
+  ) {
+    const { playerName, roomName } = state.client;
+    if (playerName && roomName) {
+      store.dispatch(startGame({ playerName, roomName }));
+    }
+  }
+
+  if (e.code === 'ArrowDown') {
+    store.dispatch(movePieceDown());
+    if (interval) {
+      clearInterval(interval);
+    }
+    interval = startPieceMoveInterval();
+  }
+});
 
 const pieceMoveDownHandler = () => {
   const state = store.getState();
 
   if (state.state.gameState === 'playing' && !interval) {
-    interval = setInterval(() => {
-      store.dispatch(movePieceDown());
-    }, pieceMoveInterval);
+    interval = startPieceMoveInterval();
   }
   console.log('pieceMoveDownHandler');
 };
