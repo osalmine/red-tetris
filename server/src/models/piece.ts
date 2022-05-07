@@ -17,7 +17,7 @@ export default class Piece {
   }
 
   generateBatch(): PieceName[] {
-    const batch: PieceName[] = shuffle([...pieceNames]);
+    const batch: PieceName[] = shuffle(pieceNames);
     loginfo(`GAME METHOD generateBatch ${batch}`);
     return batch;
   }

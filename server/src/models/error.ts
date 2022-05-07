@@ -33,4 +33,8 @@ class GameAlreadyStartedError extends DomainError {
   }
 }
 
-export { PlayerNotFoundError, PlayerAlreadyExistsError, GameAlreadyStartedError };
+export {
+  PlayerNotFoundError,
+  PlayerAlreadyExistsError,
+  GameAlreadyStartedError,
+};

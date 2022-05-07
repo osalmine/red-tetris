@@ -22,26 +22,29 @@ const initApp = (app: http.Server, params: ServerParams, cb: () => void) => {
   });
 };
 
-export const create = (server: ServerParams) => new Promise(resolve => {
-  const app = http.createServer();
+export const create = (server: ServerParams) =>
+  new Promise((resolve) => {
+    const app = http.createServer();
 
-  initApp(app, server, () => {
-    const io = new socketio.Server<ClientToServerEvents, ServerToClientEvents>(app, {
-      cors: {
-        origin: ['http://localhost:3000', 'http://localhost:3001'],
-      },
-    });
-    const stopApp = (cb: () => void) => {
-      io.close();
-      app.close(() => {
-        app.unref();
+    initApp(app, server, () => {
+      const io = new socketio.Server<
+        ClientToServerEvents,
+        ServerToClientEvents
+      >(app, {
+        cors: {
+          origin: ['http://localhost:3000', 'http://localhost:3001'],
+        },
       });
-      loginfo('Engine stopped.');
-      cb();
-    };
+      const stopApp = (cb: () => void) => {
+        io.close();
+        app.close(() => {
+          app.unref();
+        });
+        loginfo('Engine stopped.');
+        cb();
+      };
 
-    initEngine(io);
-    resolve({ stopApp });
-
+      initEngine(io);
+      resolve({ stopApp });
+    });
   });
-});

@@ -28,20 +28,23 @@ export default class Game implements GameType {
   }
 
   playerExists(playerName: string) {
-    return this.players.some(player => player.name === playerName);
+    return this.players.some((player) => player.name === playerName);
   }
 
   getPlayer(playerName: string) {
-    return this.players.find(player => player.name === playerName);
+    return this.players.find((player) => player.name === playerName);
   }
 
   removePlayer(playerName: string) {
     loginfo(`GAME METHOD removePlayer ${playerName}`);
-    loginfo(`GAME METHOD this.playerExists(playerName) ${this.playerExists(playerName)}`);
+    loginfo(
+      `GAME METHOD this.playerExists(playerName) ${this.playerExists(
+        playerName
+      )}`
+    );
     if (this.playerExists(playerName)) {
       this.players.splice(this.players.indexOf(this.getPlayer(playerName)), 1);
-    }
-    else {
+    } else {
       throw new Error(`Could not remove ${playerName}, player not found`);
     }
   }
@@ -51,7 +54,7 @@ export default class Game implements GameType {
   }
 
   setAllPlayersState(state: typeof this.gameState) {
-    this.players.forEach(player => player.setState(state));
+    this.players.forEach((player) => player.setState(state));
   }
 
   setGameToPlaying() {
@@ -60,11 +63,11 @@ export default class Game implements GameType {
   }
 
   addPiecesToPlayers(pieces: PieceName[]) {
-    this.players.forEach(player => player.addPieces(pieces));
+    this.players.forEach((player) => player.addPieces(pieces));
   }
 
   get hasAdmin() {
-    return this.players.some(player => player.isAdmin);
+    return this.players.some((player) => player.isAdmin);
   }
 
   get hasPlayers() {
@@ -75,10 +78,11 @@ export default class Game implements GameType {
     if (this.hasPlayers) {
       return this.players[0];
     }
+    return null;
   }
 
   private transformPlayers(players: Player[]) {
-    return players.map(player => ({
+    return players.map((player) => ({
       name: player.name,
       roomName: player.roomName,
       isAdmin: player.isAdmin,
@@ -89,9 +93,9 @@ export default class Game implements GameType {
   }
 
   get state() {
-    return ({
+    return {
       gameState: this.gameState,
       players: this.transformPlayers(this.players),
-    });
+    };
   }
 }

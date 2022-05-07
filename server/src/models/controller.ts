@@ -40,7 +40,13 @@ export default class Controller {
     return false;
   }
 
-  addClientToRoom({ roomName, playerName }: {roomName: string, playerName: string}) {
+  addClientToRoom({
+    roomName,
+    playerName,
+  }: {
+    roomName: string;
+    playerName: string;
+  }) {
     loginfo(`JOIN ROOM: room: ${roomName} player: ${playerName}`);
     if (!this.gameExists(roomName)) {
       this.addGame(new Game(roomName));

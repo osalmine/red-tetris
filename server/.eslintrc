@@ -5,14 +5,19 @@
 	},
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
-	  "@typescript-eslint"
+	  "@typescript-eslint",
+    "prettier"
 	],
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": ["eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 11,
     "ecmaFeatures": {
       "jsx": true
-    },
+    }
     // "project": "./tsconfig.json",
     // "tsconfigRootDir": "server"
   },
@@ -20,8 +25,9 @@
     "this": true
   },
 	"rules": {
+    "prettier/prettier": ["error", { "singleQuote": true }],
 	  /* Possible Errors */
-	  "comma-dangle": [1, "always-multiline"], //disallow or enforce trailing commas (recommended)
+	  // "comma-dangle": [1, "always-multiline"], //disallow or enforce trailing commas (recommended)
 	  "no-cond-assign": [1, "except-parens"], //disallow assignment in conditional expressions (recommended)
 	  "no-console": 0, //disallow use of console in the node environment (recommended)
 	  "no-constant-condition": 1, //disallow use of constant expressions in conditions (recommended)
@@ -140,7 +146,7 @@
 	  /* Stylistic Issues */
 	  "array-bracket-spacing": [1, "never"], //enforce spacing inside array brackets (fixable)
 	  "block-spacing": [1, "always"], //disallow or enforce spaces inside of single line blocks (fixable)
-	  "brace-style": [1, "stroustrup", { "allowSingleLine": true }], //enforce one true brace style
+	  "brace-style": [1, "1tbs", { "allowSingleLine": true }], //enforce one true brace style
 	  "camelcase": [1, { "properties": "always" }], //require camel case names
 	  "comma-spacing": [1, { "before": false, "after": true }], //enforce spacing before and after comma
 	  "comma-style": [1, "last"], //enforce one true comma style

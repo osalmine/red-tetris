@@ -10,7 +10,8 @@ const ERR = 500;
 const OK = 200;
 
 const httpRoutesHandler = (req: IncomingMessage, res: ServerResponse) => {
-  const file = req.url === '/bundle.js' ? '/../../build/bundle.js' : '/../../index.html';
+  const file =
+    req.url === '/bundle.js' ? '/../../build/bundle.js' : '/../../index.html';
   fs.readFile(join(__dirname, file), (err, data) => {
     if (err) {
       logerror(err);
