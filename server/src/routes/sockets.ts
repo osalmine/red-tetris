@@ -4,14 +4,10 @@ import { ClientToServerEvents, ServerToClientEvents } from '../types';
 import Controller from '../models/controller';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import Game from '../models/game';
-import Player from '../models/player';
-import params from '../../params';
 import {
   GameAlreadyStartedError,
   PlayerAlreadyExistsError,
 } from '../models/error';
-import Piece from '../models/piece';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');

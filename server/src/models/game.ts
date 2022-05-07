@@ -81,7 +81,7 @@ export default class Game implements GameType {
     return null;
   }
 
-  private transformPlayers(players: Player[]) {
+  private static transformPlayers(players: Player[]) {
     return players.map((player) => ({
       name: player.name,
       roomName: player.roomName,
@@ -95,7 +95,7 @@ export default class Game implements GameType {
   get state() {
     return {
       gameState: this.gameState,
-      players: this.transformPlayers(this.players),
+      players: Game.transformPlayers(this.players),
     };
   }
 }
