@@ -13,6 +13,17 @@ type ClientAction =
   | AddNewActivePieceAction
   | MovePieceDownAction;
 
+const pieceLastRowWithFilledCell = (pieceValues: number[][]) => {
+  let lastRowWithFilledCell = 0;
+  for (let i = 0; i < pieceValues.length; i++) {
+    if (pieceValues[i].some((cell) => cell !== 0)) {
+      lastRowWithFilledCell = i;
+    }
+  }
+  console.log('lastRowWithFilledCell', lastRowWithFilledCell);
+  return lastRowWithFilledCell;
+};
+
 const pieceCanMoveDown = ({
   pieceYOffset,
   pieceValues,
@@ -20,7 +31,8 @@ const pieceCanMoveDown = ({
   pieceYOffset: number;
   pieceValues: number[][];
 }): boolean => {
-  if (pieceYOffset > 10) {
+  const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);
+  if (pieceYOffset + actualPieceLength < params.board.rows - 1) {
     return true;
   }
   return false;
@@ -54,8 +66,10 @@ const joinRoomReducer = (
     case internalEvents.MOVE_DOWN: {
       if (state.activePiece) {
         if (
-          state.activePiece.pieceYOffset + state.activePiece.values.length <
-          params.board.rows - 1
+          pieceCanMoveDown({
+            pieceYOffset: state.activePiece.pieceYOffset,
+            pieceValues: state.activePiece.values,
+          })
         ) {
           const newState = {
             ...state,

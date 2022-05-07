@@ -1,10 +1,8 @@
-import { Dispatch, Store } from 'redux';
 import { movePieceDown } from '../actions/client';
 import { startGame } from '../actions/server';
-import params from '../params';
 import { RootState, store } from '../store';
 
-const pieceMoveInterval = 5000;
+const pieceMoveInterval = 2000;
 
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timer | null;
@@ -22,7 +20,6 @@ const startPieceMoveInterval = () =>
   }, pieceMoveInterval);
 
 document.addEventListener('keydown', (e) => {
-  console.log(`EVENT LISTENER event ${e.code}`);
   const state = store.getState();
   if (
     e.code === 'Enter' &&
@@ -50,7 +47,6 @@ const pieceMoveDownHandler = () => {
   if (state.state.gameState === 'playing' && !interval) {
     interval = startPieceMoveInterval();
   }
-  console.log('pieceMoveDownHandler');
 };
 
 export { pieceMoveDownHandler };

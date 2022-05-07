@@ -1,5 +1,9 @@
 import pieces, { PieceName } from '../constants/pieces';
-import { AddNewActivePieceAction, MovePieceDownAction, RotatePieceLeftAction } from './types';
+import {
+  AddNewActivePieceAction,
+  MovePieceDownAction,
+  RotatePieceLeftAction,
+} from './types';
 import * as internalEvents from '../constants/internalEvents';
 
 const addNewActivePiece = (
