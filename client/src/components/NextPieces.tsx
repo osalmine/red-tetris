@@ -5,6 +5,8 @@ import NextPiece from './NextPiece';
 
 type Props = {
   nextPieces: PieceName[];
+  className?: string;
+  style?: React.CSSProperties;
 };
 
 const Root = styled.div`
@@ -16,13 +18,13 @@ const Root = styled.div`
 
 const Heading = styled.h2`
   font-size: 36px;
-  margin: 100px 0 0;
+  margin-bottom: 0;
 `;
 
 const nextPiecesAmount = 3;
 
-const NextPieces = ({ nextPieces }: Props) => (
-  <Root>
+const NextPieces = ({ nextPieces, className, style }: Props) => (
+  <Root className={className} style={style}>
     <Heading>Next pieces:</Heading>
     {nextPieces.slice(1, 1 + nextPiecesAmount).map((piece, i) => (
       <NextPiece key={i} pieceCharacter={piece} />

@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 const Title = styled.h1`
   font-family: 'Poppins', sans-serif;
-  font-size: 10rem;
+  font-size: 15vh;
 `;
 
 // const glow = keyframes

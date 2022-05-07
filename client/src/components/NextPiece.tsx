@@ -10,7 +10,6 @@ type Props = {
 
 const PieceContainer = styled.div`
   display: flex;
-  margin: 24px 0;
 `;
 
 const NextPiece = ({ pieceCharacter }: Props) => {

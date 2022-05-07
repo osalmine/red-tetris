@@ -16,6 +16,7 @@ const Root = styled.div`
 
 const InvinsibleBalancePiece = styled.div`
   visibility: hidden;
+  height: 0;
 `;
 
 export const Tetris = () => {
@@ -48,7 +49,10 @@ export const Tetris = () => {
               rows={params.board.rows}
             />
           )}
-          <NextPieces nextPieces={player.pieces.slice(pieceIndex)} />
+          <NextPieces
+            nextPieces={player.pieces.slice(pieceIndex)}
+            style={{ maxHeight: '100vh' }}
+          />
         </>
       ) : (
         <div>Loading...</div>
