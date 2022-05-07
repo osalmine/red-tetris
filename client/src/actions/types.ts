@@ -1,3 +1,4 @@
+import * as internalEvents from '../constants/internalEvents';
 import { UpdateState } from '../types';
 
 type BaseAction<T> = {
@@ -36,9 +37,12 @@ type AddNewActivePieceAction = BaseAction<'addNewActivePiece'> & {
   pieceYOffset: number;
 };
 
-type MovePieceDownAction = BaseAction<'pieceMoveDown'>;
-
-type RotatePieceLeftAction = BaseAction<'pieceRotateLeft'>;
+type MovePieceDownAction = BaseAction<typeof internalEvents.MOVE_DOWN>;
+type MovePieceRigthAction = BaseAction<typeof internalEvents.MOVE_RIGHT>;
+type MovePieceLeftAction = BaseAction<typeof internalEvents.MOVE_LEFT>;
+type RotatePieceRightAction = BaseAction<typeof internalEvents.ROTATE_RIGHT>;
+type RotatePieceLeftAction = BaseAction<typeof internalEvents.ROTATE_LEFT>;
+type DropPieceAction = BaseAction<typeof internalEvents.DROP_PIECE>;
 
 type AllActions =
   | AlertAction
@@ -49,7 +53,11 @@ type AllActions =
   | StartGameAction
   | AddNewActivePieceAction
   | MovePieceDownAction
-  | RotatePieceLeftAction;
+  | MovePieceRigthAction
+  | MovePieceLeftAction
+  | RotatePieceRightAction
+  | RotatePieceLeftAction
+  | DropPieceAction;
 
 export type {
   AllActions,
@@ -61,5 +69,9 @@ export type {
   StartGameAction,
   AddNewActivePieceAction,
   MovePieceDownAction,
+  MovePieceRigthAction,
+  MovePieceLeftAction,
+  RotatePieceRightAction,
   RotatePieceLeftAction,
+  DropPieceAction,
 };

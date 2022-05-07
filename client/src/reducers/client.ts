@@ -3,7 +3,7 @@ import {
   JoinRoomAction,
   MovePieceDownAction,
 } from '../actions/types';
-import { ActivePiece, ClientState } from './types';
+import { ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import * as internalEvents from '../constants/internalEvents';
 import params from '../params';
@@ -20,7 +20,6 @@ const pieceLastRowWithFilledCell = (pieceValues: number[][]) => {
       lastRowWithFilledCell = i;
     }
   }
-  console.log('lastRowWithFilledCell', lastRowWithFilledCell);
   return lastRowWithFilledCell;
 };
 

@@ -1,8 +1,12 @@
 import pieces, { PieceName } from '../constants/pieces';
 import {
   AddNewActivePieceAction,
+  DropPieceAction,
   MovePieceDownAction,
+  MovePieceLeftAction,
+  MovePieceRigthAction,
   RotatePieceLeftAction,
+  RotatePieceRightAction,
 } from './types';
 import * as internalEvents from '../constants/internalEvents';
 
@@ -23,8 +27,32 @@ const movePieceDown = (): MovePieceDownAction => ({
   type: internalEvents.MOVE_DOWN,
 });
 
-const rotatePieceLeft = (): RotatePieceLeftAction => ({
+const movePieceRigth = (): MovePieceRigthAction => ({
+  type: internalEvents.MOVE_RIGHT,
+});
+
+const movePieceLeft = (): MovePieceLeftAction => ({
+  type: internalEvents.MOVE_LEFT,
+});
+
+const rotatePieceRight = (): RotatePieceRightAction => ({
   type: internalEvents.ROTATE_RIGHT,
 });
 
-export { addNewActivePiece, movePieceDown, rotatePieceLeft };
+const rotatePieceLeft = (): RotatePieceLeftAction => ({
+  type: internalEvents.ROTATE_LEFT,
+});
+
+const dropPiece = (): DropPieceAction => ({
+  type: internalEvents.DROP_PIECE,
+});
+
+export {
+  addNewActivePiece,
+  movePieceDown,
+  movePieceRigth,
+  movePieceLeft,
+  rotatePieceRight,
+  rotatePieceLeft,
+  dropPiece,
+};
