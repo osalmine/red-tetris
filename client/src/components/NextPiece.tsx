@@ -14,15 +14,20 @@ const PieceContainer = styled.div`
 `;
 
 const NextPiece = ({ pieceCharacter }: Props) => {
-  const renderPiece: ActivePiece = useMemo(() => ({
-    values: pieces[pieceCharacter],
-    pieceXOffset: 0,
-    pieceYOffset: 0,
-  }), [pieceCharacter]);
+  const renderPiece: ActivePiece = useMemo(
+    () => ({
+      values: pieces[pieceCharacter],
+      pieceXOffset: 0,
+      pieceYOffset: 0,
+    }),
+    [pieceCharacter]
+  );
+
   return (
     <PieceContainer>
       <Board activePiece={renderPiece} cols={4} rows={4} width={12} />
-    </PieceContainer>);
+    </PieceContainer>
+  );
 };
 
 export default NextPiece;

@@ -9,17 +9,17 @@ type Props = {
 };
 
 type StartGameProps = {
-  btnColor?: GlobalColorProps
+  btnColor?: GlobalColorProps;
 };
 
 const StartGame = styled.button.attrs(() => ({
   type: 'submit',
 }))<StartGameProps>`
-  background: ${props => props.btnColor || props.theme.green};
-  border: 1px solid ${props => props.btnColor || props.theme.green};
+  background: ${(props) => props.btnColor || props.theme.green};
+  border: 1px solid ${(props) => props.btnColor || props.theme.green};
   border-radius: 6px;
   box-sizing: border-box;
-  color: ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
   cursor: pointer;
   display: inline-block;
   font-size: 22px;
@@ -33,16 +33,16 @@ const StartGame = styled.button.attrs(() => ({
   vertical-align: middle;
   margin-bottom: 10px;
 
-&:hover,
-&:active {
-  background-color: initial;
-  background-position: 0 0;
-  color: ${props => props.btnColor || props.theme.green};
-}
+  &:hover,
+  &:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: ${(props) => props.btnColor || props.theme.green};
+  }
 
-&:active {
-  opacity: .5;
-}
+  &:active {
+    opacity: 0.5;
+  }
 `;
 
 const Button = ({ children, onClick, color }: Props) => (

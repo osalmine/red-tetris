@@ -39,7 +39,7 @@ type AddNewActivePieceAction = BaseAction<'addNewActivePiece'> & {
 type MovePieceDownAction = BaseAction<'pieceMoveDown'>;
 
 type AllActions =
-    AlertAction
+  | AlertAction
   | PingAction
   | PongAction
   | JoinRoomAction

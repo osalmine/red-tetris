@@ -23,9 +23,13 @@ const pieceMoveInterval = 1500;
 
 export const Tetris = () => {
   const dispatch = useAppDispatch();
-  const player = useAppSelector(state => state.state.players.find(player => player.name === state.client.playerName));
-  const activePiece = useAppSelector(state => state.client.activePiece);
-  const pieceIndex = useAppSelector(state => state.client.pieceIndex);
+  const player = useAppSelector((state) =>
+    state.state.players.find(
+      (player) => player.name === state.client.playerName
+    )
+  );
+  const activePiece = useAppSelector((state) => state.client.activePiece);
+  const pieceIndex = useAppSelector((state) => state.client.pieceIndex);
 
   useEffect(() => {
     if (player && !activePiece) {
@@ -42,14 +46,23 @@ export const Tetris = () => {
   console.log(`activePiece: ${JSON.stringify(activePiece)}`);
   return (
     <Root>
-      {player ?
+      {player ? (
         <>
           <InvinsibleBalancePiece>
             <NextPieces nextPieces={player.pieces} />
           </InvinsibleBalancePiece>
-          {activePiece && <Board activePiece={activePiece} cols={params.board.cols} rows={params.board.rows}/>}
-          <NextPieces nextPieces={player.pieces.slice(pieceIndex)}/>
-        </> :
-        <div>Loading...</div>}
-    </Root>);
+          {activePiece && (
+            <Board
+              activePiece={activePiece}
+              cols={params.board.cols}
+              rows={params.board.rows}
+            />
+          )}
+          <NextPieces nextPieces={player.pieces.slice(pieceIndex)} />
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </Root>
+  );
 };

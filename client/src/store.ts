@@ -4,7 +4,13 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
-import { alertReducer, clientReducer, pingReducer, pongReducer, updateStateReducer } from './reducers';
+import {
+  alertReducer,
+  clientReducer,
+  pingReducer,
+  pongReducer,
+  updateStateReducer,
+} from './reducers';
 import { socketMiddleWare } from './middleware/socketMiddleWare';
 import socket from './socket/socket';
 
@@ -31,12 +37,11 @@ export const store = createStore(
       }),
 
       // storeStateMiddleWare,
-      socketMiddleWare(socket),
-    ),
-  ),
+      socketMiddleWare(socket)
+    )
+  )
 );
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-

@@ -4,12 +4,11 @@ import { AlertState } from './types';
 
 const alertReducer = (state: AlertState = {}, action: AlertAction) => {
   switch (action.type) {
-  case ALERT_POP:
-    return { message: action.message };
-  default:
-    return state;
+    case ALERT_POP:
+      return { message: action.message };
+    default:
+      return state;
   }
 };
 
 export default alertReducer;
-

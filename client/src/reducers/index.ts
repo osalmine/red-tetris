@@ -4,4 +4,10 @@ import pongReducer from './pong';
 import updateStateReducer from './updateState';
 import clientReducer from './client';
 
-export { alertReducer, pingReducer, pongReducer, updateStateReducer, clientReducer };
+export {
+  alertReducer,
+  pingReducer,
+  pongReducer,
+  updateStateReducer,
+  clientReducer,
+};

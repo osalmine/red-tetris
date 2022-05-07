@@ -33,4 +33,9 @@ type GameAlreadyStartedError = {
 
 type Errors = PlayerAlreadyExistsError | GameAlreadyStartedError;
 
-export type { UpdateState, Errors, PlayerAlreadyExistsError, GameAlreadyStartedError };
+export type {
+  UpdateState,
+  Errors,
+  PlayerAlreadyExistsError,
+  GameAlreadyStartedError,
+};

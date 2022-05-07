@@ -7,13 +7,16 @@ const defaultState: UpdateState = {
   players: [],
 };
 
-const updateStateReducer = (state: UpdateState = defaultState, action: UpdateAction): UpdateState => {
+const updateStateReducer = (
+  state: UpdateState = defaultState,
+  action: UpdateAction
+): UpdateState => {
   switch (action.type) {
-  case incomingEvents.UPDATE:
-    const newState = { ...state, ...action.state };
-    return newState;
-  default:
-    return state;
+    case incomingEvents.UPDATE:
+      const newState = { ...state, ...action.state };
+      return newState;
+    default:
+      return state;
   }
 };
 

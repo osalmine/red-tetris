@@ -1,7 +1,13 @@
 import { Store } from 'react-notifications-component';
 import { Errors } from '../types';
 
-const addErrorNotification = ({ title, message }: { title: string, message: string }) => {
+const addErrorNotification = ({
+  title,
+  message,
+}: {
+  title: string;
+  message: string;
+}) => {
   Store.addNotification({
     title,
     message,
@@ -23,8 +29,7 @@ const handleError = ({ error }: Errors) => {
       title: 'Player already exists',
       message: `Player named ${error.data.playerName} has already joined the game`,
     });
-  }
-  else if (error.name === 'GameAlreadyStartedError') {
+  } else if (error.name === 'GameAlreadyStartedError') {
     addErrorNotification({
       title: 'Game already started',
       message: `Game named ${error.data.roomName} has already started`,

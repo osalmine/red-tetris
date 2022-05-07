@@ -2,7 +2,9 @@ import pieces, { PieceName } from '../constants/pieces';
 import { AddNewActivePieceAction, MovePieceDownAction } from './types';
 import * as internalEvents from '../constants/internalEvents';
 
-const addNewActivePiece = (nextPieceCharacter: PieceName): AddNewActivePieceAction => {
+const addNewActivePiece = (
+  nextPieceCharacter: PieceName
+): AddNewActivePieceAction => {
   const activePiece = pieces[nextPieceCharacter];
   const centerPieceOffset = 3;
   return {

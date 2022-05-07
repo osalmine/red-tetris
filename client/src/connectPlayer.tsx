@@ -31,11 +31,11 @@ const getHashUrl = (hash: string): UrlParams => {
 
   // console.log('test result:', test);
   if (test) {
-    const roomName = ((/([^[#\]]+)/).exec(hash) as RegExpExecArray)[0];
+    const roomName = (/([^[#\]]+)/.exec(hash) as RegExpExecArray)[0];
 
     // console.log('ROOMNAME:', roomName);
     // console.log('playerName exec:', (/\[+(.*)\]/).exec(hash));
-    const playerName = ((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[1];
+    const playerName = (/\[+(.*)\]/.exec(hash) as RegExpExecArray)[1];
 
     // const playerName =
     // ((/[^[](.+)[^\]]/).exec(((/\[+(.*)\]/).exec(hash) as RegExpExecArray)[0]) as RegExpExecArray)[0];
@@ -60,15 +60,19 @@ const ConnectPlayer = ({ children }: Props) => {
   }
   return (
     <>
-      {(!roomName || !playerName) ?
+      {!roomName || !playerName ? (
         <Root>
           <RoomJoinWarning>
-            Enter in the following format in the URL: #{'<'}room{'>'}[{'<'}yourName{'>'}]
+            Enter in the following format in the URL: #{'<'}room{'>'}[{'<'}
+            yourName{'>'}]
           </RoomJoinWarning>
           <RedTetrisTitle />
-        </Root> :
-        children}
-    </>);
+        </Root>
+      ) : (
+        children
+      )}
+    </>
+  );
 };
 
 export default ConnectPlayer;

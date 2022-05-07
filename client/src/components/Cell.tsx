@@ -13,8 +13,10 @@ const CellContainer = styled.div<CellProps>`
   display: flex;
   flex: auto;
   margin: 2px;
-  background-color: ${props => (props.cellValue ? props.theme.white : '#313338')};
-  box-shadow: 0 0 3px ${props => (props.cellValue ? props.theme.white : '#313338')};
+  background-color: ${(props) =>
+    props.cellValue ? props.theme.white : '#313338'};
+  box-shadow: 0 0 3px
+    ${(props) => (props.cellValue ? props.theme.white : '#313338')};
   border-radius: 3px;
 
   &::before {

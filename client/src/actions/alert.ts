@@ -6,4 +6,3 @@ export const alert = (message: string): AlertAction => ({
   type: ALERT_POP,
   message,
 });
-

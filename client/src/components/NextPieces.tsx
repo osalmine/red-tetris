@@ -24,9 +24,10 @@ const nextPiecesAmount = 3;
 const NextPieces = ({ nextPieces }: Props) => (
   <Root>
     <Heading>Next pieces:</Heading>
-    {nextPieces.slice(1, 1 + nextPiecesAmount).map((piece, i) =>
-      <NextPiece key={i} pieceCharacter={piece} />,
-    )}
-  </Root>);
+    {nextPieces.slice(1, 1 + nextPiecesAmount).map((piece, i) => (
+      <NextPiece key={i} pieceCharacter={piece} />
+    ))}
+  </Root>
+);
 
 export default NextPieces;

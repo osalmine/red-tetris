@@ -3,7 +3,7 @@ import { movePieceDown } from '../actions/client';
 import params from '../params';
 import { store } from '../store';
 
-const pieceMoveInterval = 500;
+const pieceMoveInterval = 5000;
 
 // const pieceMoveDownHandler = (dispatch: Dispatch) => {
 //   // const dispatch = useAppDispatch();
@@ -16,6 +16,7 @@ const pieceMoveInterval = 500;
 //   return timer;
 // };
 
+// eslint-disable-next-line no-undef
 let interval: NodeJS.Timer | undefined;
 
 const pieceMoveDownHandler = () => {

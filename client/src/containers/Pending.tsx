@@ -32,7 +32,7 @@ type PlayerProps = {
 const Player = styled.p<PlayerProps>`
   font-size: 18px;
   margin: 8px 0;
-  color: ${props => (props.isClient ? props.theme.green : props.theme.white)};
+  color: ${(props) => (props.isClient ? props.theme.green : props.theme.white)};
 
   &:last-of-type {
     margin-bottom: 50px;
@@ -42,11 +42,21 @@ const Player = styled.p<PlayerProps>`
 const Pending = () => {
   const dispatch = useAppDispatch();
 
-  const players = useAppSelector(state => state.state.players);
-  const { playerName: clientName, roomName } = useAppSelector(state => state.client);
-  const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean | undefined>(false);
+  const players = useAppSelector((state) => state.state.players);
+  const { playerName: clientName, roomName } = useAppSelector(
+    (state) => state.client
+  );
+  const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean | undefined>(
+    false
+  );
 
-  useEffect(() => setPlayerIsAdmin(players.find(player => player.name === clientName)?.isAdmin), [players, clientName]);
+  useEffect(
+    () =>
+      setPlayerIsAdmin(
+        players.find((player) => player.name === clientName)?.isAdmin
+      ),
+    [players, clientName]
+  );
 
   const onStartGame = () => {
     console.log('Start game');
@@ -76,11 +86,17 @@ const Pending = () => {
       <Heading>Waiting to start in lobby {roomName}</Heading>
       <Players>Players:</Players>
       {players.map((player, i) => (
-        <Player isClient={player.name === clientName} key={i}>{player.name}{player.isAdmin && ' ★'}</Player>
+        <Player isClient={player.name === clientName} key={i}>
+          {player.name}
+          {player.isAdmin && ' ★'}
+        </Player>
       ))}
-      <StartGame color={'grey'} onClick={onNotification}>Notification</StartGame>
+      <StartGame color={'grey'} onClick={onNotification}>
+        Notification
+      </StartGame>
       {playerIsAdmin && <StartGame onClick={onStartGame}>Start</StartGame>}
-    </Root>);
+    </Root>
+  );
 };
 
 export default Pending;

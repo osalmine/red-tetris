@@ -11,9 +11,9 @@ const Root = styled.div``;
 const Game = () => {
   const dispatch = useAppDispatch();
 
-  const alert = useAppSelector(state => state.alert.message);
-  const pongs = useAppSelector(state => state.pong);
-  const pings = useAppSelector(state => state.ping);
+  const alert = useAppSelector((state) => state.alert.message);
+  const pongs = useAppSelector((state) => state.pong);
+  const pings = useAppSelector((state) => state.ping);
 
   console.log('pings', pings);
 
@@ -30,11 +30,12 @@ const Game = () => {
       <Tetris />
       <button onClick={onAddAlert}>Add alert</button>
       <span>{alert}</span>
-      <br/>
+      <br />
       <button onClick={onPingServer}>Ping server {pings.count} times</button>
-      <ul>{pongs.map((pong, i) => (
-        <li key={i}>{pong.message}</li>
-      ))}
+      <ul>
+        {pongs.map((pong, i) => (
+          <li key={i}>{pong.message}</li>
+        ))}
       </ul>
     </Root>
   );

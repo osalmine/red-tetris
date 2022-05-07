@@ -20,11 +20,13 @@ const Title = styled.h1`
   animation: ${glow} 3s ease-in-out infinite alternate; */
 
 const Red = styled.span`
-  color: ${props => props.theme.red};
+  color: ${(props) => props.theme.red};
 `;
 
 const RedTetrisTitle = () => (
-  <Title><Red>Red</Red> Tetris</Title>
+  <Title>
+    <Red>Red</Red> Tetris
+  </Title>
 );
 
 export default RedTetrisTitle;

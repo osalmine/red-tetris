@@ -7,7 +7,7 @@ type Props = {
 
 type GlobalColorProps = 'black' | 'red' | 'green' | 'grey' | 'white';
 
-const globalColorTheme: {[K in GlobalColorProps]: string } = {
+const globalColorTheme: { [K in GlobalColorProps]: string } = {
   black: '#202124',
   red: '#FF0035',
   green: '#4D8B31',
@@ -29,7 +29,7 @@ const BodyStyle = createGlobalStyle`
 
 const GlobalStyle = ({ children }: Props) => (
   <>
-    <BodyStyle/>
+    <BodyStyle />
     {children}
   </>
 );
