@@ -1,7 +1,12 @@
 import {
   AddNewActivePieceAction,
+  DropPieceAction,
   JoinRoomAction,
   MovePieceDownAction,
+  MovePieceLeftAction,
+  MovePieceRigthAction,
+  RotatePieceLeftAction,
+  RotatePieceRightAction,
 } from '../actions/types';
 import { ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
@@ -11,7 +16,12 @@ import params from '../params';
 type ClientAction =
   | JoinRoomAction
   | AddNewActivePieceAction
-  | MovePieceDownAction;
+  | MovePieceDownAction
+  | MovePieceRigthAction
+  | MovePieceLeftAction
+  | RotatePieceRightAction
+  | RotatePieceLeftAction
+  | DropPieceAction;
 
 const pieceLastRowWithFilledCell = (pieceValues: number[][]) => {
   let lastRowWithFilledCell = 0;
@@ -29,7 +39,7 @@ const pieceCanMoveDown = ({
 }: {
   pieceYOffset: number;
   pieceValues: number[][];
-}): boolean => {
+}) => {
   const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);
   if (pieceYOffset + actualPieceLength < params.board.rows - 1) {
     return true;
@@ -37,7 +47,57 @@ const pieceCanMoveDown = ({
   return false;
 };
 
-const joinRoomReducer = (
+const pieceFirstColumnWithFilledCell = (pieceValues: number[][]) => {
+  for (let col = 0; col < pieceValues.length; col++) {
+    for (let row = 0; row < pieceValues[col].length; row++) {
+      if (pieceValues[row][col] !== 0) {
+        return col;
+      }
+    }
+  }
+  return pieceValues.length;
+};
+
+const pieceLastColumnWithFilledCell = (pieceValues: number[][]) => {
+  for (let col = pieceValues.length - 1; col > 0; col--) {
+    for (let row = 0; row < pieceValues[col].length; row++) {
+      if (pieceValues[row][col] !== 0) {
+        return col;
+      }
+    }
+  }
+  return pieceValues.length;
+};
+
+const pieceCanMoveLeft = ({
+  pieceXOffset,
+  pieceValues,
+}: {
+  pieceXOffset: number;
+  pieceValues: number[][];
+}) => {
+  const pieceRightColumn = pieceFirstColumnWithFilledCell(pieceValues);
+  if (pieceXOffset + pieceRightColumn > 0) {
+    return true;
+  }
+  return false;
+};
+
+const pieceCanMoveRight = ({
+  pieceXOffset,
+  pieceValues,
+}: {
+  pieceXOffset: number;
+  pieceValues: number[][];
+}) => {
+  const pieceLeftColumn = pieceLastColumnWithFilledCell(pieceValues);
+  if (pieceXOffset + pieceLeftColumn < params.board.cols - 1) {
+    return true;
+  }
+  return false;
+};
+
+const clientReducer = (
   state: ClientState = {},
   action: ClientAction
 ): ClientState => {
@@ -92,9 +152,47 @@ const joinRoomReducer = (
       }
       return state;
     }
+    case internalEvents.MOVE_RIGHT: {
+      if (
+        state.activePiece &&
+        pieceCanMoveRight({
+          pieceXOffset: state.activePiece.pieceXOffset,
+          pieceValues: state.activePiece.values,
+        })
+      ) {
+        const newState = {
+          ...state,
+          activePiece: {
+            ...state.activePiece,
+            pieceXOffset: state.activePiece.pieceXOffset + 1,
+          },
+        };
+        return newState;
+      }
+      return state;
+    }
+    case internalEvents.MOVE_LEFT: {
+      if (
+        state.activePiece &&
+        pieceCanMoveLeft({
+          pieceXOffset: state.activePiece.pieceXOffset,
+          pieceValues: state.activePiece.values,
+        })
+      ) {
+        const newState = {
+          ...state,
+          activePiece: {
+            ...state.activePiece,
+            pieceXOffset: state.activePiece.pieceXOffset - 1,
+          },
+        };
+        return newState;
+      }
+      return state;
+    }
     default:
       return state;
   }
 };
 
-export default joinRoomReducer;
+export default clientReducer;

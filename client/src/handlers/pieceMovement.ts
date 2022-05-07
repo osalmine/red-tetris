@@ -1,4 +1,8 @@
-import { movePieceDown } from '../actions/client';
+import {
+  movePieceDown,
+  movePieceLeft,
+  movePieceRigth,
+} from '../actions/client';
 import { startGame } from '../actions/server';
 import { RootState, store } from '../store';
 
@@ -38,6 +42,13 @@ document.addEventListener('keydown', (e) => {
       clearInterval(interval);
     }
     interval = startPieceMoveInterval();
+  }
+
+  if (e.code === 'ArrowRight') {
+    store.dispatch(movePieceRigth());
+  }
+  if (e.code === 'ArrowLeft') {
+    store.dispatch(movePieceLeft());
   }
 });
 
