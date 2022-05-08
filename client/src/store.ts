@@ -3,23 +3,13 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-// import { storeStateMiddleWare } from './middleware/storeStateMiddleWare'
-import {
-  alertReducer,
-  clientReducer,
-  pingReducer,
-  pongReducer,
-  updateStateReducer,
-} from './reducers';
+import { clientReducer, updateStateReducer } from './reducers';
 import { socketMiddleWare } from './middleware/socketMiddleWare';
 import socket from './socket/socket';
 
 const initialState = {};
 
 const reducer = combineReducers({
-  alert: alertReducer,
-  ping: pingReducer,
-  pong: pongReducer,
   state: updateStateReducer,
   client: clientReducer,
 });
@@ -35,8 +25,6 @@ export const store = createStore(
       createLogger({
         level: 'info',
       }),
-
-      // storeStateMiddleWare,
       socketMiddleWare(socket)
     )
   )

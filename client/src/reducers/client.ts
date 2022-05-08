@@ -7,6 +7,7 @@ import {
   MovePieceRigthAction,
   RotatePieceLeftAction,
   RotatePieceRightAction,
+  StartGameAction,
 } from '../actions/types';
 import { ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
@@ -15,6 +16,7 @@ import params from '../params';
 
 type ClientAction =
   | JoinRoomAction
+  | StartGameAction
   | AddNewActivePieceAction
   | MovePieceDownAction
   | MovePieceRigthAction

@@ -5,18 +5,6 @@ type BaseAction<T> = {
   type: T;
 };
 
-type AlertAction = BaseAction<'ALERT_POP'> & {
-  message: string;
-};
-
-type PingAction = {
-  type: string;
-};
-
-type PongAction = BaseAction<'server/pong'> & {
-  message: string;
-};
-
 type JoinRoomAction = BaseAction<'joinRoom'> & {
   roomName: string;
   playerName: string;
@@ -45,9 +33,6 @@ type RotatePieceLeftAction = BaseAction<typeof internalEvents.ROTATE_LEFT>;
 type DropPieceAction = BaseAction<typeof internalEvents.DROP_PIECE>;
 
 type AllActions =
-  | AlertAction
-  | PingAction
-  | PongAction
   | JoinRoomAction
   | UpdateAction
   | StartGameAction
@@ -61,9 +46,6 @@ type AllActions =
 
 export type {
   AllActions,
-  AlertAction,
-  PingAction,
-  PongAction,
   JoinRoomAction,
   UpdateAction,
   StartGameAction,

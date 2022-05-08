@@ -1,17 +1,3 @@
-type AlertState =
-  | {
-      message: string;
-    }
-  | Record<string, never>;
-
-type PongState = {
-  message: string;
-};
-
-type PingState = {
-  count: number;
-};
-
 type ActivePiece = {
   values: number[][];
   pieceXOffset: number;
@@ -27,4 +13,4 @@ type ClientState =
     }
   | Record<string, never>;
 
-export type { AlertState, PongState, PingState, ClientState, ActivePiece };
+export type { ClientState, ActivePiece };
