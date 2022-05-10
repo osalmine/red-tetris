@@ -19,3 +19,5 @@ npm start
 in `client` folder to start.
 
 Go to `http://localhost:3000/` and follow the instructions in the header to join a room.
+
+Example: `http://localhost:3000/#42[onni]`
