@@ -3,7 +3,11 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { clientReducer, updateStateReducer } from './reducers';
+import {
+  clientReducer,
+  pieceMovementReducer,
+  updateStateReducer,
+} from './reducers';
 import { socketMiddleWare } from './middleware/socketMiddleWare';
 import socket from './socket/socket';
 
@@ -12,6 +16,7 @@ const initialState = {};
 const reducer = combineReducers({
   state: updateStateReducer,
   client: clientReducer,
+  piece: pieceMovementReducer,
 });
 
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });

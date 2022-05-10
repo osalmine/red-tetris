@@ -26,7 +26,7 @@ export const Tetris = () => {
       (player) => player.name === state.client.playerName
     )
   );
-  const activePiece = useAppSelector((state) => state.client.activePiece);
+  const activePiece = useAppSelector((state) => state.piece.activePiece);
   const pieceIndex = useAppSelector((state) => state.client.pieceIndex);
 
   useEffect(() => {
