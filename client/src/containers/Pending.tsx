@@ -38,7 +38,7 @@ const Pending = () => {
 
   const players = useAppSelector((state) => state.state.players);
   const { playerName: clientName, roomName } = useAppSelector(
-    (state) => state.client
+    (state) => state.player
   );
   const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean>(false);
 

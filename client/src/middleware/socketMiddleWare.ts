@@ -5,8 +5,9 @@ import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { updateState } from '../actions/server';
 import { AllActions, JoinRoomAction, StartGameAction } from '../actions/types';
-import { Errors, UpdateState } from '../types';
+import { UpdateState } from '../reducers/types';
 import handleError from '../handlers/errorHandler';
+import { Errors } from '../types';
 
 export const socketMiddleWare =
   (socket: SocketIOClient.Socket) =>
@@ -24,14 +25,12 @@ export const socketMiddleWare =
         case outgoingEvents.JOIN: {
           const { roomName, playerName } = action as JoinRoomAction;
 
-          // console.log(`roomName: ${roomName}, playername: ${playerName}`);
           joinRoom({ roomName, playerName });
           return next(action);
         }
         case outgoingEvents.START: {
           const { roomName, initiator } = action as StartGameAction;
 
-          // console.log(`roomName: ${roomName}, initiator: ${initiator}`);
           startGame({ roomName, initiator });
           return next(action);
         }

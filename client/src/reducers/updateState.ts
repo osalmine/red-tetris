@@ -1,5 +1,5 @@
 import { UpdateAction } from '../actions/types';
-import { UpdateState } from '../types';
+import { UpdateState } from './types';
 import * as incomingEvents from '../constants/incomingEvents';
 
 const defaultState: UpdateState = {

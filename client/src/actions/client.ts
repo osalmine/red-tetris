@@ -1,6 +1,7 @@
 import pieces, { PieceName } from '../constants/pieces';
 import {
   AddNewActivePieceAction,
+  AddPieceIndexAction,
   DropPieceAction,
   MovePieceDownAction,
   MovePieceLeftAction,
@@ -47,6 +48,10 @@ const dropPiece = (): DropPieceAction => ({
   type: internalEvents.DROP_PIECE,
 });
 
+const addPieceIndex = (): AddPieceIndexAction => ({
+  type: internalEvents.ADD_PIECE_INDEX,
+});
+
 export {
   addNewActivePiece,
   movePieceDown,
@@ -55,4 +60,5 @@ export {
   rotatePieceRight,
   rotatePieceLeft,
   dropPiece,
+  addPieceIndex,
 };

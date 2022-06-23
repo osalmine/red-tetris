@@ -7,6 +7,8 @@ const ROTATE_RIGHT = 'pieceRotateRight';
 const ROTATE_LEFT = 'pieceRotateLeft';
 const DROP_PIECE = 'pieceDrop';
 
+const ADD_PIECE_INDEX = 'addPieceIndex';
+
 export {
   ACTIVE_PIECE,
   MOVE_DOWN,
@@ -15,4 +17,5 @@ export {
   ROTATE_RIGHT,
   ROTATE_LEFT,
   DROP_PIECE,
+  ADD_PIECE_INDEX,
 };

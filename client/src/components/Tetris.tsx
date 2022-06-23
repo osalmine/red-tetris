@@ -4,7 +4,7 @@ import NextPieces from './NextPieces';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
-import { addNewActivePiece } from '../actions/client';
+import { addNewActivePiece, addPieceIndex } from '../actions/client';
 
 const Root = styled.div`
   display: flex;
@@ -23,14 +23,15 @@ export const Tetris = () => {
   const dispatch = useAppDispatch();
   const player = useAppSelector((state) =>
     state.state.players.find(
-      (player) => player.name === state.client.playerName
+      (player) => player.name === state.player.playerName
     )
   );
   const activePiece = useAppSelector((state) => state.piece.activePiece);
-  const pieceIndex = useAppSelector((state) => state.client.pieceIndex);
+  const pieceIndex = useAppSelector((state) => state.player.pieceIndex);
 
   useEffect(() => {
     if (player && !activePiece) {
+      dispatch(addPieceIndex());
       dispatch(addNewActivePiece(player.pieces[pieceIndex ? pieceIndex : 0]));
     }
   }, [player, dispatch, activePiece, pieceIndex]);

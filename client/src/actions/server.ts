@@ -1,6 +1,6 @@
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { UpdateState } from '../types';
+import { UpdateState } from '../reducers/types';
 import { JoinRoomAction, StartGameAction, UpdateAction } from './types';
 
 export const joinRoom = ({

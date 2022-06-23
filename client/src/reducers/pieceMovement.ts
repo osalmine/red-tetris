@@ -7,7 +7,7 @@ import {
   RotatePieceRightAction,
   AddNewActivePieceAction,
 } from '../actions/types';
-import { ClientState } from './types';
+import { PieceState } from './types';
 import * as internalEvents from '../constants/internalEvents';
 import params from '../params';
 
@@ -94,11 +94,23 @@ const pieceCanMoveRight = ({
   return false;
 };
 
+const rotatePieceRight = (values: number[][]) => {
+  const rotatedPiece = values;
+  console.log('values', values);
+  for (let col = 0; col < values.length; col++) {
+    for (let row = 0; row < values[col].length; row++) {
+      rotatedPiece[col][row] = values[row][col];
+    }
+  }
+  console.log('rotatedPiece values', rotatedPiece);
+  return rotatedPiece;
+};
+
 const pieceMovementReducer = (
-  state: ClientState = {},
+  state: PieceState = {},
   action: PieceMovementAction
-): ClientState => {
-  // const activePiece = store.getState().client.activePiece;
+): PieceState => {
+  console.log('STATE', state);
   switch (action.type) {
     case internalEvents.ACTIVE_PIECE: {
       const newState = {
@@ -128,14 +140,10 @@ const pieceMovementReducer = (
           };
           return newState;
         }
-        console.log(
-          `pieceIndex: ${state.pieceIndex ? state.pieceIndex + 1 : 0}`
-        );
-        console.log(`state.pieceIndex: ${state.pieceIndex}`);
+
         const newState = {
           ...state,
           activePiece: null,
-          pieceIndex: (state.pieceIndex as number) + 1,
         };
         return newState;
       }
@@ -177,6 +185,25 @@ const pieceMovementReducer = (
         };
         return newState;
       }
+      return state;
+    }
+    case internalEvents.ROTATE_RIGHT: {
+      console.log('state.activePiece values', state.activePiece?.values);
+      const currentActivePiece = Object.assign({}, state.activePiece);
+      if (state.activePiece) {
+        rotatePieceRight(currentActivePiece.values);
+      }
+
+      // if (state.activePiece) {
+      //   const newState = {
+      //     ...state,
+      //     activePiece: {
+      //       ...state.activePiece,
+      //       values: rotatePieceRight(state.activePiece.values),
+      //     },
+      //   };
+      //   return newState;
+      // }
       return state;
     }
     default:

@@ -2,11 +2,12 @@ import {
   movePieceDown,
   movePieceLeft,
   movePieceRigth,
+  rotatePieceRight,
 } from '../actions/client';
 import { startGame } from '../actions/server';
 import { RootState, store } from '../store';
 
-const pieceMoveInterval = 2000;
+const pieceMoveInterval = 5000;
 
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timer | null;
@@ -15,7 +16,7 @@ const playerIsAdmin = (state: RootState) => {
   const adminPlayerName = state.state.players.find(
     (player) => player.isAdmin === true
   )?.name;
-  return state.client.playerName === adminPlayerName;
+  return state.player.playerName === adminPlayerName;
 };
 
 const startPieceMoveInterval = () =>
@@ -30,7 +31,7 @@ document.addEventListener('keydown', (e) => {
     state.state.gameState === 'pending' &&
     playerIsAdmin(state)
   ) {
-    const { playerName, roomName } = state.client;
+    const { playerName, roomName } = state.player;
     if (playerName && roomName) {
       store.dispatch(startGame({ playerName, roomName }));
     }
@@ -49,6 +50,19 @@ document.addEventListener('keydown', (e) => {
   }
   if (e.code === 'ArrowLeft') {
     store.dispatch(movePieceLeft());
+  }
+  if (e.code === 'ArrowUp') {
+    store.dispatch(rotatePieceRight());
+  }
+  if (e.code === 'KeyS') {
+    console.log('Pause');
+    if (interval) {
+      clearInterval(interval);
+    }
+  }
+  if (e.code === 'KeyR') {
+    console.log('Resume');
+    interval = startPieceMoveInterval();
   }
 });
 
