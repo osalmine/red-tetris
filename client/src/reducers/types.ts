@@ -22,6 +22,7 @@ export type ActivePiece = {
   values: number[][];
   pieceXOffset: number;
   pieceYOffset: number;
+  pieceType: PieceName;
 };
 
 export type PieceState = {

@@ -17,8 +17,6 @@ const reducer = combineReducers({
   state: updateStateReducer,
   player: clientReducer,
   piece: pieceMovementReducer,
-
-  // piece: pieceMovementReducer,
 });
 
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });

@@ -6,10 +6,11 @@ import {
   RotatePieceLeftAction,
   RotatePieceRightAction,
   AddNewActivePieceAction,
-} from '../actions/types';
-import { PieceState } from './types';
-import * as internalEvents from '../constants/internalEvents';
-import params from '../params';
+} from '../../actions/types';
+import { PieceState } from '../types';
+import * as internalEvents from '../../constants/internalEvents';
+import params from '../../params';
+import { rotatePieceRight } from './rotatePiece';
 
 type PieceMovementAction =
   | MovePieceDownAction
@@ -94,18 +95,6 @@ const pieceCanMoveRight = ({
   return false;
 };
 
-const rotatePieceRight = (values: number[][]) => {
-  const rotatedPiece = values;
-  console.log('values', values);
-  for (let col = 0; col < values.length; col++) {
-    for (let row = 0; row < values[col].length; row++) {
-      rotatedPiece[col][row] = values[row][col];
-    }
-  }
-  console.log('rotatedPiece values', rotatedPiece);
-  return rotatedPiece;
-};
-
 const pieceMovementReducer = (
   state: PieceState = {},
   action: PieceMovementAction
@@ -116,9 +105,10 @@ const pieceMovementReducer = (
       const newState = {
         ...state,
         activePiece: {
-          values: action.activePiece,
+          values: action.values,
           pieceXOffset: action.pieceXOffset,
           pieceYOffset: action.pieceYOffset,
+          pieceType: action.pieceType,
         },
       };
       return newState;
@@ -189,21 +179,22 @@ const pieceMovementReducer = (
     }
     case internalEvents.ROTATE_RIGHT: {
       console.log('state.activePiece values', state.activePiece?.values);
-      const currentActivePiece = Object.assign({}, state.activePiece);
-      if (state.activePiece) {
-        rotatePieceRight(currentActivePiece.values);
-      }
 
+      // const currentActivePiece = Object.assign({}, state.activePiece);
       // if (state.activePiece) {
-      //   const newState = {
-      //     ...state,
-      //     activePiece: {
-      //       ...state.activePiece,
-      //       values: rotatePieceRight(state.activePiece.values),
-      //     },
-      //   };
-      //   return newState;
+      //   rotatePieceRight(state.activePiece.values);
       // }
+
+      if (state.activePiece) {
+        const newState = {
+          ...state,
+          activePiece: {
+            ...state.activePiece,
+            values: rotatePieceRight(state.activePiece),
+          },
+        };
+        return newState;
+      }
       return state;
     }
     default:
@@ -212,3 +203,63 @@ const pieceMovementReducer = (
 };
 
 export default pieceMovementReducer;
+
+// const rotatedPiece = [
+//   [0, 0, 1, 0],
+//   [0, 0, 2, 0],
+//   [0, 4, 3, 0],
+//   [0, 0, 0, 0],
+// ];
+
+// const rotatedPiece = [
+//   [0, 4, 0, 0],
+//   [0, 3, 2, 1],
+//   [0, 0, 0, 0],
+//   [0, 0, 0, 0],
+// ];
+
+// const rotatedPiece = [
+//   [0, 0, 3, 4],
+//   [0, 0, 2, 0],
+//   [0, 0, 1, 0],
+//   [0, 0, 0, 0],
+// ];
+
+// const rotatedPiece = [
+//   [0, 0, 0, 0],
+//   [0, 1, 2, 3],
+//   [0, 0, 0, 4],
+//   [0, 0, 0, 0],
+// ];
+
+// .
+// .
+// .
+
+// const rotatedPiece = [
+//   [0, 0, 1, 0],
+//   [0, 0, 2, 0],
+//   [0, 0, 3, 0],
+//   [0, 0, 4, 0],
+// ];
+
+// const rotatedPiece = [
+//   [0, 0, 0, 0],
+//   [0, 0, 0, 0],
+//   [4, 3, 2, 1],
+//   [0, 0, 0, 0],
+// ];
+
+// const rotatedPiece = [
+//   [0, 1, 0, 0],
+//   [0, 2, 0, 0],
+//   [0, 3, 0, 0],
+//   [0, 4, 0, 0],
+// ];
+
+// const rotatedPiece = [
+//   [0, 0, 0, 0],
+//   [1, 2, 3, 4],
+//   [0, 0, 0, 0],
+//   [0, 0, 0, 0],
+// ];

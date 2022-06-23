@@ -18,6 +18,7 @@ const NextPiece = ({ pieceCharacter }: Props) => {
       values: pieces[pieceCharacter],
       pieceXOffset: 0,
       pieceYOffset: 0,
+      pieceType: pieceCharacter,
     }),
     [pieceCharacter]
   );

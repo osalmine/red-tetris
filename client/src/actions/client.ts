@@ -18,9 +18,10 @@ const addNewActivePiece = (
   const centerPieceOffset = 3;
   return {
     type: internalEvents.ACTIVE_PIECE,
-    activePiece,
+    values: activePiece,
     pieceXOffset: centerPieceOffset,
     pieceYOffset: nextPieceCharacter === 'O' ? -1 : 0,
+    pieceType: nextPieceCharacter,
   };
 };
 
