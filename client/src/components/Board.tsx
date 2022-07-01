@@ -25,8 +25,8 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
   justify-content: center;
   border: 8px solid ${(props) => props.theme.white};
   box-shadow: 0 0 8px ${(props) => props.theme.white};
-  width: ${(props) =>
-    props.containerWidth ? `${props.containerWidth}vh` : '35vh'};
+  width: ${({ containerWidth }) =>
+    containerWidth ? `${containerWidth}vh` : '35vh'};
   padding: 1rem;
   justify-content: space-between;
   flex-direction: column;

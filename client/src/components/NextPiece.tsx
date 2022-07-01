@@ -12,12 +12,28 @@ const PieceContainer = styled.div`
   display: flex;
 `;
 
+const getPieceOffset = (pieceCharacter: PieceName) => {
+  switch (pieceCharacter) {
+    case 'O':
+    case 'J':
+    case 'S':
+    case 'T':
+    case 'Z':
+      return 1;
+    case 'I':
+    case 'L':
+      return 0;
+    default:
+      return 0;
+  }
+};
+
 const NextPiece = ({ pieceCharacter }: Props) => {
   const renderPiece: ActivePiece = useMemo(
     () => ({
       values: pieces[pieceCharacter],
-      pieceXOffset: 0,
-      pieceYOffset: 0,
+      pieceXOffset: getPieceOffset(pieceCharacter),
+      pieceYOffset: pieceCharacter === 'O' ? 1 : 0,
       pieceType: pieceCharacter,
     }),
     [pieceCharacter]

@@ -11,16 +11,33 @@ import {
 } from './types';
 import * as internalEvents from '../constants/internalEvents';
 
+const pieceInitialOffset = 3;
+
+const getCenterOffset = (pieceCharacter: PieceName) => {
+  switch (pieceCharacter) {
+    case 'O':
+    case 'J':
+    case 'S':
+    case 'T':
+    case 'Z':
+      return pieceInitialOffset + 1;
+    case 'L':
+    case 'I':
+      return pieceInitialOffset;
+    default:
+      return pieceInitialOffset;
+  }
+};
+
 const addNewActivePiece = (
   nextPieceCharacter: PieceName
 ): AddNewActivePieceAction => {
   const activePiece = pieces[nextPieceCharacter];
-  const centerPieceOffset = 3;
   return {
     type: internalEvents.ACTIVE_PIECE,
     values: activePiece,
-    pieceXOffset: centerPieceOffset,
-    pieceYOffset: nextPieceCharacter === 'O' ? -1 : 0,
+    pieceXOffset: getCenterOffset(nextPieceCharacter),
+    pieceYOffset: 0,
     pieceType: nextPieceCharacter,
   };
 };

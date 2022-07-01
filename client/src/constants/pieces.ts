@@ -8,45 +8,47 @@ const I = [
 ];
 
 const J = [
-  [E, E, X, E],
-  [E, E, X, E],
-  [E, X, X, E],
-  [E, E, E, E],
+  [E, X, E],
+  [E, X, E],
+  [X, X, E],
 ];
 
 const L = [
-  [E, X, E, E],
-  [E, X, E, E],
-  [E, X, X, E],
-  [E, E, E, E],
+  [E, X, E],
+  [E, X, E],
+  [E, X, X],
 ];
 
 const O = [
-  [E, E, E, E],
-  [E, X, X, E],
-  [E, X, X, E],
-  [E, E, E, E],
+  [X, X],
+  [X, X],
 ];
 
+/**
+ * @todo Rotate to accurate start
+ */
 const S = [
-  [E, X, E, E],
-  [E, X, X, E],
-  [E, E, X, E],
-  [E, E, E, E],
+  [X, E, E],
+  [X, X, E],
+  [E, X, E],
 ];
 
+/**
+ * @todo Rotate to accurate start
+ */
 const T = [
-  [E, E, X, E],
-  [E, X, X, E],
-  [E, E, X, E],
-  [E, E, E, E],
+  [E, X, E],
+  [X, X, E],
+  [E, X, E],
 ];
 
+/**
+ * @todo Rotate to accurate start
+ */
 const Z = [
-  [E, E, X, E],
-  [E, X, X, E],
-  [E, X, E, E],
-  [E, E, E, E],
+  [E, X, E],
+  [X, X, E],
+  [X, E, E],
 ];
 
 const pieces = { I, J, L, O, S, T, Z };

@@ -26,7 +26,7 @@ const nextPiecesAmount = 3;
 const NextPieces = ({ nextPieces, className, style }: Props) => (
   <Root className={className} style={style}>
     <Heading>Next pieces:</Heading>
-    {nextPieces.slice(1, 1 + nextPiecesAmount).map((piece, i) => (
+    {nextPieces.slice(0, nextPiecesAmount).map((piece, i) => (
       <NextPiece key={i} pieceCharacter={piece} />
     ))}
   </Root>

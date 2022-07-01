@@ -99,7 +99,6 @@ const pieceMovementReducer = (
   state: PieceState = {},
   action: PieceMovementAction
 ): PieceState => {
-  console.log('STATE', state);
   switch (action.type) {
     case internalEvents.ACTIVE_PIECE: {
       const newState = {
@@ -178,7 +177,7 @@ const pieceMovementReducer = (
       return state;
     }
     case internalEvents.ROTATE_RIGHT: {
-      console.log('state.activePiece values', state.activePiece?.values);
+      // console.log('state.activePiece values', state.activePiece?.values);
 
       // const currentActivePiece = Object.assign({}, state.activePiece);
       // if (state.activePiece) {
@@ -205,31 +204,27 @@ const pieceMovementReducer = (
 export default pieceMovementReducer;
 
 // const rotatedPiece = [
-//   [0, 0, 1, 0],
-//   [0, 0, 2, 0],
-//   [0, 4, 3, 0],
-//   [0, 0, 0, 0],
+//   [0, 1, 0],
+//   [0, 2, 0],
+//   [4, 3, 0],
 // ];
 
 // const rotatedPiece = [
-//   [0, 4, 0, 0],
-//   [0, 3, 2, 1],
-//   [0, 0, 0, 0],
-//   [0, 0, 0, 0],
+//   [4, 0, 0],
+//   [3, 2, 1],
+//   [0, 0, 0],
 // ];
 
 // const rotatedPiece = [
-//   [0, 0, 3, 4],
-//   [0, 0, 2, 0],
-//   [0, 0, 1, 0],
-//   [0, 0, 0, 0],
+//   [0, 3, 4],
+//   [0, 2, 0],
+//   [0, 1, 0],
 // ];
 
 // const rotatedPiece = [
-//   [0, 0, 0, 0],
-//   [0, 1, 2, 3],
-//   [0, 0, 0, 4],
-//   [0, 0, 0, 0],
+//   [0, 0, 0],
+//   [1, 2, 3],
+//   [0, 0, 4],
 // ];
 
 // .
