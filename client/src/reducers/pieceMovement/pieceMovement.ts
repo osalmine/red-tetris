@@ -10,7 +10,8 @@ import {
 import { PieceState } from '../types';
 import * as internalEvents from '../../constants/internalEvents';
 import params from '../../params';
-import { rotatePieceRight } from './rotatePiece';
+import { pieceCanRotate, rotatePieceRight } from './rotatePiece';
+import { pieceCanMoveLeft, pieceCanMoveRight } from './utils';
 
 type PieceMovementAction =
   | MovePieceDownAction
@@ -44,57 +45,6 @@ const pieceCanMoveDown = ({
   }
   return false;
 };
-
-const pieceFirstColumnWithFilledCell = (pieceValues: number[][]) => {
-  for (let col = 0; col < pieceValues.length; col++) {
-    for (let row = 0; row < pieceValues[col].length; row++) {
-      if (pieceValues[row][col] !== 0) {
-        return col;
-      }
-    }
-  }
-  return pieceValues.length;
-};
-
-const pieceLastColumnWithFilledCell = (pieceValues: number[][]) => {
-  for (let col = pieceValues.length - 1; col > 0; col--) {
-    for (let row = 0; row < pieceValues[col].length; row++) {
-      if (pieceValues[row][col] !== 0) {
-        return col;
-      }
-    }
-  }
-  return pieceValues.length;
-};
-
-const pieceCanMoveLeft = ({
-  pieceXOffset,
-  pieceValues,
-}: {
-  pieceXOffset: number;
-  pieceValues: number[][];
-}) => {
-  const pieceRightColumn = pieceFirstColumnWithFilledCell(pieceValues);
-  if (pieceXOffset + pieceRightColumn > 0) {
-    return true;
-  }
-  return false;
-};
-
-const pieceCanMoveRight = ({
-  pieceXOffset,
-  pieceValues,
-}: {
-  pieceXOffset: number;
-  pieceValues: number[][];
-}) => {
-  const pieceLeftColumn = pieceLastColumnWithFilledCell(pieceValues);
-  if (pieceXOffset + pieceLeftColumn < params.board.cols - 1) {
-    return true;
-  }
-  return false;
-};
-
 const pieceMovementReducer = (
   state: PieceState = {},
   action: PieceMovementAction
@@ -185,7 +135,12 @@ const pieceMovementReducer = (
             values: rotatePieceRight(state.activePiece),
           },
         };
-        return newState;
+        console.log('OLD STATE', state);
+        console.log('NEW STATE', newState);
+        if (pieceCanRotate(newState.activePiece)) {
+          return newState;
+        }
+        return state;
       }
       return state;
     }
@@ -195,59 +150,3 @@ const pieceMovementReducer = (
 };
 
 export default pieceMovementReducer;
-
-// const rotatedPiece = [
-//   [0, 1, 0],
-//   [0, 2, 0],
-//   [4, 3, 0],
-// ];
-
-// const rotatedPiece = [
-//   [4, 0, 0],
-//   [3, 2, 1],
-//   [0, 0, 0],
-// ];
-
-// const rotatedPiece = [
-//   [0, 3, 4],
-//   [0, 2, 0],
-//   [0, 1, 0],
-// ];
-
-// const rotatedPiece = [
-//   [0, 0, 0],
-//   [1, 2, 3],
-//   [0, 0, 4],
-// ];
-
-// .
-// .
-// .
-
-// const rotatedPiece = [
-//   [0, 0, 1, 0],
-//   [0, 0, 2, 0],
-//   [0, 0, 3, 0],
-//   [0, 0, 4, 0],
-// ];
-
-// const rotatedPiece = [
-//   [0, 0, 0, 0],
-//   [0, 0, 0, 0],
-//   [4, 3, 2, 1],
-//   [0, 0, 0, 0],
-// ];
-
-// const rotatedPiece = [
-//   [0, 1, 0, 0],
-//   [0, 2, 0, 0],
-//   [0, 3, 0, 0],
-//   [0, 4, 0, 0],
-// ];
-
-// const rotatedPiece = [
-//   [0, 0, 0, 0],
-//   [1, 2, 3, 4],
-//   [0, 0, 0, 0],
-//   [0, 0, 0, 0],
-// ];
