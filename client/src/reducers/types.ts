@@ -4,7 +4,7 @@ type Board = {
   field: number[][];
 };
 
-type PlayerObject = {
+export type PlayerObject = {
   name: string;
   roomName: string;
   isAdmin: boolean;

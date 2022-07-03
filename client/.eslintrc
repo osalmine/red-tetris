@@ -175,15 +175,15 @@
     "jsx-quotes": [1, "prefer-single"], //specify whether double or single quotes should be used in JSX attributes
     "key-spacing": [1, { "beforeColon": false, "afterColon": true }], //enforce spacing between keys and values in object literal properties
     "linebreak-style": 0, //disallow mixed 'LF' and 'CRLF' as linebreaks
-    "lines-around-comment": [
-      1,
-      {
-        "beforeLineComment": true,
-        "allowBlockStart": true,
-        "allowObjectStart": true,
-        "allowArrayStart": true
-      }
-    ], //enforce empty lines around comments
+    // "lines-around-comment": [
+    //   1,
+    //   {
+    //     "beforeLineComment": true,
+    //     "allowBlockStart": true,
+    //     "allowObjectStart": true,
+    //     "allowArrayStart": true
+    //   }
+    // ], //enforce empty lines around comments
     "max-nested-callbacks": [0, 3], //specify the maximum depth callbacks can be nested
     "new-cap": [1, { "capIsNewExceptions": ["NaN", "T.Promise"] }], // require a capital letter for constructors
     "new-parens": 1, //disallow the omission of parentheses when invoking a constructor with no arguments

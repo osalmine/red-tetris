@@ -32,10 +32,10 @@ const getCenterOffset = (pieceCharacter: PieceName) => {
 const addNewActivePiece = (
   nextPieceCharacter: PieceName
 ): AddNewActivePieceAction => {
-  const activePiece = pieces[nextPieceCharacter];
+  const nextActivePiece = pieces[nextPieceCharacter];
   return {
     type: internalEvents.ACTIVE_PIECE,
-    values: activePiece,
+    values: nextActivePiece,
     pieceXOffset: getCenterOffset(nextPieceCharacter),
     pieceYOffset: 0,
     pieceType: nextPieceCharacter,

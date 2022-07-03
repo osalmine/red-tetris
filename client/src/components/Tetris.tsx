@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
 import { addNewActivePiece, addPieceIndex } from '../actions/client';
+import { clientUpdateState } from '../actions/server';
+import { PlayerObject } from '../reducers/types';
+import { PieceName } from '../constants/pieces';
 
 const Root = styled.div`
   display: flex;
@@ -19,22 +22,54 @@ const InvinsibleBalancePiece = styled.div`
   height: 0;
 `;
 
+const updateClientPieces = ({
+  player,
+  allPlayers,
+  playerPieces,
+}: {
+  player: PlayerObject;
+  allPlayers: PlayerObject[];
+  playerPieces: PieceName[];
+}) => {
+  const newPlayersList = [...allPlayers];
+  const playerIndex = newPlayersList.findIndex(
+    (playerFromList) => playerFromList.name === player.name
+  );
+  newPlayersList[playerIndex].pieces = [...playerPieces].slice(1);
+  console.log('newPlayersList', newPlayersList);
+  return { players: newPlayersList };
+};
+
 export const Tetris = () => {
   const dispatch = useAppDispatch();
-  const player = useAppSelector((state) =>
-    state.state.players.find(
-      (player) => player.name === state.player.playerName
-    )
+  const player = useAppSelector(
+    ({ state, player: { playerName: clientName } }) =>
+      state.players.find(
+        (playerFromServer) => playerFromServer.name === clientName
+      )
   );
   const activePiece = useAppSelector((state) => state.piece.activePiece);
-  const pieceIndex = useAppSelector((state) => state.player.pieceIndex);
+  const allPlayers = useAppSelector((state) => state.state.players);
+
+  // const pieceIndex = useAppSelector((state) => state.player.pieceIndex);
 
   useEffect(() => {
     if (player && !activePiece) {
-      dispatch(addPieceIndex());
-      dispatch(addNewActivePiece(player.pieces[pieceIndex ? pieceIndex : 0]));
+      // dispatch(addPieceIndex());
+      dispatch(addNewActivePiece(player.pieces[0]));
+      dispatch(
+        clientUpdateState(
+          updateClientPieces({
+            player,
+            allPlayers,
+            playerPieces: player.pieces,
+          })
+        )
+      );
+
+      // dispatch(addNewActivePiece(player.pieces[pieceIndex ? pieceIndex : 0]));
     }
-  }, [player, dispatch, activePiece, pieceIndex]);
+  }, [player, dispatch, activePiece, allPlayers]);
 
   return (
     <Root>
@@ -51,7 +86,8 @@ export const Tetris = () => {
             />
           )}
           <NextPieces
-            nextPieces={player.pieces.slice(pieceIndex)}
+            // nextPieces={player.pieces.slice(pieceIndex)}
+            nextPieces={player.pieces}
             style={{ maxHeight: '100vh' }}
           />
         </>

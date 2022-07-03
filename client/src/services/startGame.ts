@@ -8,7 +8,6 @@ const startGame = ({
   roomName: string;
   initiator: string;
 }) => {
-  console.log('Start game');
   socket.emit(START, { roomName, initiator });
 };
 

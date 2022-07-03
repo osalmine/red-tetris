@@ -8,7 +8,6 @@ const joinRoom = ({
   roomName: string;
   playerName: string;
 }) => {
-  console.log('join room');
   socket.emit(JOIN, { roomName, playerName });
 };
 

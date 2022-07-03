@@ -46,6 +46,7 @@ type ClientToServerEvents = {
     roomName: string;
     initiator: string;
   }) => void;
+  clientUpdateState: (gameState: GameState) => void;
 };
 
 export type { ServerToClientEvents, ClientToServerEvents };

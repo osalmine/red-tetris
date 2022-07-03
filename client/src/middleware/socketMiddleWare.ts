@@ -3,8 +3,8 @@ import { Dispatch } from 'redux';
 import { joinRoom, startGame } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { updateState } from '../actions/server';
-import { AllActions, JoinRoomAction, StartGameAction } from '../actions/types';
+import { serverUpdateState } from '../actions/server';
+import { AllActions } from '../actions/types';
 import { GameState } from '../reducers/types';
 import handleError from '../handlers/errorHandler';
 import { Errors } from '../types';
@@ -13,7 +13,7 @@ export const socketMiddleWare =
   (socket: SocketIOClient.Socket) =>
   ({ dispatch }: { dispatch: Dispatch }) => {
     socket.on(incomingEvents.UPDATE, (data: GameState) => {
-      dispatch(updateState(data));
+      dispatch(serverUpdateState(data));
     });
 
     socket.on(incomingEvents.ERROR, (error: Errors) => {
@@ -23,15 +23,20 @@ export const socketMiddleWare =
     return (next: Dispatch<AllActions>) => (action: AllActions) => {
       switch (action.type) {
         case outgoingEvents.JOIN: {
-          const { roomName, playerName } = action as JoinRoomAction;
+          const { roomName, playerName } = action;
 
           joinRoom({ roomName, playerName });
           return next(action);
         }
         case outgoingEvents.START: {
-          const { roomName, initiator } = action as StartGameAction;
+          const { roomName, initiator } = action;
 
           startGame({ roomName, initiator });
+          return next(action);
+        }
+        case outgoingEvents.UPDATE: {
+          console.log('UPDATE ACTION', action);
+
           return next(action);
         }
 

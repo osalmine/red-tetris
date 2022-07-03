@@ -1,5 +1,6 @@
 import {
   AddPieceIndexAction,
+  ClientUpdateAction,
   JoinRoomAction,
   StartGameAction,
 } from '../actions/types';
@@ -7,7 +8,11 @@ import { ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import * as internalEvents from '../constants/internalEvents';
 
-type ClientAction = JoinRoomAction | StartGameAction | AddPieceIndexAction;
+type ClientAction =
+  | JoinRoomAction
+  | StartGameAction
+  | AddPieceIndexAction
+  | ClientUpdateAction;
 
 const clientReducer = (
   state: ClientState = {},

@@ -10,7 +10,11 @@ type JoinRoomAction = BaseAction<'joinRoom'> & {
   playerName: string;
 };
 
-type UpdateAction = BaseAction<'serverUpdateState'> & {
+type ServerUpdateAction = BaseAction<'serverUpdateState'> & {
+  state: GameState;
+};
+
+type ClientUpdateAction = BaseAction<'clientUpdateState'> & {
   state: GameState;
 };
 
@@ -33,7 +37,8 @@ type AddPieceIndexAction = BaseAction<typeof internalEvents.ADD_PIECE_INDEX>;
 
 type AllActions =
   | JoinRoomAction
-  | UpdateAction
+  | ServerUpdateAction
+  | ClientUpdateAction
   | StartGameAction
   | AddNewActivePieceAction
   | MovePieceDownAction
@@ -47,7 +52,8 @@ type AllActions =
 export type {
   AllActions,
   JoinRoomAction,
-  UpdateAction,
+  ServerUpdateAction,
+  ClientUpdateAction,
   StartGameAction,
   AddNewActivePieceAction,
   MovePieceDownAction,
