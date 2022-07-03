@@ -177,13 +177,6 @@ const pieceMovementReducer = (
       return state;
     }
     case internalEvents.ROTATE_RIGHT: {
-      // console.log('state.activePiece values', state.activePiece?.values);
-
-      // const currentActivePiece = Object.assign({}, state.activePiece);
-      // if (state.activePiece) {
-      //   rotatePieceRight(state.activePiece.values);
-      // }
-
       if (state.activePiece) {
         const newState = {
           ...state,
