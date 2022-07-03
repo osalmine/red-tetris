@@ -35,7 +35,7 @@ export default class Controller {
 
   gameAlreadyStarted(roomName: string) {
     if (this.gameExists(roomName)) {
-      return this.getGame(roomName).gameState === 'playing';
+      return this.getGame(roomName).roomState === 'playing';
     }
     return false;
   }

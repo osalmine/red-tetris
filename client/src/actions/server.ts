@@ -1,6 +1,6 @@
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { UpdateState } from '../reducers/types';
+import { GameState } from '../reducers/types';
 import { JoinRoomAction, StartGameAction, UpdateAction } from './types';
 
 export const joinRoom = ({
@@ -15,7 +15,7 @@ export const joinRoom = ({
   playerName,
 });
 
-export const updateState = (state: UpdateState): UpdateAction => ({
+export const updateState = (state: GameState): UpdateAction => ({
   type: incomingEvents.UPDATE,
   state,
 });

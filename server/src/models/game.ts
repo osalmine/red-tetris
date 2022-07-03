@@ -13,13 +13,13 @@ const logerror = debug('tetris:error'),
 export default class Game implements GameType {
   roomName: string;
   players: Player[];
-  gameState: 'pending' | 'playing' | 'finished';
+  roomState: 'pending' | 'playing' | 'finished';
   pieceHandler: Piece;
 
   constructor(roomName: string) {
     this.roomName = roomName;
     this.players = [];
-    this.gameState = 'pending';
+    this.roomState = 'pending';
     this.pieceHandler = new Piece();
   }
 
@@ -49,11 +49,11 @@ export default class Game implements GameType {
     }
   }
 
-  setGameState(state: typeof this.gameState) {
-    this.gameState = state;
+  setGameState(state: typeof this.roomState) {
+    this.roomState = state;
   }
 
-  setAllPlayersState(state: typeof this.gameState) {
+  setAllPlayersState(state: typeof this.roomState) {
     this.players.forEach((player) => player.setState(state));
   }
 
@@ -94,7 +94,7 @@ export default class Game implements GameType {
 
   get state() {
     return {
-      gameState: this.gameState,
+      roomState: this.roomState,
       players: Game.transformPlayers(this.players),
     };
   }

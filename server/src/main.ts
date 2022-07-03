@@ -3,4 +3,4 @@ import * as server from './index';
 
 server
   .create(params.server)
-  .then(() => console.log('not yet ready to play tetris with U ...'));
+  .then(() => console.log('starting to be ready to play tetris with U ...'));

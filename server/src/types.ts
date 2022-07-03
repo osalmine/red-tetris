@@ -4,7 +4,7 @@ import {
   GameAlreadyStartedError,
 } from './models/error';
 
-type BoardObject = {
+type Board = {
   field: number[][];
 };
 
@@ -14,17 +14,16 @@ type PlayerObject = {
   isAdmin: boolean;
   state: 'pending' | 'playing' | 'finished';
   pieces: PieceName[];
-  board: BoardObject;
+  board: Board;
 };
 
-type UpdateState = {
-  gameState: 'pending' | 'playing' | 'finished';
+type GameState = {
+  roomState: 'pending' | 'playing' | 'finished';
   players: PlayerObject[];
 };
 
 type ServerToClientEvents = {
-  'server/pong': (arg: { message: string }) => void;
-  serverUpdateState: ({ gameState, players }: UpdateState) => void;
+  serverUpdateState: ({ roomState, players }: GameState) => void;
   serverError: ({
     error,
   }: {
@@ -32,14 +31,7 @@ type ServerToClientEvents = {
   }) => void;
 };
 
-type BaseAction<T> = {
-  type: T;
-};
-
-type PingAction = BaseAction<'server/ping'>;
-
 type ClientToServerEvents = {
-  action: (action: PingAction) => void;
   joinRoom: ({
     roomName,
     playerName,

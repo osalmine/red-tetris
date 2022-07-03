@@ -1,16 +1,16 @@
 import { UpdateAction } from '../actions/types';
-import { UpdateState } from './types';
+import { GameState } from './types';
 import * as incomingEvents from '../constants/incomingEvents';
 
-const defaultState: UpdateState = {
-  gameState: 'pending',
+const defaultState: GameState = {
+  roomState: 'pending',
   players: [],
 };
 
 const updateStateReducer = (
-  state: UpdateState = defaultState,
+  state: GameState = defaultState,
   action: UpdateAction
-): UpdateState => {
+): GameState => {
   switch (action.type) {
     case incomingEvents.UPDATE:
       const newState = { ...state, ...action.state };

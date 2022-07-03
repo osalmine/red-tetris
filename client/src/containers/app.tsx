@@ -8,7 +8,7 @@ import Game from './Game';
 const Root = styled.div``;
 
 const App = () => {
-  const gameState = useAppSelector((state) => state.state.gameState);
+  const gameState = useAppSelector((state) => state.state.roomState);
 
   return (
     <Root>

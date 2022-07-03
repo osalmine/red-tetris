@@ -5,14 +5,14 @@ import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { updateState } from '../actions/server';
 import { AllActions, JoinRoomAction, StartGameAction } from '../actions/types';
-import { UpdateState } from '../reducers/types';
+import { GameState } from '../reducers/types';
 import handleError from '../handlers/errorHandler';
 import { Errors } from '../types';
 
 export const socketMiddleWare =
   (socket: SocketIOClient.Socket) =>
   ({ dispatch }: { dispatch: Dispatch }) => {
-    socket.on(incomingEvents.UPDATE, (data: UpdateState) => {
+    socket.on(incomingEvents.UPDATE, (data: GameState) => {
       dispatch(updateState(data));
     });
 

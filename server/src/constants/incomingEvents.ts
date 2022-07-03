@@ -2,4 +2,6 @@ const JOIN = 'joinRoom';
 
 const START = 'startGame';
 
-export { JOIN, START };
+const UPDATE = 'clientUpdateState';
+
+export { JOIN, START, UPDATE };

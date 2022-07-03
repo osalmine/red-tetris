@@ -26,14 +26,6 @@ const initEngine = (
     (socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>) => {
       loginfo(`Socket connected: ${socket.id}`);
 
-      socket.on('action', (action) => {
-        loginfo(`Socket action: ${action.type}`);
-        if (action.type === 'server/ping') {
-          loginfo('Emit ping');
-          socket.emit('server/pong', { message: 'pong' });
-        }
-      });
-
       socket.once(incomingEvents.JOIN, ({ roomName, playerName }) => {
         try {
           if (controller.gameAlreadyStarted(roomName)) {
@@ -84,6 +76,8 @@ const initEngine = (
           logerror(`Can't start the game: ${initiator} is not admin`);
         }
       });
+
+      // socket.on(incomingEvents.UPDATE, )
 
       socket.on('disconnect', () => {
         loginfo(`Socket disconnected: ${socket.id}`);

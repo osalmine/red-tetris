@@ -28,7 +28,7 @@ document.addEventListener('keydown', (e) => {
   const state = store.getState();
   if (
     e.code === 'Enter' &&
-    state.state.gameState === 'pending' &&
+    state.state.roomState === 'pending' &&
     playerIsAdmin(state)
   ) {
     const { playerName, roomName } = state.player;
@@ -69,7 +69,7 @@ document.addEventListener('keydown', (e) => {
 const pieceMoveDownHandler = () => {
   const state = store.getState();
 
-  if (state.state.gameState === 'playing' && !interval) {
+  if (state.state.roomState === 'playing' && !interval) {
     interval = startPieceMoveInterval();
   }
 };

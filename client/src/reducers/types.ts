@@ -1,6 +1,6 @@
 import { PieceName } from '../constants/pieces';
 
-type BoardObject = {
+type Board = {
   field: number[][];
 };
 
@@ -10,11 +10,11 @@ type PlayerObject = {
   isAdmin: boolean;
   state: 'pending' | 'playing' | 'finished';
   pieces: PieceName[];
-  board: BoardObject;
+  board: Board;
 };
 
-export type UpdateState = {
-  gameState: 'pending' | 'playing' | 'finished';
+export type GameState = {
+  roomState: 'pending' | 'playing' | 'finished';
   players: PlayerObject[];
 };
 

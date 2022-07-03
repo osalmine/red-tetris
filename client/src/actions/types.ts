@@ -1,5 +1,5 @@
 import * as internalEvents from '../constants/internalEvents';
-import { ActivePiece, UpdateState } from '../reducers/types';
+import { ActivePiece, GameState } from '../reducers/types';
 
 type BaseAction<T> = {
   type: T;
@@ -11,7 +11,7 @@ type JoinRoomAction = BaseAction<'joinRoom'> & {
 };
 
 type UpdateAction = BaseAction<'serverUpdateState'> & {
-  state: UpdateState;
+  state: GameState;
 };
 
 type StartGameAction = BaseAction<'startGame'> & {
