@@ -33,8 +33,18 @@ class GameAlreadyStartedError extends DomainError {
   }
 }
 
+class GameNotFoundError extends DomainError {
+  data: { roomName: string };
+
+  constructor(roomName: string) {
+    super(`Game ${roomName} not found`);
+    this.data = { roomName };
+  }
+}
+
 export {
   PlayerNotFoundError,
   PlayerAlreadyExistsError,
   GameAlreadyStartedError,
+  GameNotFoundError,
 };

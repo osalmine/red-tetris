@@ -4,7 +4,7 @@ type Board = {
   field: number[][];
 };
 
-export type PlayerObject = {
+export type Player = {
   name: string;
   roomName: string;
   isAdmin: boolean;
@@ -15,7 +15,7 @@ export type PlayerObject = {
 
 export type GameState = {
   roomState: 'pending' | 'playing' | 'finished';
-  players: PlayerObject[];
+  players: Player[];
 };
 
 export type ActivePiece = {
@@ -32,5 +32,4 @@ export type PieceState = {
 export type ClientState = {
   playerName?: string;
   roomName?: string;
-  pieceIndex?: number;
 };

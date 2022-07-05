@@ -1,9 +1,15 @@
 import socket from '../socket/socket';
 import { UPDATE } from '../constants/outgoingEvents';
-import { GameState } from '../reducers/types';
+import { Player } from '../reducers/types';
 
-const startGame = (gameState: GameState) => {
-  socket.emit(UPDATE, gameState);
+const updateState = ({
+  playerState,
+  roomName,
+}: {
+  playerState: Player;
+  roomName: string;
+}) => {
+  socket.emit(UPDATE, { playerState, roomName });
 };
 
-export default startGame;
+export default updateState;

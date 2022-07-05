@@ -31,6 +31,14 @@ export default class Player {
     this.isAdmin = true;
   }
 
+  updateBoard(board: typeof this.board) {
+    this.board = board;
+  }
+
+  updatePieces(pieces: typeof this.pieces) {
+    this.pieces = pieces;
+  }
+
   addPieces(pieces: PieceName[]) {
     loginfo(`PLAYER METHOD addPieces ${pieces}`);
     loginfo(`PLAYER METHOD this.pieces ${this.pieces}`);

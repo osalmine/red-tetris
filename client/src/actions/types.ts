@@ -1,5 +1,5 @@
 import * as internalEvents from '../constants/internalEvents';
-import { ActivePiece, GameState } from '../reducers/types';
+import { ActivePiece, GameState, Player } from '../reducers/types';
 
 type BaseAction<T> = {
   type: T;
@@ -15,7 +15,8 @@ type ServerUpdateAction = BaseAction<'serverUpdateState'> & {
 };
 
 type ClientUpdateAction = BaseAction<'clientUpdateState'> & {
-  state: GameState;
+  roomName: string;
+  playerState: Player;
 };
 
 type StartGameAction = BaseAction<'startGame'> & {
@@ -33,8 +34,6 @@ type RotatePieceRightAction = BaseAction<typeof internalEvents.ROTATE_RIGHT>;
 type RotatePieceLeftAction = BaseAction<typeof internalEvents.ROTATE_LEFT>;
 type DropPieceAction = BaseAction<typeof internalEvents.DROP_PIECE>;
 
-type AddPieceIndexAction = BaseAction<typeof internalEvents.ADD_PIECE_INDEX>;
-
 type AllActions =
   | JoinRoomAction
   | ServerUpdateAction
@@ -46,8 +45,7 @@ type AllActions =
   | MovePieceLeftAction
   | RotatePieceRightAction
   | RotatePieceLeftAction
-  | DropPieceAction
-  | AddPieceIndexAction;
+  | DropPieceAction;
 
 export type {
   AllActions,
@@ -62,5 +60,4 @@ export type {
   RotatePieceRightAction,
   RotatePieceLeftAction,
   DropPieceAction,
-  AddPieceIndexAction,
 };

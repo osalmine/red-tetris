@@ -1,5 +1,6 @@
 import debug from 'debug';
 import { PieceName } from '../constants/pieces';
+import { PlayerT } from '../types';
 import Piece from './piece';
 import Player from './player';
 
@@ -64,6 +65,14 @@ export default class Game implements GameType {
 
   addPiecesToPlayers(pieces: PieceName[]) {
     this.players.forEach((player) => player.addPieces(pieces));
+  }
+
+  updatePlayerState(playerState: PlayerT) {
+    const player = this.getPlayer(playerState.name);
+
+    player.setState(playerState.state);
+    player.updateBoard(playerState.board);
+    player.updatePieces(playerState.pieces);
   }
 
   get hasAdmin() {

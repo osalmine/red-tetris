@@ -1,4 +1,4 @@
-type PlayerAlreadyExistsError = {
+export type PlayerAlreadyExistsError = {
   error: {
     name: 'PlayerAlreadyExistsError';
     data: {
@@ -7,7 +7,7 @@ type PlayerAlreadyExistsError = {
   };
 };
 
-type GameAlreadyStartedError = {
+export type GameAlreadyStartedError = {
   error: {
     name: 'GameAlreadyStartedError';
     data: {
@@ -16,6 +16,16 @@ type GameAlreadyStartedError = {
   };
 };
 
-type Errors = PlayerAlreadyExistsError | GameAlreadyStartedError;
+export type GameNotFoundError = {
+  error: {
+    name: 'GameNotFoundError';
+    data: {
+      roomName: string;
+    };
+  };
+};
 
-export type { Errors, PlayerAlreadyExistsError, GameAlreadyStartedError };
+export type Errors =
+  | PlayerAlreadyExistsError
+  | GameAlreadyStartedError
+  | GameNotFoundError;

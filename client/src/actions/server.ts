@@ -1,6 +1,6 @@
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { GameState } from '../reducers/types';
+import { GameState, Player } from '../reducers/types';
 import { store } from '../store';
 import {
   JoinRoomAction,
@@ -26,17 +26,15 @@ export const serverUpdateState = (state: GameState): ServerUpdateAction => ({
   state,
 });
 
-export const clientUpdateState = (
-  state: Partial<GameState>
-): ClientUpdateAction => {
-  const { state: currentState } = store.getState();
-  const action = {
+export const clientUpdateState = (player: Player): ClientUpdateAction => {
+  const {
+    player: { roomName },
+  } = store.getState();
+  const action: ClientUpdateAction = {
     // type: outgoingEvents.UPDATE,
     type: 'clientUpdateState' as const,
-    state: {
-      ...currentState,
-      ...state,
-    },
+    playerState: player,
+    roomName: roomName || '',
   };
   console.log('ACTION', action);
   return action;

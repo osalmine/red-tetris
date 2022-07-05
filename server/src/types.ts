@@ -8,7 +8,7 @@ type Board = {
   field: number[][];
 };
 
-type PlayerObject = {
+export type PlayerT = {
   name: string;
   roomName: string;
   isAdmin: boolean;
@@ -19,10 +19,10 @@ type PlayerObject = {
 
 type GameState = {
   roomState: 'pending' | 'playing' | 'finished';
-  players: PlayerObject[];
+  players: PlayerT[];
 };
 
-type ServerToClientEvents = {
+export type ServerToClientEvents = {
   serverUpdateState: ({ roomState, players }: GameState) => void;
   serverError: ({
     error,
@@ -31,7 +31,7 @@ type ServerToClientEvents = {
   }) => void;
 };
 
-type ClientToServerEvents = {
+export type ClientToServerEvents = {
   joinRoom: ({
     roomName,
     playerName,
@@ -46,7 +46,11 @@ type ClientToServerEvents = {
     roomName: string;
     initiator: string;
   }) => void;
-  clientUpdateState: (gameState: GameState) => void;
+  clientUpdateState: ({
+    roomName,
+    playerState,
+  }: {
+    roomName: string;
+    playerState: PlayerT;
+  }) => void;
 };
-
-export type { ServerToClientEvents, ClientToServerEvents };

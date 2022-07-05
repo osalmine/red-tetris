@@ -1,18 +1,12 @@
 import {
-  AddPieceIndexAction,
   ClientUpdateAction,
   JoinRoomAction,
   StartGameAction,
 } from '../actions/types';
 import { ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import * as internalEvents from '../constants/internalEvents';
 
-type ClientAction =
-  | JoinRoomAction
-  | StartGameAction
-  | AddPieceIndexAction
-  | ClientUpdateAction;
+type ClientAction = JoinRoomAction | StartGameAction | ClientUpdateAction;
 
 const clientReducer = (
   state: ClientState = {},
@@ -25,13 +19,6 @@ const clientReducer = (
         playerName: action.playerName,
         roomName: action.roomName,
         pieceIndex: 0,
-      };
-      return newState;
-    }
-    case internalEvents.ADD_PIECE_INDEX: {
-      const newState = {
-        ...state,
-        pieceIndex: (state.pieceIndex || 0) + 1,
       };
       return newState;
     }

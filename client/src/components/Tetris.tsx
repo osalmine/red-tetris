@@ -4,9 +4,9 @@ import NextPieces from './NextPieces';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
-import { addNewActivePiece, addPieceIndex } from '../actions/client';
+import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState } from '../actions/server';
-import { PlayerObject } from '../reducers/types';
+import { Player } from '../reducers/types';
 import { PieceName } from '../constants/pieces';
 
 const Root = styled.div`
@@ -24,21 +24,11 @@ const InvinsibleBalancePiece = styled.div`
 
 const updateClientPieces = ({
   player,
-  allPlayers,
   playerPieces,
 }: {
-  player: PlayerObject;
-  allPlayers: PlayerObject[];
+  player: Player;
   playerPieces: PieceName[];
-}) => {
-  const newPlayersList = [...allPlayers];
-  const playerIndex = newPlayersList.findIndex(
-    (playerFromList) => playerFromList.name === player.name
-  );
-  newPlayersList[playerIndex].pieces = [...playerPieces].slice(1);
-  console.log('newPlayersList', newPlayersList);
-  return { players: newPlayersList };
-};
+}): Player => ({ ...player, pieces: [...playerPieces].slice(1) });
 
 export const Tetris = () => {
   const dispatch = useAppDispatch();
@@ -61,7 +51,6 @@ export const Tetris = () => {
         clientUpdateState(
           updateClientPieces({
             player,
-            allPlayers,
             playerPieces: player.pieces,
           })
         )
@@ -86,7 +75,6 @@ export const Tetris = () => {
             />
           )}
           <NextPieces
-            // nextPieces={player.pieces.slice(pieceIndex)}
             nextPieces={player.pieces}
             style={{ maxHeight: '100vh' }}
           />

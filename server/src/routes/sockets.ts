@@ -7,6 +7,7 @@ import * as outgoingEvents from '../constants/outgoingEvents';
 import {
   GameAlreadyStartedError,
   PlayerAlreadyExistsError,
+  GameNotFoundError,
 } from '../models/error';
 
 const logerror = debug('tetris:error'),
@@ -68,16 +69,35 @@ const initEngine = (
         if (game.getPlayer(initiator).isAdmin) {
           game.setGameToPlaying();
           game.addPiecesToPlayers(game.pieceHandler.generateBatch());
-          io.to(roomName).emit(
-            outgoingEvents.UPDATE,
-            controller.getGame(roomName).state
-          );
+          io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
         } else {
           logerror(`Can't start the game: ${initiator} is not admin`);
         }
       });
 
-      // socket.on(incomingEvents.UPDATE, )
+      socket.on(incomingEvents.UPDATE, ({ roomName, playerState }) => {
+        loginfo(`ROOM ${roomName}: RECEIVE GAME STATE`, playerState);
+        const game = controller.getGame(roomName);
+        try {
+          if (!game) {
+            throw new GameNotFoundError(roomName);
+          }
+          game.updatePlayerState(playerState);
+          const minimumAmountOfPieces = 3;
+          if (playerState.pieces.length <= minimumAmountOfPieces) {
+            game.addPiecesToPlayers(game.pieceHandler.generateBatch());
+          }
+          loginfo('New player state', game.getPlayer(playerState.name));
+          io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
+        } catch (error) {
+          if (error instanceof GameNotFoundError) {
+            logerror(`GameNotFoundError catched: ${error}`);
+            socket.emit(outgoingEvents.ERROR, { error });
+          } else {
+            logerror(error);
+          }
+        }
+      });
 
       socket.on('disconnect', () => {
         loginfo(`Socket disconnected: ${socket.id}`);

@@ -8,6 +8,7 @@ import { AllActions } from '../actions/types';
 import { GameState } from '../reducers/types';
 import handleError from '../handlers/errorHandler';
 import { Errors } from '../types';
+import updateState from '../services/update';
 
 export const socketMiddleWare =
   (socket: SocketIOClient.Socket) =>
@@ -35,8 +36,9 @@ export const socketMiddleWare =
           return next(action);
         }
         case outgoingEvents.UPDATE: {
-          console.log('UPDATE ACTION', action);
+          const { playerState, roomName } = action;
 
+          updateState({ playerState, roomName });
           return next(action);
         }
 

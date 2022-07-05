@@ -215,7 +215,7 @@
     "object-curly-spacing": [1, "always"], // require or disallow padding inside curly braces (fixable)
     "one-var": [0, "never"], //require or disallow one variable declaration per function
     "operator-assignment": [1, "never"], //require assignment operator shorthand where possible or prohibit it entirely
-    "operator-linebreak": [1, "after"], //enforce operators to be placed before or after line breaks
+    "operator-linebreak": [1, "after", { "overrides": { "?": "before", ":": "before" } }], //enforce operators to be placed before or after line breaks
     "padded-blocks": [0, "never"], //enforce padding within blocks
     "quote-props": [0, "as-needed"], //require quotes around object literal property names
     // "quotes": [1, "single"], //specify whether backticks, double or single quotes should be used (fixable)

@@ -34,6 +34,16 @@ const handleError = ({ error }: Errors) => {
       title: 'Game already started',
       message: `Game named ${error.data.roomName} has already started`,
     });
+  } else if (error.name === 'GameNotFoundError') {
+    addErrorNotification({
+      title: 'Game not found',
+      message: `Game ${error.data.roomName} can not be found`,
+    });
+  } else {
+    addErrorNotification({
+      title: 'Error',
+      message: 'Please reload the page',
+    });
   }
 };
 
