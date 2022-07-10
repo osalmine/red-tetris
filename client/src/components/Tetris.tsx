@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Board } from './Board';
 import NextPieces from './NextPieces';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import params from '../params';
 import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState } from '../actions/server';
 import { Player } from '../reducers/types';
@@ -39,26 +38,27 @@ export const Tetris = () => {
       )
   );
   const activePiece = useAppSelector((state) => state.piece.activePiece);
-  const allPlayers = useAppSelector((state) => state.state.players);
 
-  // const pieceIndex = useAppSelector((state) => state.player.pieceIndex);
+  const boardCols = useMemo(
+    () => player?.board.field[0].length || 0,
+    [player?.board.field]
+  );
+  const boardRows = useMemo(
+    () => player?.board.field.length || 0,
+    [player?.board.field]
+  );
 
-  useEffect(() => {
-    if (player && !activePiece) {
-      // dispatch(addPieceIndex());
-      dispatch(addNewActivePiece(player.pieces[0]));
-      dispatch(
-        clientUpdateState(
-          updateClientPieces({
-            player,
-            playerPieces: player.pieces,
-          })
-        )
-      );
-
-      // dispatch(addNewActivePiece(player.pieces[pieceIndex ? pieceIndex : 0]));
-    }
-  }, [player, dispatch, activePiece, allPlayers]);
+  if (player && !activePiece) {
+    dispatch(addNewActivePiece(player.pieces[0]));
+    dispatch(
+      clientUpdateState(
+        updateClientPieces({
+          player,
+          playerPieces: player.pieces,
+        })
+      )
+    );
+  }
 
   return (
     <Root>
@@ -70,8 +70,8 @@ export const Tetris = () => {
           {activePiece && (
             <Board
               activePiece={activePiece}
-              cols={params.board.cols}
-              rows={params.board.rows}
+              cols={boardCols}
+              rows={boardRows}
             />
           )}
           <NextPieces
