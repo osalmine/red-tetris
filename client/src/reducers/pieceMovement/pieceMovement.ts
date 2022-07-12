@@ -45,6 +45,7 @@ const pieceCanMoveDown = ({
   }
   return false;
 };
+
 const pieceMovementReducer = (
   state: PieceState = {},
   action: PieceMovementAction
@@ -64,27 +65,33 @@ const pieceMovementReducer = (
     }
     case internalEvents.MOVE_DOWN: {
       if (state.activePiece) {
+        const { activePiece } = state;
         if (
           pieceCanMoveDown({
-            pieceYOffset: state.activePiece.pieceYOffset,
-            pieceValues: state.activePiece.values,
+            pieceYOffset: activePiece.pieceYOffset,
+            pieceValues: activePiece.values,
           })
         ) {
           const newState = {
             ...state,
             activePiece: {
-              ...state.activePiece,
-              pieceYOffset: state.activePiece.pieceYOffset + 1,
+              ...activePiece,
+              pieceYOffset: activePiece.pieceYOffset + 1,
             },
           };
           return newState;
         }
 
-        const newState = {
+        return {
           ...state,
           activePiece: null,
+          previousPiece: {
+            values: activePiece.values,
+            pieceYOffset: activePiece.pieceYOffset,
+            pieceXOffset: activePiece.pieceXOffset,
+            pieceType: activePiece.pieceType,
+          },
         };
-        return newState;
       }
       return state;
     }

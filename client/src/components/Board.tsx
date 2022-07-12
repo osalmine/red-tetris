@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { ActivePiece } from '../reducers/types';
+import { Piece } from '../reducers/types';
 import Cell from './Cell';
 import Row from './Row';
 
 type Props = {
   rows: number;
   cols: number;
-  activePiece: ActivePiece;
+  activePiece: Piece;
   width?: number;
 };
 

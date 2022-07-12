@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Board } from './Board';
 import pieces, { PieceName } from '../constants/pieces';
-import { ActivePiece } from '../reducers/types';
+import { Piece } from '../reducers/types';
 
 type Props = {
   pieceCharacter: PieceName;
@@ -29,7 +29,7 @@ const getPieceOffset = (pieceCharacter: PieceName) => {
 };
 
 const NextPiece = ({ pieceCharacter }: Props) => {
-  const renderPiece: ActivePiece = useMemo(
+  const renderPiece: Piece = useMemo(
     () => ({
       values: pieces[pieceCharacter],
       pieceXOffset: getPieceOffset(pieceCharacter),

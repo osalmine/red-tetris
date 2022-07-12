@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState } from '../actions/server';
-import { Player } from '../reducers/types';
+import { Player, Piece, BoardValues } from '../reducers/types';
 import { PieceName } from '../constants/pieces';
 
 const Root = styled.div`
@@ -29,6 +29,32 @@ const updateClientPieces = ({
   playerPieces: PieceName[];
 }): Player => ({ ...player, pieces: [...playerPieces].slice(1) });
 
+const updateClientBoard = ({
+  previousPiece,
+  board,
+}: {
+  previousPiece: Piece;
+  board: BoardValues;
+}) => {
+  const newBoard = [...board.field];
+  console.log('newBoard', newBoard);
+
+  for (
+    let i = previousPiece.pieceXOffset;
+    i++;
+    i < previousPiece.pieceXOffset + previousPiece.values.length
+  ) {
+    let j = 0;
+    newBoard[i].splice(
+      previousPiece.pieceXOffset,
+      previousPiece.values.length,
+      previousPiece.values[j]
+    );
+    j++;
+  }
+  console.log('newBoard', newBoard);
+};
+
 export const Tetris = () => {
   const dispatch = useAppDispatch();
   const player = useAppSelector(
@@ -37,7 +63,7 @@ export const Tetris = () => {
         (playerFromServer) => playerFromServer.name === clientName
       )
   );
-  const activePiece = useAppSelector((state) => state.piece.activePiece);
+  const { activePiece, previousPiece } = useAppSelector((state) => state.piece);
 
   const boardCols = useMemo(
     () => player?.board.field[0].length || 0,
@@ -48,7 +74,19 @@ export const Tetris = () => {
     [player?.board.field]
   );
 
+  // if (
+  //   activePiece &&
+  //   !pieceCanMoveDown({
+  //     pieceYOffset: activePiece?.pieceYOffset,
+  //     pieceValues: activePiece?.values,
+  //   })
+  // ) {
+  //   console.log('PIECE ABOUT TO HIT BOTTOM');
+  // }
   if (player && !activePiece) {
+    console.log('previousPiece', previousPiece);
+    if (previousPiece) {
+    }
     dispatch(addNewActivePiece(player.pieces[0]));
     dispatch(
       clientUpdateState(
@@ -65,7 +103,7 @@ export const Tetris = () => {
       {player ? (
         <>
           <InvinsibleBalancePiece>
-            <NextPieces nextPieces={player.pieces} />
+            {/* <NextPieces nextPieces={player.pieces} /> */}
           </InvinsibleBalancePiece>
           {activePiece && (
             <Board

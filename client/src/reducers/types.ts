@@ -1,6 +1,6 @@
 import { PieceName } from '../constants/pieces';
 
-type Board = {
+export type BoardValues = {
   field: number[][];
 };
 
@@ -10,7 +10,7 @@ export type Player = {
   isAdmin: boolean;
   state: 'pending' | 'playing' | 'finished';
   pieces: PieceName[];
-  board: Board;
+  board: BoardValues;
 };
 
 export type GameState = {
@@ -18,7 +18,7 @@ export type GameState = {
   players: Player[];
 };
 
-export type ActivePiece = {
+export type Piece = {
   values: number[][];
   pieceXOffset: number;
   pieceYOffset: number;
@@ -26,7 +26,8 @@ export type ActivePiece = {
 };
 
 export type PieceState = {
-  activePiece?: ActivePiece | null;
+  activePiece?: Piece | null;
+  previousPiece?: Piece;
 };
 
 export type ClientState = {

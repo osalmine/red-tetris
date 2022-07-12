@@ -1,11 +1,11 @@
-import { ActivePiece } from '../types';
+import { Piece } from '../types';
 import { pieceCanMoveLeft, pieceCanMoveRight } from './utils';
 
-export const pieceCanRotate = ({ values, pieceXOffset }: ActivePiece) =>
+export const pieceCanRotate = ({ values, pieceXOffset }: Piece) =>
   pieceCanMoveLeft({ pieceValues: values, pieceXOffset: pieceXOffset + 1 }) &&
   pieceCanMoveRight({ pieceValues: values, pieceXOffset: pieceXOffset - 1 });
 
-export const rotatePieceRight = ({ values, pieceType }: ActivePiece) => {
+export const rotatePieceRight = ({ values, pieceType }: Piece) => {
   /**
    * No need to rotate
    */
