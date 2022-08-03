@@ -29,6 +29,28 @@ const updateClientPieces = ({
   playerPieces: PieceName[];
 }): Player => ({ ...player, pieces: [...playerPieces].slice(1) });
 
+// eslint-disable-next-line comma-spacing
+const spliceArraytoArray = <T,>(
+  start: number,
+  targetArray: T[],
+  arrayToInsert: T[]
+) => {
+  const insertLength = arrayToInsert.length;
+
+  console.log('start', start);
+  console.log('insertLength', insertLength);
+  console.log('TARGET ARRAY', targetArray);
+  console.log('INSERT ARRAY', arrayToInsert);
+  console.log('start + insertLength', start + insertLength);
+  for (let i = start; i < start + insertLength; i++) {
+    // console.log('i', i);
+    // targetArray.splice(i, 1, arrayToInsert[i]);
+    targetArray[i] = arrayToInsert[i - start];
+  }
+  console.log('FINISHED TARGET ARRAY', targetArray);
+  return targetArray;
+};
+
 const updateClientBoard = ({
   previousPiece,
   board,
@@ -39,20 +61,26 @@ const updateClientBoard = ({
   const newBoard = [...board.field];
   console.log('newBoard', newBoard);
 
+  let j = 0;
   for (
-    let i = previousPiece.pieceXOffset;
-    i++;
-    i < previousPiece.pieceXOffset + previousPiece.values.length
+    let i = previousPiece.pieceYOffset;
+    i < previousPiece.pieceYOffset + previousPiece.values.length;
+    i++
   ) {
-    let j = 0;
-    newBoard[i].splice(
+    // newBoard[i].splice(
+    //   previousPiece.pieceXOffset,
+    //   previousPiece.values.length,
+    //   previousPiece.values[j]
+    // );
+    newBoard[i] = spliceArraytoArray(
       previousPiece.pieceXOffset,
-      previousPiece.values.length,
+      newBoard[i],
       previousPiece.values[j]
     );
+    // newBoard[previousPiece.pieceXOffset + i] = previousPiece.values[j];
     j++;
   }
-  console.log('newBoard', newBoard);
+  console.log('newBoard AFTER', newBoard);
 };
 
 export const Tetris = () => {
@@ -86,6 +114,7 @@ export const Tetris = () => {
   if (player && !activePiece) {
     console.log('previousPiece', previousPiece);
     if (previousPiece) {
+      updateClientBoard({ previousPiece, board: player.board });
     }
     dispatch(addNewActivePiece(player.pieces[0]));
     dispatch(
