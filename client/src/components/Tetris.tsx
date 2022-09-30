@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState } from '../actions/server';
-import { Player, Piece, BoardValues } from '../reducers/types';
-import { PieceName } from '../constants/pieces';
+import { Piece, BoardValues } from '../reducers/types';
 
 const Root = styled.div`
   display: flex;
@@ -21,33 +20,25 @@ const InvinsibleBalancePiece = styled.div`
   height: 0;
 `;
 
-const updateClientPieces = ({
-  player,
-  playerPieces,
-}: {
-  player: Player;
-  playerPieces: PieceName[];
-}): Player => ({ ...player, pieces: [...playerPieces].slice(1) });
-
 // eslint-disable-next-line comma-spacing
-const spliceArraytoArray = <T,>(
-  start: number,
-  targetArray: T[],
-  arrayToInsert: T[]
-) => {
+const spliceArraytoArray = <T,>({
+  start,
+  targetArray,
+  arrayToInsert,
+  ignoreInSplice,
+}: {
+  start: number;
+  targetArray: T[];
+  arrayToInsert: T[];
+  ignoreInSplice?: T;
+}) => {
   const insertLength = arrayToInsert.length;
 
-  console.log('start', start);
-  console.log('insertLength', insertLength);
-  console.log('TARGET ARRAY', targetArray);
-  console.log('INSERT ARRAY', arrayToInsert);
-  console.log('start + insertLength', start + insertLength);
   for (let i = start; i < start + insertLength; i++) {
-    // console.log('i', i);
-    // targetArray.splice(i, 1, arrayToInsert[i]);
-    targetArray[i] = arrayToInsert[i - start];
+    if (arrayToInsert[i - start] !== ignoreInSplice) {
+      targetArray[i] = arrayToInsert[i - start];
+    }
   }
-  console.log('FINISHED TARGET ARRAY', targetArray);
   return targetArray;
 };
 
@@ -59,28 +50,23 @@ const updateClientBoard = ({
   board: BoardValues;
 }) => {
   const newBoard = [...board.field];
-  console.log('newBoard', newBoard);
 
   let j = 0;
   for (
     let i = previousPiece.pieceYOffset;
-    i < previousPiece.pieceYOffset + previousPiece.values.length;
+    i < previousPiece.pieceYOffset + previousPiece.values.length &&
+    i < newBoard.length;
     i++
   ) {
-    // newBoard[i].splice(
-    //   previousPiece.pieceXOffset,
-    //   previousPiece.values.length,
-    //   previousPiece.values[j]
-    // );
-    newBoard[i] = spliceArraytoArray(
-      previousPiece.pieceXOffset,
-      newBoard[i],
-      previousPiece.values[j]
-    );
-    // newBoard[previousPiece.pieceXOffset + i] = previousPiece.values[j];
+    newBoard[i] = spliceArraytoArray({
+      start: previousPiece.pieceXOffset,
+      targetArray: [...newBoard[i]],
+      arrayToInsert: [...previousPiece.values[j]],
+      ignoreInSplice: 0,
+    });
     j++;
   }
-  console.log('newBoard AFTER', newBoard);
+  return newBoard;
 };
 
 export const Tetris = () => {
@@ -102,28 +88,19 @@ export const Tetris = () => {
     [player?.board.field]
   );
 
-  // if (
-  //   activePiece &&
-  //   !pieceCanMoveDown({
-  //     pieceYOffset: activePiece?.pieceYOffset,
-  //     pieceValues: activePiece?.values,
-  //   })
-  // ) {
-  //   console.log('PIECE ABOUT TO HIT BOTTOM');
-  // }
   if (player && !activePiece) {
-    console.log('previousPiece', previousPiece);
-    if (previousPiece) {
-      updateClientBoard({ previousPiece, board: player.board });
-    }
+    const newFieldValues = previousPiece
+      ? updateClientBoard({ previousPiece, board: player.board })
+      : null;
     dispatch(addNewActivePiece(player.pieces[0]));
     dispatch(
-      clientUpdateState(
-        updateClientPieces({
-          player,
-          playerPieces: player.pieces,
-        })
-      )
+      clientUpdateState({
+        ...player,
+        pieces: [...player.pieces].slice(1),
+        board: {
+          field: newFieldValues ?? player.board.field,
+        },
+      })
     );
   }
 
@@ -137,6 +114,7 @@ export const Tetris = () => {
           {activePiece && (
             <Board
               activePiece={activePiece}
+              boardValues={player.board.field}
               cols={boardCols}
               rows={boardRows}
             />

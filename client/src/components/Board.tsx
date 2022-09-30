@@ -8,6 +8,7 @@ type Props = {
   rows: number;
   cols: number;
   activePiece: Piece;
+  boardValues?: number[][];
   width?: number;
 };
 
@@ -33,7 +34,13 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
   border-radius: 5px;
 `;
 
-export const Board = ({ rows, cols, activePiece, width }: Props) => {
+export const Board = ({
+  rows,
+  cols,
+  activePiece,
+  boardValues,
+  width,
+}: Props) => {
   const { values, pieceYOffset, pieceXOffset } = activePiece;
   const getPieceValue = useCallback(
     (rowNb: number, colNb: number) => {
@@ -50,13 +57,21 @@ export const Board = ({ rows, cols, activePiece, width }: Props) => {
     [values, pieceYOffset, pieceXOffset]
   );
 
+  const getCellValue = useCallback(
+    (rowNb: number, colNb: number) =>
+      boardValues && boardValues[rowNb][colNb] === 1
+        ? 1
+        : getPieceValue(rowNb, colNb),
+    [boardValues, getPieceValue]
+  );
+
   return (
     <Root>
       <BoardContainer containerWidth={width}>
         {[...Array(rows)].map((_, rowNb) => (
           <Row key={rowNb}>
             {[...Array(cols)].map((_, colNb) => (
-              <Cell key={colNb} value={getPieceValue(rowNb, colNb)} />
+              <Cell key={colNb} value={getCellValue(rowNb, colNb)} />
             ))}
           </Row>
         ))}
