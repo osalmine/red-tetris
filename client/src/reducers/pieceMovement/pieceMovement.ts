@@ -169,8 +169,6 @@ const pieceMovementReducer = (
             values: rotatePieceRight(state.activePiece),
           },
         };
-        console.log('OLD STATE', state);
-        console.log('NEW STATE', newState);
         if (pieceCanRotate(newState.activePiece)) {
           return newState;
         }

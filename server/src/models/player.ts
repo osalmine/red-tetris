@@ -18,7 +18,6 @@ export default class Player {
     roomName: string,
     { rows, cols }: { rows: number; cols: number }
   ) {
-    console.log('CONSTRUCT PLAYER');
     this.name = playerName;
     this.roomName = roomName;
     this.isAdmin = false;
