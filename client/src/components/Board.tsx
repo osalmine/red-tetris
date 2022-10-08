@@ -34,6 +34,21 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
   border-radius: 5px;
 `;
 
+const RowNbContainer = styled.div`
+  width: 26px;
+  align-self: center;
+`;
+
+const CellNbContainer = styled.div`
+  width: 32px;
+  justify-self: center;
+  margin-left: 10px;
+
+  :first-child {
+    margin-left: 36px;
+  }
+`;
+
 export const Board = ({
   rows,
   cols,
@@ -70,11 +85,17 @@ export const Board = ({
       <BoardContainer containerWidth={width}>
         {[...Array(rows)].map((_, rowNb) => (
           <Row key={rowNb}>
+            <RowNbContainer>{rowNb}</RowNbContainer>
             {[...Array(cols)].map((_, colNb) => (
               <Cell key={colNb} value={getCellValue(rowNb, colNb)} />
             ))}
           </Row>
         ))}
+        <Row>
+          {[...Array(cols)].map((_, colNb) => (
+            <CellNbContainer key={colNb}>{colNb}</CellNbContainer>
+          ))}
+        </Row>
       </BoardContainer>
     </Root>
   );
