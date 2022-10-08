@@ -1,5 +1,5 @@
 import * as internalEvents from '../constants/internalEvents';
-import { Piece, GameState, Player } from '../reducers/types';
+import { Piece, GameState, Player, BoardValues } from '../reducers/types';
 
 type BaseAction<T> = {
   type: T;
@@ -27,7 +27,9 @@ type StartGameAction = BaseAction<'startGame'> & {
 type AddNewActivePieceAction = BaseAction<typeof internalEvents.ACTIVE_PIECE> &
   Piece;
 
-type MovePieceDownAction = BaseAction<typeof internalEvents.MOVE_DOWN>;
+type MovePieceDownAction = BaseAction<typeof internalEvents.MOVE_DOWN> & {
+  board: BoardValues;
+};
 type MovePieceRigthAction = BaseAction<typeof internalEvents.MOVE_RIGHT>;
 type MovePieceLeftAction = BaseAction<typeof internalEvents.MOVE_LEFT>;
 type RotatePieceRightAction = BaseAction<typeof internalEvents.ROTATE_RIGHT>;

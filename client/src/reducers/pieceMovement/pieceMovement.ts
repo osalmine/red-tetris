@@ -7,7 +7,7 @@ import {
   RotatePieceRightAction,
   AddNewActivePieceAction,
 } from '../../actions/types';
-import { PieceState } from '../types';
+import { Piece, PieceState } from '../types';
 import * as internalEvents from '../../constants/internalEvents';
 import params from '../../params';
 import { pieceCanRotate, rotatePieceRight } from './rotatePiece';
@@ -32,15 +32,41 @@ const pieceLastRowWithFilledCell = (pieceValues: number[][]) => {
   return lastRowWithFilledCell;
 };
 
-const pieceCanMoveDown = ({
-  pieceYOffset,
-  pieceValues,
+const isFieldBlocking = ({
+  piece,
+  field,
 }: {
-  pieceYOffset: number;
-  pieceValues: number[][];
+  piece: Piece;
+  field: number[][];
 }) => {
+  const { pieceYOffset, pieceXOffset, values: pieceValues } = piece;
+  return pieceValues.some((pieceRow, rowNb) =>
+    pieceRow.some((pieceCol, colNb) => {
+      if (
+        pieceYOffset + rowNb + 1 < params.board.rows &&
+        pieceCol === 1 &&
+        field[pieceYOffset + rowNb + 1][pieceXOffset + colNb] === 1
+      ) {
+        return true;
+      }
+      return false;
+    })
+  );
+};
+
+const pieceCanMoveDown = ({
+  piece,
+  field,
+}: {
+  piece: Piece;
+  field: number[][];
+}) => {
+  const { pieceYOffset, values: pieceValues } = piece;
   const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);
-  if (pieceYOffset + actualPieceLength < params.board.rows - 1) {
+  const fieldContinues =
+    pieceYOffset + actualPieceLength < params.board.rows - 1;
+  const noBlockingPieceDown = !isFieldBlocking({ piece, field });
+  if (fieldContinues && noBlockingPieceDown) {
     return true;
   }
   return false;
@@ -66,10 +92,11 @@ const pieceMovementReducer = (
     case internalEvents.MOVE_DOWN: {
       if (state.activePiece) {
         const { activePiece } = state;
+        const { field } = action.board;
         if (
           pieceCanMoveDown({
-            pieceYOffset: activePiece.pieceYOffset,
-            pieceValues: activePiece.values,
+            piece: activePiece,
+            field,
           })
         ) {
           const newState = {

@@ -9,6 +9,7 @@ import {
   RotatePieceRightAction,
 } from './types';
 import * as internalEvents from '../constants/internalEvents';
+import { store } from '../store';
 
 const pieceInitialOffset = 3;
 
@@ -41,9 +42,19 @@ const addNewActivePiece = (
   };
 };
 
-const movePieceDown = (): MovePieceDownAction => ({
-  type: internalEvents.MOVE_DOWN,
-});
+const movePieceDown = (): MovePieceDownAction => {
+  const {
+    state: { players },
+    player: { playerName },
+  } = store.getState();
+  const currentPlayerBoard = players.find(
+    (player) => player.name === playerName
+  )?.board;
+  return {
+    type: internalEvents.MOVE_DOWN,
+    board: currentPlayerBoard ?? { field: [] },
+  };
+};
 
 const movePieceRigth = (): MovePieceRigthAction => ({
   type: internalEvents.MOVE_RIGHT,

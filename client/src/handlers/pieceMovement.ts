@@ -7,7 +7,7 @@ import {
 import { startGame } from '../actions/server';
 import { RootState, store } from '../store';
 
-const pieceMoveInterval = 5000;
+const pieceMoveIntervalInMs = 5000;
 
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timer | null;
@@ -22,7 +22,7 @@ const playerIsAdmin = (state: RootState) => {
 const startPieceMoveInterval = () =>
   setInterval(() => {
     store.dispatch(movePieceDown());
-  }, pieceMoveInterval);
+  }, pieceMoveIntervalInMs);
 
 document.addEventListener('keydown', (e) => {
   const state = store.getState();

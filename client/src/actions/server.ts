@@ -31,12 +31,10 @@ export const clientUpdateState = (player: Player): ClientUpdateAction => {
     player: { roomName },
   } = store.getState();
   const action: ClientUpdateAction = {
-    // type: outgoingEvents.UPDATE,
-    type: 'clientUpdateState' as const,
+    type: outgoingEvents.UPDATE,
     playerState: player,
     roomName: roomName || '',
   };
-  console.log('ACTION', action);
   return action;
 };
 
