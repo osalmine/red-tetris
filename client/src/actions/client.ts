@@ -72,9 +72,19 @@ const rotatePieceLeft = (): RotatePieceLeftAction => ({
   type: internalEvents.ROTATE_LEFT,
 });
 
-const dropPiece = (): DropPieceAction => ({
-  type: internalEvents.DROP_PIECE,
-});
+const dropPiece = (): DropPieceAction => {
+  const {
+    state: { players },
+    player: { playerName },
+  } = store.getState();
+  const currentPlayerBoard = players.find(
+    (player) => player.name === playerName
+  )?.board;
+  return {
+    type: internalEvents.DROP_PIECE,
+    board: currentPlayerBoard ?? { field: [] },
+  };
+};
 
 export {
   addNewActivePiece,

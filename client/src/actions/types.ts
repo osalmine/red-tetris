@@ -34,7 +34,9 @@ type MovePieceRigthAction = BaseAction<typeof internalEvents.MOVE_RIGHT>;
 type MovePieceLeftAction = BaseAction<typeof internalEvents.MOVE_LEFT>;
 type RotatePieceRightAction = BaseAction<typeof internalEvents.ROTATE_RIGHT>;
 type RotatePieceLeftAction = BaseAction<typeof internalEvents.ROTATE_LEFT>;
-type DropPieceAction = BaseAction<typeof internalEvents.DROP_PIECE>;
+type DropPieceAction = BaseAction<typeof internalEvents.DROP_PIECE> & {
+  board: BoardValues;
+};
 
 type AllActions =
   | JoinRoomAction

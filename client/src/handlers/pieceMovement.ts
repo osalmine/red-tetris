@@ -3,6 +3,7 @@ import {
   movePieceLeft,
   movePieceRigth,
   rotatePieceRight,
+  dropPiece,
 } from '../actions/client';
 import { startGame } from '../actions/server';
 import { RootState, store } from '../store';
@@ -53,6 +54,9 @@ document.addEventListener('keydown', (e) => {
   }
   if (e.code === 'ArrowUp') {
     store.dispatch(rotatePieceRight());
+  }
+  if (e.code === 'Space') {
+    store.dispatch(dropPiece());
   }
   if (e.code === 'KeyS') {
     console.log('Pause');

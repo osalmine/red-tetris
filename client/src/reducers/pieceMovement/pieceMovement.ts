@@ -72,6 +72,21 @@ const pieceCanMoveDown = ({
   return false;
 };
 
+const dropPieceGetYOffset = ({
+  piece,
+  field,
+}: {
+  piece: Piece;
+  field: number[][];
+}) => {
+  const clonePiece = { ...piece };
+  while (pieceCanMoveDown({ piece: clonePiece, field })) {
+    clonePiece.pieceYOffset++;
+  }
+  console.log('clonePiece.pieceYOffset', clonePiece.pieceYOffset);
+  return clonePiece.pieceYOffset;
+};
+
 const pieceMovementReducer = (
   state: PieceState = {},
   action: PieceMovementAction
@@ -173,6 +188,24 @@ const pieceMovementReducer = (
           return newState;
         }
         return state;
+      }
+      return state;
+    }
+    case internalEvents.DROP_PIECE: {
+      const { field } = action.board;
+      if (state.activePiece) {
+        const newState = {
+          ...state,
+          activePiece: null,
+          previousPiece: {
+            ...state.activePiece,
+            pieceYOffset: dropPieceGetYOffset({
+              piece: state.activePiece,
+              field,
+            }),
+          },
+        };
+        return newState;
       }
       return state;
     }
