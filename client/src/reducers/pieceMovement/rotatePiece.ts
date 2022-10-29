@@ -1,5 +1,6 @@
 import { Piece } from '../types';
-import { pieceCanMoveLeft, pieceCanMoveRight } from './utils';
+import { pieceCanMoveLeft } from './pieceLeftMovement';
+import { pieceCanMoveRight } from './pieceRightMovement';
 
 export const pieceCanRotate = ({
   piece,

@@ -1,27 +1,6 @@
 import params from '../../params';
 import { Piece } from '../types';
-
-const pieceFirstColumnWithFilledCell = (pieceValues: number[][]) => {
-  for (let col = 0; col < pieceValues.length; col++) {
-    for (let row = 0; row < pieceValues[col].length; row++) {
-      if (pieceValues[row][col] !== 0) {
-        return col;
-      }
-    }
-  }
-  return pieceValues.length;
-};
-
-const pieceLastColumnWithFilledCell = (pieceValues: number[][]) => {
-  for (let col = pieceValues.length - 1; col > 0; col--) {
-    for (let row = 0; row < pieceValues[col].length; row++) {
-      if (pieceValues[row][col] !== 0) {
-        return col;
-      }
-    }
-  }
-  return pieceValues.length;
-};
+import { pieceLastRowWithFilledCell } from './pieceDimensions';
 
 const getDirectionOffset = (direction: 'down' | 'right' | 'left') => {
   switch (direction) {
@@ -63,44 +42,23 @@ export const isFieldBlocking = ({
   );
 };
 
-export const pieceCanMoveLeft = ({
+export const pieceCanMoveDown = ({
   piece,
   field,
 }: {
   piece: Piece;
   field: number[][];
 }) => {
-  const { pieceXOffset, values: pieceValues } = piece;
-  const pieceRightColumn = pieceFirstColumnWithFilledCell(pieceValues);
-  const hasSpaceToRotate = pieceXOffset + pieceRightColumn > 0;
-  const filledPiecesLeft = isFieldBlocking({
+  const { pieceYOffset, values: pieceValues } = piece;
+  const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);
+  const fieldContinues =
+    pieceYOffset + actualPieceLength < params.board.rows - 1;
+  const noBlockingPieceDown = !isFieldBlocking({
     piece,
     field,
-    direction: 'left',
+    direction: 'down',
   });
-  if (hasSpaceToRotate && !filledPiecesLeft) {
-    return true;
-  }
-  return false;
-};
-
-export const pieceCanMoveRight = ({
-  piece,
-  field,
-}: {
-  piece: Piece;
-  field: number[][];
-}) => {
-  const { pieceXOffset, values: pieceValues } = piece;
-  const pieceLeftColumn = pieceLastColumnWithFilledCell(pieceValues);
-  const hasSpaceToRotate =
-    pieceXOffset + pieceLeftColumn < params.board.cols - 1;
-  const filledPiecesRight = isFieldBlocking({
-    piece,
-    field,
-    direction: 'right',
-  });
-  if (hasSpaceToRotate && !filledPiecesRight) {
+  if (fieldContinues && noBlockingPieceDown) {
     return true;
   }
   return false;

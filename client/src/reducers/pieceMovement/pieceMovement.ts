@@ -7,11 +7,13 @@ import {
   RotatePieceRightAction,
   AddNewActivePieceAction,
 } from '../../actions/types';
-import { Piece, PieceState } from '../types';
+import { PieceState } from '../types';
 import * as internalEvents from '../../constants/internalEvents';
-import params from '../../params';
 import { pieceCanRotate, rotatePieceRight } from './rotatePiece';
-import { isFieldBlocking, pieceCanMoveLeft, pieceCanMoveRight } from './utils';
+import { pieceCanMoveDown } from './utils';
+import { pieceCanMoveRight } from './pieceRightMovement';
+import { pieceCanMoveLeft } from './pieceLeftMovement';
+import { dropPieceGetYOffset } from './pieceDrop';
 
 type PieceMovementAction =
   | MovePieceDownAction
@@ -21,53 +23,6 @@ type PieceMovementAction =
   | RotatePieceLeftAction
   | DropPieceAction
   | AddNewActivePieceAction;
-
-const pieceLastRowWithFilledCell = (pieceValues: number[][]) => {
-  let lastRowWithFilledCell = 0;
-  for (let i = 0; i < pieceValues.length; i++) {
-    if (pieceValues[i].some((cell) => cell !== 0)) {
-      lastRowWithFilledCell = i;
-    }
-  }
-  return lastRowWithFilledCell;
-};
-
-const pieceCanMoveDown = ({
-  piece,
-  field,
-}: {
-  piece: Piece;
-  field: number[][];
-}) => {
-  const { pieceYOffset, values: pieceValues } = piece;
-  const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);
-  const fieldContinues =
-    pieceYOffset + actualPieceLength < params.board.rows - 1;
-  const noBlockingPieceDown = !isFieldBlocking({
-    piece,
-    field,
-    direction: 'down',
-  });
-  if (fieldContinues && noBlockingPieceDown) {
-    return true;
-  }
-  return false;
-};
-
-const dropPieceGetYOffset = ({
-  piece,
-  field,
-}: {
-  piece: Piece;
-  field: number[][];
-}) => {
-  const clonePiece = { ...piece };
-  while (pieceCanMoveDown({ piece: clonePiece, field })) {
-    clonePiece.pieceYOffset++;
-  }
-  console.log('clonePiece.pieceYOffset', clonePiece.pieceYOffset);
-  return clonePiece.pieceYOffset;
-};
 
 const pieceMovementReducer = (
   state: PieceState = {},
