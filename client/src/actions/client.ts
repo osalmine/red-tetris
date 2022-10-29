@@ -10,6 +10,7 @@ import {
 } from './types';
 import * as internalEvents from '../constants/internalEvents';
 import { store } from '../store';
+import { BoardValues } from '../reducers/types';
 
 const pieceInitialOffset = 3;
 
@@ -29,6 +30,16 @@ const getCenterOffset = (pieceCharacter: PieceName) => {
   }
 };
 
+const getCurrentPlayerBoard = (): BoardValues => {
+  const {
+    state: { players },
+    player: { playerName },
+  } = store.getState();
+  return (
+    players.find((player) => player.name === playerName)?.board ?? { field: [] }
+  );
+};
+
 const addNewActivePiece = (
   nextPieceCharacter: PieceName
 ): AddNewActivePieceAction => {
@@ -43,46 +54,46 @@ const addNewActivePiece = (
 };
 
 const movePieceDown = (): MovePieceDownAction => {
-  const {
-    state: { players },
-    player: { playerName },
-  } = store.getState();
-  const currentPlayerBoard = players.find(
-    (player) => player.name === playerName
-  )?.board;
+  const currentPlayerBoard = getCurrentPlayerBoard();
   return {
     type: internalEvents.MOVE_DOWN,
-    board: currentPlayerBoard ?? { field: [] },
+    board: currentPlayerBoard,
   };
 };
 
-const movePieceRigth = (): MovePieceRigthAction => ({
-  type: internalEvents.MOVE_RIGHT,
-});
+const movePieceRigth = (): MovePieceRigthAction => {
+  const currentPlayerBoard = getCurrentPlayerBoard();
+  return {
+    type: internalEvents.MOVE_RIGHT,
+    board: currentPlayerBoard,
+  };
+};
 
-const movePieceLeft = (): MovePieceLeftAction => ({
-  type: internalEvents.MOVE_LEFT,
-});
+const movePieceLeft = (): MovePieceLeftAction => {
+  const currentPlayerBoard = getCurrentPlayerBoard();
+  return {
+    type: internalEvents.MOVE_LEFT,
+    board: currentPlayerBoard,
+  };
+};
 
-const rotatePieceRight = (): RotatePieceRightAction => ({
-  type: internalEvents.ROTATE_RIGHT,
-});
+const rotatePieceRight = (): RotatePieceRightAction => {
+  const currentPlayerBoard = getCurrentPlayerBoard();
+  return {
+    type: internalEvents.ROTATE_RIGHT,
+    board: currentPlayerBoard,
+  };
+};
 
 const rotatePieceLeft = (): RotatePieceLeftAction => ({
   type: internalEvents.ROTATE_LEFT,
 });
 
 const dropPiece = (): DropPieceAction => {
-  const {
-    state: { players },
-    player: { playerName },
-  } = store.getState();
-  const currentPlayerBoard = players.find(
-    (player) => player.name === playerName
-  )?.board;
+  const currentPlayerBoard = getCurrentPlayerBoard();
   return {
     type: internalEvents.DROP_PIECE,
-    board: currentPlayerBoard ?? { field: [] },
+    board: currentPlayerBoard,
   };
 };
 

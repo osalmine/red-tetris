@@ -11,7 +11,7 @@ import { Piece, PieceState } from '../types';
 import * as internalEvents from '../../constants/internalEvents';
 import params from '../../params';
 import { pieceCanRotate, rotatePieceRight } from './rotatePiece';
-import { pieceCanMoveLeft, pieceCanMoveRight } from './utils';
+import { isFieldBlocking, pieceCanMoveLeft, pieceCanMoveRight } from './utils';
 
 type PieceMovementAction =
   | MovePieceDownAction
@@ -32,28 +32,6 @@ const pieceLastRowWithFilledCell = (pieceValues: number[][]) => {
   return lastRowWithFilledCell;
 };
 
-const isFieldBlocking = ({
-  piece,
-  field,
-}: {
-  piece: Piece;
-  field: number[][];
-}) => {
-  const { pieceYOffset, pieceXOffset, values: pieceValues } = piece;
-  return pieceValues.some((pieceRow, rowNb) =>
-    pieceRow.some((pieceCol, colNb) => {
-      if (
-        pieceYOffset + rowNb + 1 < params.board.rows &&
-        pieceCol === 1 &&
-        field[pieceYOffset + rowNb + 1][pieceXOffset + colNb] === 1
-      ) {
-        return true;
-      }
-      return false;
-    })
-  );
-};
-
 const pieceCanMoveDown = ({
   piece,
   field,
@@ -65,7 +43,11 @@ const pieceCanMoveDown = ({
   const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);
   const fieldContinues =
     pieceYOffset + actualPieceLength < params.board.rows - 1;
-  const noBlockingPieceDown = !isFieldBlocking({ piece, field });
+  const noBlockingPieceDown = !isFieldBlocking({
+    piece,
+    field,
+    direction: 'down',
+  });
   if (fieldContinues && noBlockingPieceDown) {
     return true;
   }
@@ -141,8 +123,8 @@ const pieceMovementReducer = (
       if (
         state.activePiece &&
         pieceCanMoveRight({
-          pieceXOffset: state.activePiece.pieceXOffset,
-          pieceValues: state.activePiece.values,
+          piece: state.activePiece,
+          field: action.board.field,
         })
       ) {
         const newState = {
@@ -160,8 +142,8 @@ const pieceMovementReducer = (
       if (
         state.activePiece &&
         pieceCanMoveLeft({
-          pieceXOffset: state.activePiece.pieceXOffset,
-          pieceValues: state.activePiece.values,
+          piece: state.activePiece,
+          field: action.board.field,
         })
       ) {
         const newState = {
@@ -184,7 +166,12 @@ const pieceMovementReducer = (
             values: rotatePieceRight(state.activePiece),
           },
         };
-        if (pieceCanRotate(newState.activePiece)) {
+        if (
+          pieceCanRotate({
+            piece: newState.activePiece,
+            field: action.board.field,
+          })
+        ) {
           return newState;
         }
         return state;

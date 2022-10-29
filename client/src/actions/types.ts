@@ -30,9 +30,15 @@ type AddNewActivePieceAction = BaseAction<typeof internalEvents.ACTIVE_PIECE> &
 type MovePieceDownAction = BaseAction<typeof internalEvents.MOVE_DOWN> & {
   board: BoardValues;
 };
-type MovePieceRigthAction = BaseAction<typeof internalEvents.MOVE_RIGHT>;
-type MovePieceLeftAction = BaseAction<typeof internalEvents.MOVE_LEFT>;
-type RotatePieceRightAction = BaseAction<typeof internalEvents.ROTATE_RIGHT>;
+type MovePieceRigthAction = BaseAction<typeof internalEvents.MOVE_RIGHT> & {
+  board: BoardValues;
+};
+type MovePieceLeftAction = BaseAction<typeof internalEvents.MOVE_LEFT> & {
+  board: BoardValues;
+};
+type RotatePieceRightAction = BaseAction<typeof internalEvents.ROTATE_RIGHT> & {
+  board: BoardValues;
+};
 type RotatePieceLeftAction = BaseAction<typeof internalEvents.ROTATE_LEFT>;
 type DropPieceAction = BaseAction<typeof internalEvents.DROP_PIECE> & {
   board: BoardValues;
