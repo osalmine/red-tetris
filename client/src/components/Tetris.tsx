@@ -1,18 +1,26 @@
 import React, { useMemo } from 'react';
-import { Board } from './Board';
+import { PlayerBoard } from './PlayerBoard';
 import NextPieces from './NextPieces';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState } from '../actions/server';
 import { Piece, BoardValues } from '../reducers/types';
+import OpponentBoardShadows from './OpponentBoardShadows';
 
 const Root = styled.div`
   display: flex;
   flex: initial;
   flex-direction: row;
-  justify-content: space-evenly;
   flex-wrap: wrap;
+  justify-content: space-around;
+`;
+
+const PlayerView = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
 `;
 
 const InvinsibleBalancePiece = styled.div`
@@ -77,6 +85,12 @@ export const Tetris = () => {
         (playerFromServer) => playerFromServer.name === clientName
       )
   );
+  const opponents = useAppSelector(
+    ({ state, player: { playerName: clientName } }) =>
+      state.players.filter(
+        (playerFromServer) => playerFromServer.name !== clientName
+      )
+  );
   const { activePiece, previousPiece } = useAppSelector((state) => state.piece);
 
   const boardCols = useMemo(
@@ -104,15 +118,18 @@ export const Tetris = () => {
     );
   }
 
+  console.log('opponents', opponents);
+
   return (
     <Root>
+      <OpponentBoardShadows opponents={opponents} />
       {player ? (
-        <>
-          <InvinsibleBalancePiece>
-            {/* <NextPieces nextPieces={player.pieces} /> */}
-          </InvinsibleBalancePiece>
+        <PlayerView>
+          {/* <InvinsibleBalancePiece> */}
+          {/* <NextPieces nextPieces={player.pieces} /> */}
+          {/* </InvinsibleBalancePiece> */}
           {activePiece && (
-            <Board
+            <PlayerBoard
               activePiece={activePiece}
               boardValues={player.board.field}
               cols={boardCols}
@@ -123,7 +140,7 @@ export const Tetris = () => {
             nextPieces={player.pieces}
             style={{ maxHeight: '100vh' }}
           />
-        </>
+        </PlayerView>
       ) : (
         <div>Loading...</div>
       )}

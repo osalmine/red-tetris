@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { Board } from './Board';
+import { PlayerBoard } from './PlayerBoard';
 import pieces, { PieceName } from '../constants/pieces';
 import { Piece } from '../reducers/types';
 
@@ -41,7 +41,7 @@ const NextPiece = ({ pieceCharacter }: Props) => {
 
   return (
     <PieceContainer>
-      <Board activePiece={renderPiece} cols={4} rows={4} width={12} />
+      <PlayerBoard activePiece={renderPiece} cols={4} rows={4} width={12} />
     </PieceContainer>
   );
 };

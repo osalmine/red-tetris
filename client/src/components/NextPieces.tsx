@@ -17,8 +17,8 @@ const Root = styled.div`
 `;
 
 const Heading = styled.h2`
-  font-size: 36px;
-  margin-bottom: 0;
+  font-size: 32px;
+  margin: 0;
 `;
 
 const nextPiecesAmount = 3;
