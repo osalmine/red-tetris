@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
+
 import { PlayerBoard } from './PlayerBoard';
 import pieces, { PieceName } from '../constants/pieces';
 import { Piece } from '../reducers/types';

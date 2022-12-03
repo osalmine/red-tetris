@@ -1,4 +1,5 @@
 import { Store } from 'react-notifications-component';
+
 import { Errors } from '../types';
 
 const addErrorNotification = ({

@@ -1,5 +1,6 @@
 import * as SocketIOClient from 'socket.io-client';
 import { Dispatch } from 'redux';
+
 import { joinRoom, startGame } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';

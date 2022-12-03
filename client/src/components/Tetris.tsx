@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
+import styled from 'styled-components';
+
 import { PlayerBoard } from './PlayerBoard';
 import NextPieces from './NextPieces';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState } from '../actions/server';

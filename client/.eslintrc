@@ -32,6 +32,13 @@
     "prettier/prettier": ["error", { "singleQuote": true }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [["external", "builtin"], "internal", ["index", "sibling", "parent"]]
+      }
+    ],
     /* Possible Errors */
     // "comma-dangle": [1, "always-multiline"], //disallow or enforce trailing commas (recommended)
     "no-cond-assign": [1, "except-parens"], //disallow assignment in conditional expressions (recommended)

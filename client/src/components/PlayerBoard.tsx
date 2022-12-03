@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
+
 import { Piece } from '../reducers/types';
 import Board from './Board';
 
