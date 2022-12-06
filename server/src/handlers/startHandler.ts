@@ -8,7 +8,7 @@ import * as outgoingEvents from '../constants/outgoingEvents';
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
 
-const joinHandler =
+const startHandler =
   ({
     io,
     controller,
@@ -30,4 +30,4 @@ const joinHandler =
     }
   };
 
-export default joinHandler;
+export default startHandler;
