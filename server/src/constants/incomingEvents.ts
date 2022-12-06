@@ -4,4 +4,6 @@ const START = 'startGame';
 
 const UPDATE = 'clientUpdateState';
 
-export { JOIN, START, UPDATE };
+const END = 'clientEndGame';
+
+export { JOIN, START, UPDATE, END };

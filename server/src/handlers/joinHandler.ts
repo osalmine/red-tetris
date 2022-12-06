@@ -28,7 +28,7 @@ const joinHandler =
     controller: Controller;
     socketClients: SocketClients;
   }) =>
-  ({ roomName, playerName }) => {
+  ({ roomName, playerName }: { roomName: string; playerName: string }) => {
     try {
       if (controller.gameAlreadyStarted(roomName)) {
         logerror('Game already started');

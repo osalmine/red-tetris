@@ -8,8 +8,7 @@ type GameType = {
   getPlayer(playerName: string): Player;
 };
 
-const logerror = debug('tetris:error'),
-  loginfo = debug('tetris:info');
+const loginfo = debug('tetris:info');
 
 export default class Game implements GameType {
   roomName: string;
@@ -88,6 +87,10 @@ export default class Game implements GameType {
       return this.players[0];
     }
     return null;
+  }
+
+  get isFinished() {
+    return this.players.every((player) => player.state === 'finished');
   }
 
   private static transformPlayers(players: Player[]) {

@@ -2,4 +2,6 @@ const UPDATE = 'serverUpdateState';
 
 const ERROR = 'serverError';
 
-export { UPDATE, ERROR };
+const END = 'endGame';
+
+export { UPDATE, ERROR, END };

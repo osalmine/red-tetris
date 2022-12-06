@@ -1,7 +1,7 @@
 import * as socketio from 'socket.io';
 import debug from 'debug';
 
-import { ClientToServerEvents, PlayerT, ServerToClientEvents } from '../types';
+import { ClientToServerEvents, ServerToClientEvents } from '../types';
 import Controller from '../models/controller';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { GameNotFoundError } from '../models/error';
@@ -9,7 +9,7 @@ import { GameNotFoundError } from '../models/error';
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
 
-const updateHandler =
+const endHandler =
   ({
     io,
     socket,
@@ -19,19 +19,20 @@ const updateHandler =
     socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>;
     controller: Controller;
   }) =>
-  ({ roomName, playerState }: { roomName: string; playerState: PlayerT }) => {
-    loginfo(`ROOM ${roomName}: RECEIVE GAME STATE`, playerState);
+  ({ roomName, playerName }: { roomName: string; playerName: string }) => {
+    loginfo(
+      `Start game emit received from room ${roomName} initiated by ${playerName}`
+    );
     const game = controller.getGame(roomName);
     try {
       if (!game) {
         throw new GameNotFoundError(roomName);
       }
-      game.updatePlayerState(playerState);
-      const minimumAmountOfPieces = 3;
-      if (playerState.pieces.length <= minimumAmountOfPieces) {
-        game.addPiecesToPlayers(game.pieceHandler.generateBatch());
+      const player = game.getPlayer(playerName);
+      player.setState('finished');
+      if (game.isFinished) {
+        game.setGameState('finished');
       }
-      loginfo('New player state', game.getPlayer(playerState.name));
       io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
     } catch (error) {
       if (error instanceof GameNotFoundError) {
@@ -43,4 +44,4 @@ const updateHandler =
     }
   };
 
-export default updateHandler;
+export default endHandler;

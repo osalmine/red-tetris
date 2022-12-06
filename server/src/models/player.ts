@@ -2,8 +2,7 @@ import debug from 'debug';
 import { PieceName } from '../constants/pieces';
 import Board from './board';
 
-const logerror = debug('tetris:error'),
-  loginfo = debug('tetris:info');
+const loginfo = debug('tetris:info');
 
 export default class Player {
   name: string;

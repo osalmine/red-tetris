@@ -11,9 +11,9 @@ import joinHandler from '../handlers/joinHandler';
 import startHandler from '../handlers/startHandler';
 import updateHandler from '../handlers/updateHandler';
 import disconnectHandler from '../handlers/dissconnectHandler';
+import endHandler from '../handlers/endHandler';
 
-const logerror = debug('tetris:error'),
-  loginfo = debug('tetris:info');
+const loginfo = debug('tetris:info');
 
 const controller = new Controller();
 const socketClients: SocketClients = new Map<
@@ -34,6 +34,8 @@ const onConnect =
     socket.on(incomingEvents.START, startHandler({ io, controller }));
 
     socket.on(incomingEvents.UPDATE, updateHandler({ io, socket, controller }));
+
+    socket.on(incomingEvents.END, endHandler({ io, socket, controller }));
 
     socket.on(
       'disconnect',

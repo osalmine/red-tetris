@@ -16,7 +16,7 @@ const startHandler =
     io: socketio.Server<ClientToServerEvents, ServerToClientEvents>;
     controller: Controller;
   }) =>
-  ({ roomName, initiator }) => {
+  ({ roomName, initiator }: { roomName: string; initiator: string }) => {
     loginfo(
       `Start game emit received from room ${roomName} initiated by ${initiator}`
     );
