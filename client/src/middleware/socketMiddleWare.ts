@@ -10,6 +10,7 @@ import { GameState } from '../reducers/types';
 import handleError from '../handlers/errorHandler';
 import { Errors } from '../types';
 import updateState from '../services/update';
+import endGame from '../services/endGame';
 
 export const socketMiddleWare =
   (socket: SocketIOClient.Socket) =>
@@ -40,6 +41,12 @@ export const socketMiddleWare =
           const { playerState, roomName } = action;
 
           updateState({ playerState, roomName });
+          return next(action);
+        }
+        case outgoingEvents.END: {
+          const { playerName, roomName } = action;
+
+          endGame({ roomName, playerName });
           return next(action);
         }
 

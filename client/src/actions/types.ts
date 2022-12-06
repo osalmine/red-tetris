@@ -24,6 +24,11 @@ type StartGameAction = BaseAction<'startGame'> & {
   initiator: string;
 };
 
+type ClientEndGameAction = BaseAction<'clientEndGame'> & {
+  roomName: string;
+  playerName: string;
+};
+
 type AddNewActivePieceAction = BaseAction<typeof internalEvents.ACTIVE_PIECE> &
   Piece;
 
@@ -49,6 +54,7 @@ type AllActions =
   | ServerUpdateAction
   | ClientUpdateAction
   | StartGameAction
+  | ClientEndGameAction
   | AddNewActivePieceAction
   | MovePieceDownAction
   | MovePieceRigthAction
@@ -63,6 +69,7 @@ export type {
   ServerUpdateAction,
   ClientUpdateAction,
   StartGameAction,
+  ClientEndGameAction,
   AddNewActivePieceAction,
   MovePieceDownAction,
   MovePieceRigthAction,
