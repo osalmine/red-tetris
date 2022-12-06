@@ -22,6 +22,14 @@ type GameState = {
   players: PlayerT[];
 };
 
+export type SocketClients = Map<
+  string,
+  {
+    roomName: string;
+    playerName: string;
+  }
+>;
+
 export type ServerToClientEvents = {
   serverUpdateState: ({ roomState, players }: GameState) => void;
   serverError: ({
@@ -52,5 +60,12 @@ export type ClientToServerEvents = {
   }: {
     roomName: string;
     playerState: PlayerT;
+  }) => void;
+  clientEndGame: ({
+    roomName,
+    playerName,
+  }: {
+    roomName: string;
+    playerName: string;
   }) => void;
 };

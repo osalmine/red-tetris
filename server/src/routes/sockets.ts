@@ -1,20 +1,22 @@
 import * as socketio from 'socket.io';
 import debug from 'debug';
-import { ClientToServerEvents, ServerToClientEvents } from '../types';
+import {
+  ClientToServerEvents,
+  ServerToClientEvents,
+  SocketClients,
+} from '../types';
 import Controller from '../models/controller';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import {
-  GameAlreadyStartedError,
-  PlayerAlreadyExistsError,
-  GameNotFoundError,
-} from '../models/error';
+import { GameNotFoundError } from '../models/error';
+import joinHandler from '../handlers/joinHandler';
+import startHandler from '../handlers/startHandler';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
 
 const controller = new Controller();
-const socketClients = new Map<
+const socketClients: SocketClients = new Map<
   string,
   { roomName: string; playerName: string }
 >();
@@ -27,53 +29,12 @@ const initEngine = (
     (socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>) => {
       loginfo(`Socket connected: ${socket.id}`);
 
-      socket.once(incomingEvents.JOIN, ({ roomName, playerName }) => {
-        try {
-          if (controller.gameAlreadyStarted(roomName)) {
-            logerror('Game already started');
-            throw new GameAlreadyStartedError(roomName);
-          }
+      socket.once(
+        incomingEvents.JOIN,
+        joinHandler({ io, socket, controller, socketClients })
+      );
 
-          controller.addClientToRoom({ roomName, playerName });
-          socketClients.set(socket.id, { roomName, playerName });
-          socket.join(roomName);
-          loginfo(
-            `Emit to ${roomName}: ${
-              outgoingEvents.UPDATE
-            } state: ${JSON.stringify(controller.getGame(roomName).state)}`
-          );
-
-          io.to(roomName).emit(
-            outgoingEvents.UPDATE,
-            controller.getGame(roomName).state
-          );
-        } catch (error) {
-          if (error instanceof PlayerAlreadyExistsError) {
-            logerror(`PlayerAlreadyExistsError catched: ${error}`);
-            socket.emit(outgoingEvents.ERROR, { error });
-          }
-          if (error instanceof GameAlreadyStartedError) {
-            logerror(`GameAlreadyStartedError catched: ${error}`);
-            socket.emit(outgoingEvents.ERROR, { error });
-          } else {
-            logerror(error);
-          }
-        }
-      });
-
-      socket.on(incomingEvents.START, ({ roomName, initiator }) => {
-        loginfo(
-          `Start game emit received from room ${roomName} initiated by ${initiator}`
-        );
-        const game = controller.getGame(roomName);
-        if (game.getPlayer(initiator).isAdmin) {
-          game.setGameToPlaying();
-          game.addPiecesToPlayers(game.pieceHandler.generateBatch());
-          io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
-        } else {
-          logerror(`Can't start the game: ${initiator} is not admin`);
-        }
-      });
+      socket.on(incomingEvents.START, startHandler({ io, controller }));
 
       socket.on(incomingEvents.UPDATE, ({ roomName, playerState }) => {
         loginfo(`ROOM ${roomName}: RECEIVE GAME STATE`, playerState);
