@@ -71,9 +71,15 @@ document.addEventListener('keydown', (e) => {
 });
 
 const pieceMoveDownHandler = () => {
-  const state = store.getState();
+  const {
+    state: { players },
+    player: { playerName },
+  } = store.getState();
+  const playerState = players.find(
+    (player) => player.name === playerName
+  )?.state;
 
-  if (state.state.roomState === 'playing' && !interval) {
+  if (playerState === 'playing' && !interval) {
     interval = startPieceMoveInterval();
   }
 };
