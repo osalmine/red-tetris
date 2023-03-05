@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
+import { Dispatch } from 'redux';
 
 import { PlayerBoard } from './PlayerBoard';
 import NextPieces from './NextPieces';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addNewActivePiece } from '../actions/client';
-import { clientUpdateState } from '../actions/server';
-import { Piece, BoardValues } from '../reducers/types';
+import { clientUpdateState, endGame } from '../actions/server';
+import { Piece, Board, Player } from '../reducers/types';
 import OpponentBoardShadows from './OpponentBoardShadows';
 
 const Root = styled.div`
@@ -22,11 +23,6 @@ const PlayerView = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
-`;
-
-const InvinsibleBalancePiece = styled.div`
-  visibility: hidden;
-  height: 0;
 `;
 
 // eslint-disable-next-line comma-spacing
@@ -56,26 +52,52 @@ const updateClientBoard = ({
   board,
 }: {
   previousPiece: Piece;
-  board: BoardValues;
-}) => {
-  const newBoard = [...board.field];
+  board: Board;
+}): Board => {
+  const newBoard = JSON.parse(JSON.stringify(board));
 
   let j = 0;
   for (
     let i = previousPiece.pieceYOffset;
     i < previousPiece.pieceYOffset + previousPiece.values.length &&
-    i < newBoard.length;
+    i < newBoard.field.length;
     i++
   ) {
-    newBoard[i] = spliceArraytoArray({
+    newBoard.field[i] = spliceArraytoArray({
       start: previousPiece.pieceXOffset,
-      targetArray: [...newBoard[i]],
+      targetArray: [...newBoard.field[i]],
       arrayToInsert: [...previousPiece.values[j]],
       ignoreInSplice: 0,
     });
     j++;
   }
-  return newBoard;
+  return { ...newBoard, isOverflown: previousPiece.pieceYOffset <= 0 };
+};
+
+const nextActivePiece = ({
+  previousPiece,
+  player,
+  dispatch,
+}: {
+  previousPiece: Piece | undefined;
+  player: Player;
+  dispatch: Dispatch;
+}) => {
+  if (previousPiece && previousPiece?.pieceYOffset < 0) {
+    dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
+  } else {
+    const newBoard = previousPiece
+      ? updateClientBoard({ previousPiece, board: player.board })
+      : null;
+    dispatch(addNewActivePiece(player.pieces[0]));
+    dispatch(
+      clientUpdateState({
+        ...player,
+        pieces: [...player.pieces].slice(1),
+        board: newBoard ?? player.board,
+      })
+    );
+  }
 };
 
 export const Tetris = () => {
@@ -103,44 +125,33 @@ export const Tetris = () => {
     [player?.board.field]
   );
 
-  if (player && !activePiece) {
-    const newFieldValues = previousPiece
-      ? updateClientBoard({ previousPiece, board: player.board })
-      : null;
-    dispatch(addNewActivePiece(player.pieces[0]));
-    dispatch(
-      clientUpdateState({
-        ...player,
-        pieces: [...player.pieces].slice(1),
-        board: {
-          field: newFieldValues ?? player.board.field,
-        },
-      })
-    );
+  if (!!player && !activePiece && player.state === 'playing') {
+    nextActivePiece({ previousPiece, player, dispatch });
   }
-
-  console.log('opponents', opponents);
 
   return (
     <Root>
       <OpponentBoardShadows opponents={opponents} />
       {player ? (
         <PlayerView>
-          {/* <InvinsibleBalancePiece> */}
-          {/* <NextPieces nextPieces={player.pieces} /> */}
-          {/* </InvinsibleBalancePiece> */}
-          {activePiece && (
-            <PlayerBoard
-              activePiece={activePiece}
-              boardValues={player.board.field}
-              cols={boardCols}
-              rows={boardRows}
-            />
+          {player.state === 'finished' ? (
+            <>Game Ended</>
+          ) : (
+            <>
+              {activePiece && (
+                <PlayerBoard
+                  activePiece={activePiece}
+                  boardValues={player.board.field}
+                  cols={boardCols}
+                  rows={boardRows}
+                />
+              )}
+              <NextPieces
+                nextPieces={player.pieces}
+                style={{ maxHeight: '100vh' }}
+              />
+            </>
           )}
-          <NextPieces
-            nextPieces={player.pieces}
-            style={{ maxHeight: '100vh' }}
-          />
         </PlayerView>
       ) : (
         <div>Loading...</div>

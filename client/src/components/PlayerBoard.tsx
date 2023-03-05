@@ -27,11 +27,12 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
   border: 8px solid ${(props) => props.theme.white};
   box-shadow: 0 0 8px ${(props) => props.theme.white};
   width: ${({ containerWidth }) =>
-    containerWidth ? `${containerWidth}vh` : '22rem'};
+    containerWidth ? `${containerWidth}vw` : '22rem'};
   padding: 1rem;
   flex-direction: column;
   border-radius: 5px;
   flex: 1;
+  /* max-height: 704.1px; */
 `;
 
 export const PlayerBoard = ({

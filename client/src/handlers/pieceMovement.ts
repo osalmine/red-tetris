@@ -81,6 +81,9 @@ const pieceMoveDownHandler = () => {
 
   if (playerState === 'playing' && !interval) {
     interval = startPieceMoveInterval();
+  } else if (playerState === 'finished' && interval) {
+    clearInterval(interval);
+    interval = null;
   }
 };
 

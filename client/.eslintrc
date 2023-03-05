@@ -92,7 +92,7 @@
     "no-extra-bind": 1, //disallow unnecessary function binding
     "no-fallthrough": 1, //disallow fallthrough of case statements (recommended)
     "no-floating-decimal": 1, //disallow the use of leading or trailing decimal points in numeric literals
-    "no-implicit-coercion": 1, //disallow the type conversions with shorter notations
+    // "no-implicit-coercion": 1, //disallow the type conversions with shorter notations
     "no-implied-eval": 1, //disallow use of eval()-like methods
     "no-invalid-this": 0, //disallow this keywords outside of classes or class-like objects
     "no-iterator": 1, //disallow usage of __iterator__ property

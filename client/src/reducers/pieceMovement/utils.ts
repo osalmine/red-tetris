@@ -2,7 +2,9 @@ import params from '../../params';
 import { Piece } from '../types';
 import { pieceLastRowWithFilledCell } from './pieceDimensions';
 
-const getDirectionOffset = (direction: 'down' | 'right' | 'left') => {
+const getDirectionOffset = (
+  direction: 'down' | 'right' | 'left'
+): [rowOffset: number, colOffset: number] => {
   switch (direction) {
     case 'down':
       return [1, 0];
@@ -28,12 +30,13 @@ export const isFieldBlocking = ({
   const [rowOffset, colOffset] = getDirectionOffset(direction);
   return pieceValues.some((pieceRow, rowNb) =>
     pieceRow.some((pieceCol, colNb) => {
+      const yCursor = pieceYOffset + rowNb + rowOffset;
+      const xCursor = pieceXOffset + colNb + colOffset;
       if (
-        pieceYOffset + rowNb + rowOffset < params.board.rows &&
+        yCursor >= 0 &&
+        yCursor < params.board.rows &&
         pieceCol === 1 &&
-        field[pieceYOffset + rowNb + rowOffset][
-          pieceXOffset + colNb + colOffset
-        ] === 1
+        field[yCursor][xCursor] === 1
       ) {
         return true;
       }

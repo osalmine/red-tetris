@@ -1,7 +1,7 @@
 import * as SocketIOClient from 'socket.io-client';
 import { Dispatch } from 'redux';
 
-import { joinRoom, startGame } from '../services';
+import { joinRoom, startGame, endGame, updateState } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { serverUpdateState } from '../actions/server';
@@ -9,8 +9,6 @@ import { AllActions } from '../actions/types';
 import { GameState } from '../reducers/types';
 import handleError from '../handlers/errorHandler';
 import { Errors } from '../types';
-import updateState from '../services/update';
-import endGame from '../services/endGame';
 
 export const socketMiddleWare =
   (socket: SocketIOClient.Socket) =>

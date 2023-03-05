@@ -1,7 +1,8 @@
 import { PieceName } from '../constants/pieces';
 
-export type BoardValues = {
+export type Board = {
   field: number[][];
+  isOverflown?: boolean;
 };
 
 export type Player = {
@@ -10,7 +11,7 @@ export type Player = {
   isAdmin: boolean;
   state: 'pending' | 'playing' | 'finished';
   pieces: PieceName[];
-  board: BoardValues;
+  board: Board;
 };
 
 export type GameState = {

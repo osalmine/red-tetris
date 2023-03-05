@@ -10,7 +10,8 @@ import {
 } from './types';
 import * as internalEvents from '../constants/internalEvents';
 import { store } from '../store';
-import { BoardValues } from '../reducers/types';
+import { Board, Piece } from '../reducers/types';
+import { pieceCanMoveDown } from '../reducers/pieceMovement/utils';
 
 const pieceInitialOffset = 3;
 
@@ -30,7 +31,7 @@ const getCenterOffset = (pieceCharacter: PieceName) => {
   }
 };
 
-const getCurrentPlayerBoard = (): BoardValues => {
+const getCurrentPlayerBoard = (): Board => {
   const {
     state: { players },
     player: { playerName },
@@ -40,15 +41,41 @@ const getCurrentPlayerBoard = (): BoardValues => {
   );
 };
 
+const defaultYOffset = -4;
+
+const getNewPieceYOffset = (
+  board: Board,
+  piece: Omit<Piece, 'pieceYOffset'>,
+  yOffset = defaultYOffset
+): number => {
+  if (
+    yOffset === 0 ||
+    !pieceCanMoveDown({
+      piece: { ...piece, pieceYOffset: yOffset + 1 },
+      field: board.field,
+    })
+  ) {
+    return yOffset;
+  }
+  return getNewPieceYOffset(board, piece, yOffset + 1);
+};
+
 const addNewActivePiece = (
   nextPieceCharacter: PieceName
 ): AddNewActivePieceAction => {
-  const nextActivePiece = pieces[nextPieceCharacter];
+  const currentPlayerBoard = getCurrentPlayerBoard();
+  const nextActivePieceValues = pieces[nextPieceCharacter];
+  const centerXOffset = getCenterOffset(nextPieceCharacter);
+  const heightYOffset = getNewPieceYOffset(currentPlayerBoard, {
+    values: nextActivePieceValues,
+    pieceXOffset: centerXOffset,
+    pieceType: nextPieceCharacter,
+  });
   return {
     type: internalEvents.ACTIVE_PIECE,
-    values: nextActivePiece,
-    pieceXOffset: getCenterOffset(nextPieceCharacter),
-    pieceYOffset: 0,
+    values: nextActivePieceValues,
+    pieceXOffset: centerXOffset,
+    pieceYOffset: heightYOffset ?? 0,
     pieceType: nextPieceCharacter,
   };
 };

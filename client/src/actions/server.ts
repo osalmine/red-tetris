@@ -7,6 +7,7 @@ import {
   StartGameAction,
   ServerUpdateAction,
   ClientUpdateAction,
+  ClientEndGameAction,
 } from './types';
 
 export const joinRoom = ({
@@ -48,4 +49,16 @@ export const startGame = ({
   type: outgoingEvents.START,
   roomName,
   initiator: playerName,
+});
+
+export const endGame = ({
+  roomName,
+  playerName,
+}: {
+  roomName: string;
+  playerName: string;
+}): ClientEndGameAction => ({
+  type: outgoingEvents.END,
+  roomName,
+  playerName,
 });

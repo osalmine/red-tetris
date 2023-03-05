@@ -1,7 +1,7 @@
 import socket from '../socket/socket';
 import { END } from '../constants/outgoingEvents';
 
-const startGame = ({
+const endGame = ({
   roomName,
   playerName,
 }: {
@@ -11,4 +11,4 @@ const startGame = ({
   socket.emit(END, { roomName, playerName });
 };
 
-export default startGame;
+export default endGame;
