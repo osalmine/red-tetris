@@ -11,13 +11,13 @@ type ServerParams = typeof params.server;
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
 
-const initApp = (app: http.Server, params: ServerParams, cb: () => void) => {
-  const { host, port } = params;
+const initApp = (app: http.Server, server: ServerParams, cb: () => void) => {
+  const { host, port, url } = server;
 
   app.on('request', httpRoutesHandler);
 
   app.listen({ host, port }, () => {
-    loginfo(`tetris listen on ${params.url}`);
+    loginfo(`tetris listen on ${url}`);
     cb();
   });
 };
