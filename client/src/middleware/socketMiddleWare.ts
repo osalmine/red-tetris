@@ -1,7 +1,13 @@
 import * as SocketIOClient from 'socket.io-client';
 import { Dispatch } from 'redux';
 
-import { joinRoom, startGame, endGame, updateState } from '../services';
+import {
+  joinRoom,
+  startGame,
+  endGame,
+  updateState,
+  resetGame,
+} from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { serverUpdateState } from '../actions/server';
@@ -45,6 +51,12 @@ export const socketMiddleWare =
           const { playerName, roomName } = action;
 
           endGame({ roomName, playerName });
+          return next(action);
+        }
+        case outgoingEvents.RESET: {
+          const { initiator, roomName } = action;
+
+          resetGame({ roomName, initiator });
           return next(action);
         }
 

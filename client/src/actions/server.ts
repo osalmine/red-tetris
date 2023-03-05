@@ -8,6 +8,7 @@ import {
   ServerUpdateAction,
   ClientUpdateAction,
   ClientEndGameAction,
+  ResetGameAction,
 } from './types';
 
 export const joinRoom = ({
@@ -61,4 +62,16 @@ export const endGame = ({
   type: outgoingEvents.END,
   roomName,
   playerName,
+});
+
+export const resetGame = ({
+  roomName,
+  playerName,
+}: {
+  roomName: string;
+  playerName: string;
+}): ResetGameAction => ({
+  type: outgoingEvents.RESET,
+  roomName,
+  initiator: playerName,
 });

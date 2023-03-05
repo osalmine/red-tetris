@@ -6,4 +6,6 @@ const UPDATE = 'clientUpdateState';
 
 const END = 'clientEndGame';
 
-export { JOIN, START, UPDATE, END };
+const RESET = 'resetGame';
+
+export { JOIN, START, UPDATE, END, RESET };

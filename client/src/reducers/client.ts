@@ -1,12 +1,17 @@
 import {
   ClientUpdateAction,
   JoinRoomAction,
+  ResetGameAction,
   StartGameAction,
 } from '../actions/types';
 import { ClientState } from './types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
-type ClientAction = JoinRoomAction | StartGameAction | ClientUpdateAction;
+type ClientAction =
+  | JoinRoomAction
+  | StartGameAction
+  | ClientUpdateAction
+  | ResetGameAction;
 
 const clientReducer = (
   state: ClientState = {},
