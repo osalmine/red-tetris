@@ -10,8 +10,9 @@ import * as incomingEvents from '../constants/incomingEvents';
 import joinHandler from '../handlers/joinHandler';
 import startHandler from '../handlers/startHandler';
 import updateHandler from '../handlers/updateHandler';
-import disconnectHandler from '../handlers/dissconnectHandler';
+import disconnectHandler from '../handlers/disconnectHandler';
 import endHandler from '../handlers/endHandler';
+import resetRoomHandler from '../handlers/resetRoomHandler';
 
 const loginfo = debug('tetris:info');
 
@@ -36,6 +37,11 @@ const onConnect =
     socket.on(incomingEvents.UPDATE, updateHandler({ io, socket, controller }));
 
     socket.on(incomingEvents.END, endHandler({ io, socket, controller }));
+
+    socket.on(
+      incomingEvents.RESET,
+      resetRoomHandler({ io, socket, controller })
+    );
 
     socket.on(
       'disconnect',

@@ -74,6 +74,12 @@ export default class Game implements GameType {
     player.updatePieces(playerState.pieces);
   }
 
+  resetGame() {
+    this.pieceHandler.resetPieces();
+    this.players.forEach((player) => player.resetPlayer());
+    this.setGameState('pending');
+  }
+
   get hasAdmin() {
     return this.players.some((player) => player.isAdmin);
   }

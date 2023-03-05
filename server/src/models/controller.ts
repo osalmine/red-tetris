@@ -3,7 +3,7 @@ import debug from 'debug';
 import Game from './game';
 import Player from './player';
 import params from '../../params';
-import { PlayerAlreadyExistsError } from './error';
+import { GameNotFoundError, PlayerAlreadyExistsError } from './error';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
@@ -33,7 +33,7 @@ export default class Controller {
     }
   }
 
-  gameAlreadyStarted(roomName: string) {
+  isGameOngoing(roomName: string) {
     if (this.gameExists(roomName)) {
       return this.getGame(roomName).roomState === 'playing';
     }
@@ -62,5 +62,12 @@ export default class Controller {
       room.getPlayer(playerName).assignAdmin();
       loginfo(`Room hasAdmin: ${room.hasAdmin}`);
     }
+  }
+
+  resetGame(roomName: string) {
+    if (!this.gameExists(roomName)) {
+      throw new GameNotFoundError(roomName);
+    }
+    this.getGame(roomName).resetGame();
   }
 }

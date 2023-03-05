@@ -21,4 +21,8 @@ export default class Piece {
     loginfo(`GAME METHOD generateBatch ${batch}`);
     return batch;
   }
+
+  resetPieces() {
+    this.gamePieces = [];
+  }
 }

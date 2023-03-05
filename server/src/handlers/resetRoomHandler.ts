@@ -1,59 +1,46 @@
 import * as socketio from 'socket.io';
 import debug from 'debug';
 
-import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-  SocketClients,
-} from '../types';
+import { ClientToServerEvents, ServerToClientEvents } from '../types';
 import Controller from '../models/controller';
-import {
-  GameAlreadyStartedError,
-  PlayerAlreadyExistsError,
-} from '../models/error';
+import { GameAlreadyStartedError, GameNotFoundError } from '../models/error';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
-const logerror = debug('tetris:error'),
-  loginfo = debug('tetris:info');
+const logerror = debug('tetris:error');
 
-const joinHandler =
+const resetRoomHandler =
   ({
     io,
     socket,
     controller,
-    socketClients,
   }: {
     io: socketio.Server<ClientToServerEvents, ServerToClientEvents>;
     socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>;
     controller: Controller;
-    socketClients: SocketClients;
   }) =>
-  ({ roomName, playerName }: { roomName: string; playerName: string }) => {
+  ({ roomName, initiator }: { roomName: string; initiator: string }) => {
     try {
       if (controller.isGameOngoing(roomName)) {
         logerror('Game already started');
         throw new GameAlreadyStartedError(roomName);
       }
-
-      controller.addClientToRoom({ roomName, playerName });
-      socketClients.set(socket.id, { roomName, playerName });
-      socket.join(roomName);
-      loginfo(
-        `Emit to ${roomName}: ${outgoingEvents.UPDATE} state: ${JSON.stringify(
-          controller.getGame(roomName).state
-        )}`
-      );
+      const game = controller.getGame(roomName);
+      if (game.getPlayer(initiator).isAdmin) {
+        controller.resetGame(roomName);
+        io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
+      } else {
+        logerror(`Can't reset the game: ${initiator} is not admin`);
+      }
 
       io.to(roomName).emit(
         outgoingEvents.UPDATE,
         controller.getGame(roomName).state
       );
     } catch (error) {
-      if (error instanceof PlayerAlreadyExistsError) {
-        logerror(`PlayerAlreadyExistsError catched: ${error}`);
+      if (error instanceof GameNotFoundError) {
+        logerror(`GameNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
-      }
-      if (error instanceof GameAlreadyStartedError) {
+      } else if (error instanceof GameAlreadyStartedError) {
         logerror(`GameAlreadyStartedError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
@@ -62,4 +49,4 @@ const joinHandler =
     }
   };
 
-export default joinHandler;
+export default resetRoomHandler;

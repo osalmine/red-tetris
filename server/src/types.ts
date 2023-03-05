@@ -1,12 +1,13 @@
 import { PieceName } from './constants/pieces';
+import Board from './models/board';
 import {
   PlayerAlreadyExistsError,
   GameAlreadyStartedError,
 } from './models/error';
 
-type Board = {
-  field: number[][];
-};
+// type Board = {
+//   field: number[][];
+// };
 
 export type PlayerT = {
   name: string;
@@ -67,5 +68,12 @@ export type ClientToServerEvents = {
   }: {
     roomName: string;
     playerName: string;
+  }) => void;
+  resetGame: ({
+    roomName,
+    initiator,
+  }: {
+    roomName: string;
+    initiator: string;
   }) => void;
 };

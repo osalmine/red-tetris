@@ -47,4 +47,11 @@ export default class Player {
   setState(state: typeof this.state) {
     this.state = state;
   }
+
+  resetPlayer() {
+    this.setState('pending');
+    this.pieces = [];
+
+    // this.board.resetBoard();
+  }
 }
