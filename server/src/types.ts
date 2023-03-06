@@ -5,10 +5,6 @@ import {
   GameAlreadyStartedError,
 } from './models/error';
 
-// type Board = {
-//   field: number[][];
-// };
-
 export type PlayerT = {
   name: string;
   roomName: string;
