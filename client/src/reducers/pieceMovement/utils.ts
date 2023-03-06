@@ -1,5 +1,5 @@
 import params from '../../params';
-import { Piece } from '../types';
+import { Piece } from '../../types';
 import { pieceLastRowWithFilledCell } from './pieceDimensions';
 
 const getDirectionOffset = (

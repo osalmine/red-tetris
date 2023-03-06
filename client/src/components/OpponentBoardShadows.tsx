@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Player } from '../reducers/types';
+import { Player } from '../types';
 import { ShadowBoard } from './ShadowBoard';
 
 type Props = {

@@ -4,7 +4,7 @@ import {
   ResetGameAction,
   StartGameAction,
 } from '../actions/types';
-import { ClientState } from './types';
+import { ClientState } from '../types';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
 type ClientAction =

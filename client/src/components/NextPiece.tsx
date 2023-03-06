@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { PlayerBoard } from './PlayerBoard';
 import pieces, { PieceName } from '../constants/pieces';
-import { Piece } from '../reducers/types';
+import { Piece } from '../types';
 
 type Props = {
   pieceCharacter: PieceName;

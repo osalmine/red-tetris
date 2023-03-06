@@ -7,7 +7,7 @@ import {
   RotatePieceRightAction,
   AddNewActivePieceAction,
 } from '../../actions/types';
-import { PieceState } from '../types';
+import { PieceState } from '../../types';
 import * as internalEvents from '../../constants/internalEvents';
 import { pieceCanRotate, rotatePieceRight } from './rotatePiece';
 import { pieceCanMoveDown } from './utils';

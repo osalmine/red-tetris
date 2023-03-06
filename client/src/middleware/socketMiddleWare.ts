@@ -12,7 +12,7 @@ import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { serverUpdateState } from '../actions/server';
 import { AllActions } from '../actions/types';
-import { GameState } from '../reducers/types';
+import { GameState } from '../types';
 import handleError from '../handlers/errorHandler';
 import { Errors } from '../types';
 

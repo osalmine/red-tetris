@@ -1,4 +1,4 @@
-import { Piece } from '../types';
+import { Piece } from '../../types';
 import { pieceCanMoveDown } from './utils';
 
 export const dropPieceGetYOffset = ({

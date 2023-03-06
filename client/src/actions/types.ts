@@ -1,5 +1,5 @@
 import * as internalEvents from '../constants/internalEvents';
-import { Piece, GameState, Player, Board } from '../reducers/types';
+import { Piece, GameState, Player, Board } from '../types';
 
 type BaseAction<T> = {
   type: T;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { PlayerBoard } from './PlayerBoard';
 import NextPieces from './NextPieces';
-import { Piece, Player } from '../reducers/types';
+import { Piece, Player } from '../types';
 import OpponentBoardShadows from './OpponentBoardShadows';
 
 type Props = {
@@ -27,6 +27,11 @@ const PlayerView = styled.div`
   width: 100%;
 `;
 
+const GameEnded = styled.div`
+  font-size: 5rem;
+  margin-top: 10rem;
+`;
+
 export const Tetris = ({ player, opponents, activePiece }: Props) => {
   const boardCols = useMemo(
     () => player?.board.field[0].length || 0,
@@ -42,7 +47,7 @@ export const Tetris = ({ player, opponents, activePiece }: Props) => {
       {player ? (
         <PlayerView>
           {player.state === 'finished' ? (
-            <>Game Ended</>
+            <GameEnded>Game Ended</GameEnded>
           ) : (
             <>
               {activePiece && (

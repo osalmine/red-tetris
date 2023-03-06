@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Piece } from '../reducers/types';
+import { Piece } from '../types';
 import Board from './Board';
 
 type Props = {

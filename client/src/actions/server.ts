@@ -1,6 +1,6 @@
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { GameState, Player } from '../reducers/types';
+import { GameState, Player } from '../types';
 import { store } from '../store';
 import {
   JoinRoomAction,

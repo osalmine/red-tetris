@@ -10,7 +10,7 @@ import {
 } from './types';
 import * as internalEvents from '../constants/internalEvents';
 import { store } from '../store';
-import { Board, Piece } from '../reducers/types';
+import { Board, Piece } from '../types';
 import { pieceCanMoveDown } from '../reducers/pieceMovement/utils';
 
 const pieceInitialOffset = 3;

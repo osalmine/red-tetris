@@ -1,5 +1,5 @@
 import { ServerUpdateAction } from '../actions/types';
-import { GameState } from './types';
+import { GameState } from '../types';
 import * as incomingEvents from '../constants/incomingEvents';
 
 const defaultState: GameState = {

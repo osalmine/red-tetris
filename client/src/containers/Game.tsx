@@ -6,7 +6,7 @@ import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState, endGame } from '../actions/server';
 import { Tetris } from '../components/Tetris';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { Board, Piece, Player } from '../reducers/types';
+import { Board, Piece, Player } from '../types';
 import { spliceArraytoArray } from '../utils';
 
 const Root = styled.div``;
