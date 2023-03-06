@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { startGame } from '../actions/server';
 import RedTetrisTitle from '../components/RedTetrisTitle';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { default as StartGame } from '../components/Button';
+import { default as StartGame } from '../components/SubmitButton';
 
 const Root = styled.div`
   display: flex;

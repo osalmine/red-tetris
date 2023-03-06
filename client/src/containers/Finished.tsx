@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { resetGame } from '../actions/server';
 import RedTetrisTitle from '../components/RedTetrisTitle';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import Button from '../components/Button';
+import SubmitButton from '../components/SubmitButton';
 
 const Root = styled.div`
   display: flex;
@@ -45,7 +45,9 @@ const Finished = () => {
     <Root>
       <RedTetrisTitle />
       <Heading>Game finished in room {roomName}</Heading>
-      {playerIsAdmin && <Button onClick={onResetGame}>Main menu</Button>}
+      {playerIsAdmin && (
+        <SubmitButton onClick={onResetGame}>Main menu</SubmitButton>
+      )}
     </Root>
   );
 };

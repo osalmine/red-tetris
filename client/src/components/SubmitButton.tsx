@@ -13,7 +13,7 @@ type StartGameProps = {
   btnColor?: GlobalColorProps;
 };
 
-const StartGame = styled.button.attrs(() => ({
+const Button = styled.button.attrs(() => ({
   type: 'submit',
 }))<StartGameProps>`
   background: ${(props) => props.btnColor || props.theme.green};
@@ -46,10 +46,10 @@ const StartGame = styled.button.attrs(() => ({
   }
 `;
 
-const Button = ({ children, onClick, color }: Props) => (
-  <StartGame btnColor={color} onClick={onClick}>
+const SubmitButton = ({ children, onClick, color }: Props) => (
+  <Button btnColor={color} onClick={onClick}>
     {children}
-  </StartGame>
+  </Button>
 );
 
-export default Button;
+export default SubmitButton;
