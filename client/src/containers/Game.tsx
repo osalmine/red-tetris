@@ -5,11 +5,29 @@ import styled from 'styled-components';
 import { addNewActivePiece } from '../actions/client';
 import { clientUpdateState, endGame } from '../actions/server';
 import { Tetris } from '../components/Tetris';
+import { EMPTY, FILLED } from '../constants/cellType';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import params from '../params';
 import { Board, Piece, Player } from '../types';
 import { spliceArraytoArray } from '../utils';
 
 const Root = styled.div``;
+
+const handleFilledRows = (board: Player['board']) => {
+  const newBoard: Board = JSON.parse(JSON.stringify(board));
+
+  const reversedField = newBoard.field.slice(0).reverse();
+  for (let i = 0; i < reversedField.length; i++) {
+    const row = reversedField[i];
+    if (row.every((cell) => cell === FILLED)) {
+      reversedField.splice(i, 1);
+      reversedField.push(new Array(params.board.cols).fill(EMPTY));
+      i--;
+    }
+  }
+  newBoard.field = reversedField.slice(0).reverse();
+  return newBoard;
+};
 
 const updateClientBoard = ({
   previousPiece,
@@ -18,7 +36,7 @@ const updateClientBoard = ({
   previousPiece: Piece;
   board: Board;
 }): Board => {
-  const newBoard = JSON.parse(JSON.stringify(board));
+  const newBoard: Board = JSON.parse(JSON.stringify(board));
 
   let j = 0;
   for (
@@ -35,7 +53,11 @@ const updateClientBoard = ({
     });
     j++;
   }
-  return { ...newBoard, isOverflown: previousPiece.pieceYOffset <= 0 };
+
+  return {
+    ...handleFilledRows(newBoard),
+    isOverflown: previousPiece.pieceYOffset <= 0,
+  };
 };
 
 const nextActivePiece = ({
