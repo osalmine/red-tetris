@@ -20,6 +20,7 @@ const BodyStyle = createGlobalStyle`
     background-color: ${globalColorTheme.black};
     color: ${globalColorTheme.white};
     font-family: 'Roboto', sans-serif;
+    margin: 0;
   }
 
   button {

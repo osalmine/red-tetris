@@ -15,16 +15,20 @@ type Props = {
 const Root = styled.div`
   display: flex;
   flex: initial;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
+  height: 100vh;
 `;
 
 const PlayerView = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 100%;
+  /* width: 100%; */
+  @media (max-height: 967px) {
+    width: calc(100% - 20% - 24px);
+  }
 `;
 
 const GameEnded = styled.div`
@@ -43,7 +47,7 @@ export const Tetris = ({ player, opponents, activePiece }: Props) => {
   );
   return (
     <Root>
-      <OpponentBoardShadows opponents={opponents} />
+      {opponents.length > 0 && <OpponentBoardShadows opponents={opponents} />}
       {player ? (
         <PlayerView>
           {player.state === 'finished' ? (

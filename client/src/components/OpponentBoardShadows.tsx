@@ -10,6 +10,14 @@ type Props = {
 
 const Root = styled.div`
   display: flex;
+  justify-content: space-evenly;
+  /* padding-top: 8px; */
+
+  @media (max-height: 967px) {
+    margin-left: 16px;
+    /* height: 100vh; */
+    width: 20%;
+  }
 `;
 
 const OpponentBoardShadows = ({ opponents }: Props) => (

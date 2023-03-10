@@ -11,6 +11,9 @@ type Props = {
 
 const PieceContainer = styled.div`
   display: flex;
+  :not(:first-child) {
+    margin-top: 50px;
+  }
 `;
 
 const getPieceOffset = (pieceCharacter: PieceName) => {
@@ -42,7 +45,7 @@ const NextPiece = ({ pieceCharacter }: Props) => {
 
   return (
     <PieceContainer>
-      <PlayerBoard activePiece={renderPiece} cols={4} rows={4} width={12} />
+      <PlayerBoard activePiece={renderPiece} cols={4} rows={4} width={7} />
     </PieceContainer>
   );
 };

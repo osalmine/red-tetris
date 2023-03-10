@@ -19,7 +19,6 @@ const Root = styled.div`
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
 `;
 
 const BoardContainer = styled.div<{ containerWidth?: number }>`
