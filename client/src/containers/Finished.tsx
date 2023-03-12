@@ -25,6 +25,7 @@ const Finished = () => {
   const { playerName: clientName, roomName } = useAppSelector(
     (state) => state.player
   );
+  const finishedPlayers = useAppSelector(({ state }) => state.finishedPlayers);
   const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean>(false);
 
   useEffect(
@@ -45,6 +46,11 @@ const Finished = () => {
     <Root>
       <RedTetrisTitle />
       <Heading>Game finished in room {roomName}</Heading>
+      {finishedPlayers.map((player, i) => (
+        <div key={`${i}_${player.name}`}>
+          {i + 1}: {player.name}
+        </div>
+      ))}
       {playerIsAdmin && (
         <SubmitButton onClick={onResetGame}>Main menu</SubmitButton>
       )}
