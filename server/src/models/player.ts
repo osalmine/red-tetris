@@ -1,8 +1,6 @@
-import debug from 'debug';
+import { FILLED, BLOCKED } from '../constants/cellType';
 import { PieceName } from '../constants/pieces';
 import Board from './board';
-
-const loginfo = debug('tetris:info');
 
 export default class Player {
   name: string;
@@ -38,10 +36,7 @@ export default class Player {
   }
 
   addPieces(pieces: PieceName[]) {
-    loginfo(`PLAYER METHOD addPieces ${pieces}`);
-    loginfo(`PLAYER METHOD this.pieces ${this.pieces}`);
     this.pieces = [...this.pieces, ...pieces];
-    loginfo(`PLAYER METHOD this.pieces ${this.pieces}`);
   }
 
   setState(state: typeof this.state) {
@@ -53,5 +48,20 @@ export default class Player {
     this.pieces = [];
 
     // this.board.resetBoard();
+  }
+
+  addBlockedRows(blockedRows: number) {
+    const cols = this.board.field.at(0).length;
+    this.board.field = [
+      ...this.board.field,
+      ...new Array(blockedRows).fill(new Array(cols).fill(BLOCKED)),
+    ];
+    const removedRows = this.board.field.splice(0, blockedRows);
+    const removedRowsHasFilledCell = removedRows.some((row) =>
+      row.some((cell) => cell === FILLED)
+    );
+    if (removedRowsHasFilledCell) {
+      this.setState('finished');
+    }
   }
 }

@@ -72,4 +72,13 @@ export type ClientToServerEvents = {
     roomName: string;
     initiator: string;
   }) => void;
+  blockOpponentRows: ({
+    roomName,
+    playerName,
+    numberOfBlockRows,
+  }: {
+    roomName: string;
+    playerName: string;
+    numberOfBlockRows: number;
+  }) => void;
 };

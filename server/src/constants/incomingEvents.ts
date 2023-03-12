@@ -8,4 +8,6 @@ const END = 'clientEndGame';
 
 const RESET = 'resetGame';
 
-export { JOIN, START, UPDATE, END, RESET };
+const BLOCK = 'blockOpponentRows';
+
+export { JOIN, START, UPDATE, END, RESET, BLOCK };

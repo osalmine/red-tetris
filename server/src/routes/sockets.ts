@@ -13,6 +13,7 @@ import updateHandler from '../handlers/updateHandler';
 import disconnectHandler from '../handlers/disconnectHandler';
 import endHandler from '../handlers/endHandler';
 import resetRoomHandler from '../handlers/resetRoomHandler';
+import blockOpponentRowsHandler from '../handlers/blockOpponentRowsHandler';
 
 const loginfo = debug('tetris:info');
 
@@ -41,6 +42,11 @@ const onConnect =
     socket.on(
       incomingEvents.RESET,
       resetRoomHandler({ io, socket, controller })
+    );
+
+    socket.on(
+      incomingEvents.BLOCK,
+      blockOpponentRowsHandler({ io, socket, controller })
     );
 
     socket.on(

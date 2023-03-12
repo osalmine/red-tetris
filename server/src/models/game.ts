@@ -80,6 +80,12 @@ export default class Game implements GameType {
     this.setGameState('pending');
   }
 
+  addBlockedRowsToOpponents(blockingInitiator: string, blockedRows: number) {
+    this.players
+      .filter((player) => player.name !== blockingInitiator)
+      .forEach((player) => player.addBlockedRows(blockedRows));
+  }
+
   get hasAdmin() {
     return this.players.some((player) => player.isAdmin);
   }
