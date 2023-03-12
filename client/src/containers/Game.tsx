@@ -3,7 +3,11 @@ import { Dispatch } from 'redux';
 import styled from 'styled-components';
 
 import { addNewActivePiece } from '../actions/client';
-import { clientUpdateState, endGame } from '../actions/server';
+import {
+  blockOpponentRows,
+  clientUpdateState,
+  endGame,
+} from '../actions/server';
 import { Tetris } from '../components/Tetris';
 import { EMPTY, FILLED } from '../constants/cellType';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -13,20 +17,23 @@ import { spliceArraytoArray } from '../utils';
 
 const Root = styled.div``;
 
-const handleFilledRows = (board: Player['board']) => {
+const handleFilledRows = (board: Player['board']): [Board, number] => {
   const newBoard: Board = JSON.parse(JSON.stringify(board));
+
+  let linesRemoved = 0;
 
   const reversedField = newBoard.field.slice(0).reverse();
   for (let i = 0; i < reversedField.length; i++) {
     const row = reversedField[i];
     if (row.every((cell) => cell === FILLED)) {
+      linesRemoved++;
       reversedField.splice(i, 1);
       reversedField.push(new Array(params.board.cols).fill(EMPTY));
       i--;
     }
   }
   newBoard.field = reversedField.slice(0).reverse();
-  return newBoard;
+  return [newBoard, linesRemoved];
 };
 
 const updateClientBoard = ({
@@ -35,7 +42,7 @@ const updateClientBoard = ({
 }: {
   previousPiece: Piece;
   board: Board;
-}): Board => {
+}): [Board, number] => {
   const newBoard: Board = JSON.parse(JSON.stringify(board));
 
   let j = 0;
@@ -54,10 +61,15 @@ const updateClientBoard = ({
     j++;
   }
 
-  return {
-    ...handleFilledRows(newBoard),
-    isOverflown: previousPiece.pieceYOffset <= 0,
-  };
+  const [newBoardWithRemovedLines, linesRemoved] = handleFilledRows(newBoard);
+
+  return [
+    {
+      ...newBoardWithRemovedLines,
+      isOverflown: previousPiece.pieceYOffset <= 0,
+    },
+    linesRemoved,
+  ];
 };
 
 const nextActivePiece = ({
@@ -72,9 +84,19 @@ const nextActivePiece = ({
   if (previousPiece && previousPiece?.pieceYOffset < 0) {
     dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
   } else {
-    const newBoard = previousPiece
+    const [newBoard, linesRemoved] = previousPiece
       ? updateClientBoard({ previousPiece, board: player.board })
-      : null;
+      : [null, null];
+    if (linesRemoved && linesRemoved > 1) {
+      const numberOfBlockRowsToOpponents = linesRemoved - 1;
+      dispatch(
+        blockOpponentRows({
+          roomName: player.roomName,
+          playerName: player.name,
+          numberOfBlockRows: numberOfBlockRowsToOpponents,
+        })
+      );
+    }
     dispatch(addNewActivePiece(player.pieces[0]));
     dispatch(
       clientUpdateState({

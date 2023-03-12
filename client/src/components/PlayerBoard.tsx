@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
+import { BLOCKED, CellType, FILLED } from '../constants/cellType';
 import { Piece } from '../types';
 import Board from './Board';
 
@@ -8,7 +9,7 @@ type Props = {
   rows: number;
   cols: number;
   activePiece: Piece;
-  boardValues?: number[][];
+  boardValues?: CellType[][];
   width?: number;
   displayNumbers?: boolean;
 };
@@ -44,7 +45,7 @@ export const PlayerBoard = ({
 }: Props) => {
   const { values, pieceYOffset, pieceXOffset } = activePiece;
   const getPieceValue = useCallback(
-    (rowNb: number, colNb: number) => {
+    (rowNb: number, colNb: number): CellType => {
       if (
         rowNb < values.length + pieceYOffset &&
         rowNb - pieceYOffset >= 0 &&
@@ -59,9 +60,11 @@ export const PlayerBoard = ({
   );
 
   const getCellValue = useCallback(
-    (rowNb: number, colNb: number) =>
-      boardValues && boardValues[rowNb][colNb] === 1
-        ? 1
+    (rowNb: number, colNb: number): CellType =>
+      boardValues &&
+      (boardValues[rowNb][colNb] === FILLED ||
+        boardValues[rowNb][colNb] === BLOCKED)
+        ? boardValues[rowNb][colNb]
         : getPieceValue(rowNb, colNb),
     [boardValues, getPieceValue]
   );

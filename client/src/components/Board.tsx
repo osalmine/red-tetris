@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { CellType } from '../constants/cellType';
 import Cell from './Cell';
 import Row from './Row';
 
 type Props = {
   rows: number;
   cols: number;
-  getCellValue: (rowNb: number, colNb: number) => number;
+  getCellValue: (rowNb: number, colNb: number) => CellType;
   displayNumbers?: boolean;
   cellProps?: {
     removeBorderRadius?: boolean;

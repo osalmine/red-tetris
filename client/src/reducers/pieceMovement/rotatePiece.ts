@@ -1,3 +1,4 @@
+import { CellType } from '../../constants/cellType';
 import { Piece } from '../../types';
 import { pieceCanMoveLeft } from './pieceLeftMovement';
 import { pieceCanMoveRight } from './pieceRightMovement';
@@ -7,7 +8,7 @@ export const pieceCanRotate = ({
   field,
 }: {
   piece: Piece;
-  field: number[][];
+  field: CellType[][];
 }) =>
   pieceCanMoveLeft({
     piece: {

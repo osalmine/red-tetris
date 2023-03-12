@@ -1,3 +1,4 @@
+import { CellType } from '../../constants/cellType';
 import { Piece } from '../../types';
 import { pieceFirstColumnWithFilledCell } from './pieceDimensions';
 import { isFieldBlocking } from './utils';
@@ -7,7 +8,7 @@ export const pieceCanMoveLeft = ({
   field,
 }: {
   piece: Piece;
-  field: number[][];
+  field: CellType[][];
 }) => {
   const { pieceXOffset, values: pieceValues } = piece;
   const pieceRightColumn = pieceFirstColumnWithFilledCell(pieceValues);

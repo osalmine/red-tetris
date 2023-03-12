@@ -1,3 +1,4 @@
+import { BLOCKED, CellType, FILLED } from '../../constants/cellType';
 import params from '../../params';
 import { Piece } from '../../types';
 import { pieceLastRowWithFilledCell } from './pieceDimensions';
@@ -23,7 +24,7 @@ export const isFieldBlocking = ({
   direction,
 }: {
   piece: Piece;
-  field: number[][];
+  field: CellType[][];
   direction: 'down' | 'right' | 'left';
 }) => {
   const { pieceYOffset, pieceXOffset, values: pieceValues } = piece;
@@ -36,7 +37,8 @@ export const isFieldBlocking = ({
         yCursor >= 0 &&
         yCursor < params.board.rows &&
         pieceCol === 1 &&
-        field[yCursor][xCursor] === 1
+        (field[yCursor][xCursor] === FILLED ||
+          field[yCursor][xCursor] === BLOCKED)
       ) {
         return true;
       }
@@ -50,7 +52,7 @@ export const pieceCanMoveDown = ({
   field,
 }: {
   piece: Piece;
-  field: number[][];
+  field: CellType[][];
 }) => {
   const { pieceYOffset, values: pieceValues } = piece;
   const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);

@@ -9,6 +9,7 @@ import {
   ClientUpdateAction,
   ClientEndGameAction,
   ResetGameAction,
+  BlockOpponentRowsAction,
 } from './types';
 
 export const joinRoom = ({
@@ -74,4 +75,19 @@ export const resetGame = ({
   type: outgoingEvents.RESET,
   roomName,
   initiator: playerName,
+});
+
+export const blockOpponentRows = ({
+  roomName,
+  playerName,
+  numberOfBlockRows,
+}: {
+  roomName: string;
+  playerName: string;
+  numberOfBlockRows: number;
+}): BlockOpponentRowsAction => ({
+  type: outgoingEvents.BLOCK,
+  roomName,
+  playerName,
+  numberOfBlockRows,
 });

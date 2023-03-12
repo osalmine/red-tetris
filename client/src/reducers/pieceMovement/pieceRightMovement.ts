@@ -1,3 +1,4 @@
+import { CellType } from '../../constants/cellType';
 import params from '../../params';
 import { Piece } from '../../types';
 import { pieceLastColumnWithFilledCell } from './pieceDimensions';
@@ -8,7 +9,7 @@ export const pieceCanMoveRight = ({
   field,
 }: {
   piece: Piece;
-  field: number[][];
+  field: CellType[][];
 }) => {
   const { pieceXOffset, values: pieceValues } = piece;
   const pieceLeftColumn = pieceLastColumnWithFilledCell(pieceValues);

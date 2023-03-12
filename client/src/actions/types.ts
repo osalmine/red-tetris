@@ -34,6 +34,12 @@ type ResetGameAction = BaseAction<'resetGame'> & {
   initiator: string;
 };
 
+type BlockOpponentRowsAction = BaseAction<'blockOpponentRows'> & {
+  roomName: string;
+  playerName: string;
+  numberOfBlockRows: number;
+};
+
 type AddNewActivePieceAction = BaseAction<typeof internalEvents.ACTIVE_PIECE> &
   Piece;
 
@@ -61,6 +67,7 @@ type AllActions =
   | StartGameAction
   | ClientEndGameAction
   | ResetGameAction
+  | BlockOpponentRowsAction
   | AddNewActivePieceAction
   | MovePieceDownAction
   | MovePieceRigthAction
@@ -77,6 +84,7 @@ export type {
   StartGameAction,
   ClientEndGameAction,
   ResetGameAction,
+  BlockOpponentRowsAction,
   AddNewActivePieceAction,
   MovePieceDownAction,
   MovePieceRigthAction,

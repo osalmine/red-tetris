@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
+import { BLOCKED, CellType, FILLED } from '../constants/cellType';
 import Board from './Board';
 
 type Props = {
   rows: number;
   cols: number;
-  boardValues?: number[][];
+  boardValues?: CellType[][];
   width?: number;
 };
 
@@ -31,7 +32,11 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
 export const ShadowBoard = ({ rows, cols, boardValues, width }: Props) => {
   const getCellValue = useCallback(
     (rowNb: number, colNb: number) =>
-      boardValues && boardValues[rowNb][colNb] === 1 ? 1 : 0,
+      boardValues &&
+      (boardValues[rowNb][colNb] === FILLED ||
+        boardValues[rowNb][colNb] === BLOCKED)
+        ? boardValues[rowNb][colNb]
+        : 0,
     [boardValues]
   );
 

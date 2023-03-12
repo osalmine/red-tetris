@@ -1,7 +1,8 @@
+import { CellType } from './constants/cellType';
 import { PieceName } from './constants/pieces';
 
 export type Board = {
-  field: number[][];
+  field: CellType[][];
   isOverflown?: boolean;
 };
 
@@ -20,7 +21,7 @@ export type GameState = {
 };
 
 export type Piece = {
-  values: number[][];
+  values: CellType[][];
   pieceXOffset: number;
   pieceYOffset: number;
   pieceType: PieceName;

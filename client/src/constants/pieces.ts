@@ -1,25 +1,25 @@
-import { EMPTY as E, FILLED as X } from './cellType';
+import { CellType, EMPTY as E, FILLED as X } from './cellType';
 
-const I = [
+const I: CellType[][] = [
   [E, E, X, E],
   [E, E, X, E],
   [E, E, X, E],
   [E, E, X, E],
 ];
 
-const J = [
+const J: CellType[][] = [
   [E, X, E],
   [E, X, E],
   [X, X, E],
 ];
 
-const L = [
+const L: CellType[][] = [
   [E, X, E],
   [E, X, E],
   [E, X, X],
 ];
 
-const O = [
+const O: CellType[][] = [
   [X, X],
   [X, X],
 ];
@@ -27,7 +27,7 @@ const O = [
 /**
  * @todo Rotate to accurate start
  */
-const S = [
+const S: CellType[][] = [
   [X, E, E],
   [X, X, E],
   [E, X, E],
@@ -36,7 +36,7 @@ const S = [
 /**
  * @todo Rotate to accurate start
  */
-const T = [
+const T: CellType[][] = [
   [E, X, E],
   [X, X, E],
   [E, X, E],
@@ -45,7 +45,7 @@ const T = [
 /**
  * @todo Rotate to accurate start
  */
-const Z = [
+const Z: CellType[][] = [
   [E, X, E],
   [X, X, E],
   [X, E, E],

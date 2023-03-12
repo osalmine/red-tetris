@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { CellType, EMPTY, FILLED } from '../constants/cellType';
+
 type Props = {
-  value: number;
+  value: CellType;
   removeMargin?: boolean;
   removeBorderRadius?: boolean;
   removeBoxShadow?: boolean;
 };
 
 type CellProps = {
-  cellValue: number;
+  cellValue: CellType;
   removeMargin?: boolean;
   removeBorderRadius?: boolean;
   removeBoxShadow?: boolean;
@@ -19,10 +21,21 @@ const CellContainer = styled.div<CellProps>`
   display: flex;
   flex: auto;
   margin: ${({ removeMargin }) => (removeMargin ? 0 : '2px')};
-  background-color: ${(props) =>
-    props.cellValue ? props.theme.white : '#313338'};
+  background-color: ${({ cellValue, theme }) =>
+    cellValue === FILLED
+      ? theme.white
+      : cellValue === EMPTY
+      ? '#313338'
+      : '#6b6b6b'};
   box-shadow: ${({ removeBoxShadow, cellValue, theme }) =>
-    !removeBoxShadow && `0 0 3px ${cellValue ? theme.white : '#313338'}`};
+    !removeBoxShadow &&
+    `0 0 3px ${
+      cellValue === FILLED
+        ? theme.white
+        : cellValue === EMPTY
+        ? '#313338'
+        : '#6b6b6b'
+    }`};
   border-radius: ${({ removeBorderRadius }) =>
     removeBorderRadius ? 0 : '3px'};
 

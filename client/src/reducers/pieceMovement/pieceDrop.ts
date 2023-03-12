@@ -1,3 +1,4 @@
+import { CellType } from '../../constants/cellType';
 import { Piece } from '../../types';
 import { pieceCanMoveDown } from './utils';
 
@@ -6,7 +7,7 @@ export const dropPieceGetYOffset = ({
   field,
 }: {
   piece: Piece;
-  field: number[][];
+  field: CellType[][];
 }) => {
   const clonePiece = { ...piece };
   while (pieceCanMoveDown({ piece: clonePiece, field })) {

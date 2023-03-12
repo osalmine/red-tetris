@@ -7,6 +7,7 @@ import {
   endGame,
   updateState,
   resetGame,
+  blockOpponentRows,
 } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
@@ -57,6 +58,12 @@ export const socketMiddleWare =
           const { initiator, roomName } = action;
 
           resetGame({ roomName, initiator });
+          return next(action);
+        }
+        case outgoingEvents.BLOCK: {
+          const { playerName, roomName, numberOfBlockRows } = action;
+
+          blockOpponentRows({ roomName, playerName, numberOfBlockRows });
           return next(action);
         }
 

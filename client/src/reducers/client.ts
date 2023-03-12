@@ -1,4 +1,5 @@
 import {
+  BlockOpponentRowsAction,
   ClientUpdateAction,
   JoinRoomAction,
   ResetGameAction,
@@ -11,7 +12,8 @@ type ClientAction =
   | JoinRoomAction
   | StartGameAction
   | ClientUpdateAction
-  | ResetGameAction;
+  | ResetGameAction
+  | BlockOpponentRowsAction;
 
 const clientReducer = (
   state: ClientState = {},
