@@ -45,6 +45,15 @@ export type PlayerAlreadyExistsError = {
   };
 };
 
+export type PlayerNotFoundError = {
+  error: {
+    name: 'PlayerNotFoundError';
+    data: {
+      playerName: string;
+    };
+  };
+};
+
 export type GameAlreadyStartedError = {
   error: {
     name: 'GameAlreadyStartedError';
@@ -65,5 +74,6 @@ export type GameNotFoundError = {
 
 export type Errors =
   | PlayerAlreadyExistsError
+  | PlayerNotFoundError
   | GameAlreadyStartedError
   | GameNotFoundError;

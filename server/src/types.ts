@@ -2,7 +2,9 @@ import { PieceName } from './constants/pieces';
 import Board from './models/board';
 import {
   PlayerAlreadyExistsError,
+  PlayerNotFoundError,
   GameAlreadyStartedError,
+  GameNotFoundError,
 } from './models/error';
 
 export type PlayerT = {
@@ -32,7 +34,11 @@ export type ServerToClientEvents = {
   serverError: ({
     error,
   }: {
-    error: PlayerAlreadyExistsError | GameAlreadyStartedError;
+    error:
+      | PlayerAlreadyExistsError
+      | PlayerNotFoundError
+      | GameAlreadyStartedError
+      | GameNotFoundError;
   }) => void;
 };
 

@@ -30,6 +30,11 @@ const handleError = ({ error }: Errors) => {
       title: 'Player already exists',
       message: `Player named ${error.data.playerName} has already joined the game`,
     });
+  } else if (error.name === 'PlayerNotFoundError') {
+    addErrorNotification({
+      title: 'Player not found',
+      message: `Player named ${error.data.playerName} was not found`,
+    });
   } else if (error.name === 'GameAlreadyStartedError') {
     addErrorNotification({
       title: 'Game already started',
