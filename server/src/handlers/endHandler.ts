@@ -30,6 +30,7 @@ const endHandler =
       }
       const player = game.getPlayer(playerName);
       player.setState('finished');
+      game.addPlayerToFinishedPlayers(player);
       if (game.isFinished) {
         game.setGameState('finished');
       }

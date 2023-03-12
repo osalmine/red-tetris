@@ -15,12 +15,14 @@ export default class Game implements GameType {
   players: Player[];
   roomState: 'pending' | 'playing' | 'finished';
   pieceHandler: Piece;
+  finishedPlayers: Player[];
 
   constructor(roomName: string) {
     this.roomName = roomName;
     this.players = [];
     this.roomState = 'pending';
     this.pieceHandler = new Piece();
+    this.finishedPlayers = [];
   }
 
   addPlayer(player: Player) {
@@ -77,6 +79,7 @@ export default class Game implements GameType {
   resetGame() {
     this.pieceHandler.resetPieces();
     this.players.forEach((player) => player.resetPlayer());
+    this.finishedPlayers = [];
     this.setGameState('pending');
   }
 
@@ -84,6 +87,10 @@ export default class Game implements GameType {
     this.players
       .filter((player) => player.name !== blockingInitiator)
       .forEach((player) => player.addBlockedRows(blockedRows));
+  }
+
+  addPlayerToFinishedPlayers(player: Player) {
+    this.finishedPlayers.unshift(player);
   }
 
   get hasAdmin() {
@@ -120,6 +127,7 @@ export default class Game implements GameType {
     return {
       roomState: this.roomState,
       players: Game.transformPlayers(this.players),
+      finishedPlayers: Game.transformPlayers(this.finishedPlayers),
     };
   }
 }

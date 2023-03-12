@@ -19,6 +19,7 @@ export type PlayerT = {
 type GameState = {
   roomState: 'pending' | 'playing' | 'finished';
   players: PlayerT[];
+  finishedPlayers: PlayerT[];
 };
 
 export type SocketClients = Map<
@@ -30,7 +31,11 @@ export type SocketClients = Map<
 >;
 
 export type ServerToClientEvents = {
-  serverUpdateState: ({ roomState, players }: GameState) => void;
+  serverUpdateState: ({
+    roomState,
+    players,
+    finishedPlayers,
+  }: GameState) => void;
   serverError: ({
     error,
   }: {
