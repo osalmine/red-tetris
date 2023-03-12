@@ -18,6 +18,7 @@ export type Player = {
 export type GameState = {
   roomState: 'pending' | 'playing' | 'finished';
   players: Player[];
+  finishedPlayers: Player[];
 };
 
 export type Piece = {

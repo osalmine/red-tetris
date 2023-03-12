@@ -5,6 +5,7 @@ import * as incomingEvents from '../constants/incomingEvents';
 const defaultState: GameState = {
   roomState: 'pending',
   players: [],
+  finishedPlayers: [],
 };
 
 const updateStateReducer = (
