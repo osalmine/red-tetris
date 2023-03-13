@@ -15,7 +15,16 @@ const Root = styled.div`
 
 const Heading = styled.h2`
   font-size: 36px;
-  margin: 10px 0;
+  margin: 0;
+`;
+
+const ScoreBoard = styled.div`
+  margin: 24px;
+`;
+
+const ScoreLine = styled.p`
+  margin: 4px;
+  font-size: 18px;
 `;
 
 const Finished = () => {
@@ -46,11 +55,13 @@ const Finished = () => {
     <Root>
       <RedTetrisTitle />
       <Heading>Game finished in room {roomName}</Heading>
-      {finishedPlayers.map((player, i) => (
-        <div key={`${i}_${player.name}`}>
-          {i + 1}: {player.name}
-        </div>
-      ))}
+      <ScoreBoard>
+        {finishedPlayers.map((player, i) => (
+          <ScoreLine key={`${i}_${player.name}`}>
+            {i + 1}: {player.name}
+          </ScoreLine>
+        ))}
+      </ScoreBoard>
       {playerIsAdmin && (
         <SubmitButton onClick={onResetGame}>Main menu</SubmitButton>
       )}

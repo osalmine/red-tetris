@@ -27,6 +27,7 @@ const OpponentBoardShadows = ({ opponents }: Props) => (
         boardValues={opponent.board.field}
         cols={10}
         key={`${opponent.name}_${i}`}
+        name={opponent.name}
         rows={20}
       />
     ))}

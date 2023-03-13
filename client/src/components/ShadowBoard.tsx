@@ -8,7 +8,7 @@ type Props = {
   rows: number;
   cols: number;
   boardValues?: CellType[][];
-  width?: number;
+  name: string;
 };
 
 const Root = styled.div`
@@ -19,7 +19,7 @@ const Root = styled.div`
   align-items: center;
 `;
 
-const BoardContainer = styled.div<{ containerWidth?: number }>`
+const BoardContainer = styled.div`
   display: flex;
   border: 4px solid ${(props) => props.theme.white};
   box-shadow: 0 0 8px ${(props) => props.theme.white};
@@ -27,9 +27,10 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
   padding: 0.5rem;
   border-radius: 3px;
   flex-direction: column;
+  margin-bottom: 4px;
 `;
 
-export const ShadowBoard = ({ rows, cols, boardValues, width }: Props) => {
+export const ShadowBoard = ({ rows, cols, boardValues, name }: Props) => {
   const getCellValue = useCallback(
     (rowNb: number, colNb: number) =>
       boardValues &&
@@ -42,7 +43,7 @@ export const ShadowBoard = ({ rows, cols, boardValues, width }: Props) => {
 
   return (
     <Root>
-      <BoardContainer containerWidth={width}>
+      <BoardContainer>
         <Board
           cellProps={{
             removeBorderRadius: true,
@@ -54,6 +55,7 @@ export const ShadowBoard = ({ rows, cols, boardValues, width }: Props) => {
           rows={rows}
         />
       </BoardContainer>
+      {name}
     </Root>
   );
 };
