@@ -51,7 +51,7 @@ export default class Player {
   }
 
   addBlockedRows(blockedRows: number) {
-    const cols = this.board.field.at(0).length;
+    const cols = this.board.field[0].length;
     this.board.field = [
       ...this.board.field,
       ...new Array(blockedRows).fill(new Array(cols).fill(BLOCKED)),
