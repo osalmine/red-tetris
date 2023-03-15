@@ -8,8 +8,10 @@ import {
 } from '../types';
 import Controller from '../models/controller';
 import * as outgoingEvents from '../constants/outgoingEvents';
+import { GameNotFoundError } from '../models/error';
 
 const loginfo = debug('tetris:info');
+const logerror = debug('tetris:error');
 
 const disconnectHandler =
   ({
@@ -28,34 +30,48 @@ const disconnectHandler =
     loginfo(
       `Client is stored in socketClients: ${socketClients.has(socket.id)}`
     );
-    if (socketClients.has(socket.id)) {
-      const { roomName, playerName } = socketClients.get(socket.id);
-      const game = controller.getGame(roomName);
-      loginfo(`Player ${playerName} exists: ${game.playerExists(playerName)}`);
-      const wasAdmin = game.getPlayer(playerName).isAdmin;
-      game.removePlayer(playerName);
-      loginfo(
-        `After remove player ${playerName} exists: ${game.playerExists(
-          playerName
-        )}`
-      );
-      socketClients.delete(socket.id);
-      loginfo(
-        `Emit after delete to ${roomName}: ${
-          outgoingEvents.UPDATE
-        } state: ${JSON.stringify(game.state)}`
-      );
-      if (game.hasPlayers) {
-        loginfo(`Game still has ${game.players.length} players`);
-        if (wasAdmin) {
-          loginfo('Disconnected player was admin');
-          loginfo(`Assigning admin to ${game.firstPlayer.name}`);
-          game.firstPlayer.assignAdmin();
+    try {
+      if (socketClients.has(socket.id)) {
+        const { roomName, playerName } = socketClients.get(socket.id);
+        const game = controller.getGame(roomName);
+        if (!game) {
+          throw new GameNotFoundError(roomName);
         }
-        io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
+        loginfo(
+          `Player ${playerName} exists: ${game.playerExists(playerName)}`
+        );
+        const wasAdmin = game.getPlayer(playerName).isAdmin;
+        game.removePlayer(playerName);
+        loginfo(
+          `After remove player ${playerName} exists: ${game.playerExists(
+            playerName
+          )}`
+        );
+        socketClients.delete(socket.id);
+        loginfo(
+          `Emit after delete to ${roomName}: ${
+            outgoingEvents.UPDATE
+          } state: ${JSON.stringify(game.state)}`
+        );
+        if (game.hasPlayers) {
+          loginfo(`Game still has ${game.players.length} players`);
+          if (wasAdmin) {
+            loginfo('Disconnected player was admin');
+            loginfo(`Assigning admin to ${game.firstPlayer.name}`);
+            game.firstPlayer.assignAdmin();
+          }
+          io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
+        } else {
+          loginfo('Game does not have any more players');
+          controller.removeGame(roomName);
+        }
+      }
+    } catch (error) {
+      if (error instanceof GameNotFoundError) {
+        logerror(`GameNotFoundError catched: ${error}`);
+        socket.emit(outgoingEvents.ERROR, { error });
       } else {
-        loginfo('Game does not have any more players');
-        controller.removeGame(roomName);
+        logerror(error);
       }
     }
   };
