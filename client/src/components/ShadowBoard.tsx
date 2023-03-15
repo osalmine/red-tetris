@@ -9,6 +9,7 @@ type Props = {
   cols: number;
   boardValues?: CellType[][];
   name: string;
+  isGameOver: boolean;
 };
 
 const Root = styled.div`
@@ -19,7 +20,12 @@ const Root = styled.div`
   align-items: center;
 `;
 
-const BoardContainer = styled.div`
+const ShadowBoardContainer = styled.div<{ isGameOver: boolean }>`
+  display: flex;
+  justify-content: center;
+`;
+
+const BoardContainer = styled.div<{ isGameOver: boolean }>`
   display: flex;
   border: 4px solid ${(props) => props.theme.white};
   box-shadow: 0 0 8px ${(props) => props.theme.white};
@@ -28,9 +34,22 @@ const BoardContainer = styled.div`
   border-radius: 3px;
   flex-direction: column;
   margin-bottom: 4px;
+  opacity: ${({ isGameOver }) => (isGameOver ? '0.1' : null)};
 `;
 
-export const ShadowBoard = ({ rows, cols, boardValues, name }: Props) => {
+const GameOver = styled.p`
+  position: absolute;
+  justify-self: center;
+  align-self: center;
+`;
+
+export const ShadowBoard = ({
+  rows,
+  cols,
+  boardValues,
+  name,
+  isGameOver,
+}: Props) => {
   const getCellValue = useCallback(
     (rowNb: number, colNb: number) =>
       boardValues &&
@@ -43,18 +62,21 @@ export const ShadowBoard = ({ rows, cols, boardValues, name }: Props) => {
 
   return (
     <Root>
-      <BoardContainer>
-        <Board
-          cellProps={{
-            removeBorderRadius: true,
-            removeBoxShadow: true,
-            removeMargin: true,
-          }}
-          cols={cols}
-          getCellValue={getCellValue}
-          rows={rows}
-        />
-      </BoardContainer>
+      <ShadowBoardContainer isGameOver={isGameOver}>
+        <BoardContainer isGameOver={isGameOver}>
+          <Board
+            cellProps={{
+              removeBorderRadius: true,
+              removeBoxShadow: true,
+              removeMargin: true,
+            }}
+            cols={cols}
+            getCellValue={getCellValue}
+            rows={rows}
+          />
+        </BoardContainer>
+        {isGameOver && <GameOver>Game Over</GameOver>}
+      </ShadowBoardContainer>
       {name}
     </Root>
   );

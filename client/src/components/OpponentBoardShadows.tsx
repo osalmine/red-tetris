@@ -26,6 +26,7 @@ const OpponentBoardShadows = ({ opponents }: Props) => (
       <ShadowBoard
         boardValues={opponent.board.field}
         cols={10}
+        isGameOver={opponent.state === 'finished'}
         key={`${opponent.name}_${i}`}
         name={opponent.name}
         rows={20}
