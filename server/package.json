@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production node src/main.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "DEBUG=tetris:* nodemon --config nodemon.json src/main.ts",
-    "dev:debug": "nodemon --config nodemon.json --inspect-brk src/main.ts",
+    "dev": "DEBUG=tetris:* NODE_ENV=development nodemon --config nodemon.json src/main.ts",
+    "dev:debug": "NODE_ENV=development nodemon --config nodemon.json --inspect-brk src/main.ts",
     "lint": "eslint --fix --ext .js,.ts src/"
   },
   "author": "osalmine",

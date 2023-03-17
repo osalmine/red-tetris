@@ -1,27 +1,44 @@
 {
-	"name": "red_tetrisboilerplate",
-	"version": "0.0.1",
-	"author": "redpelicans",
-	"license": "MIT",
-	"scripts": {
-		"lint": "cd client && npm run lint && cd ../server && npm run lint",
-		"client-dist": "NODE_ENV=production webpack --progress --colors",
-		"client-dev": "webpack-dev-server --colors --hot --inline --host 0.0.0.0 --port 8080",
-		"srv-dev": "DEBUG=tetris:* babel-watch -w src server/main.js",
-		"srv-dist": "DEBUG=tetris:* babel src --out-dir dist",
-		"test": "mocha --require babel-core/register --reporter spec",
-		"coverage": "NODE_ENV=test nyc --include src --all -r text -r lcov -r text --require babel-core/register mocha "
-	},
-	"nyc": {
-		"exclude": [
-			"build"
-		]
-	},
-	"babel": {
-		"presets": [
-			"es2015",
-			"react",
-			"stage-0"
-		]
-	}
+  "name": "red-tetris",
+  "version": "1.0.0",
+  "author": "osalmine",
+  "license": "MIT",
+  "scripts": {
+    "lint": "cd client && npm run lint && cd ../server && npm run lint",
+    "client-dist": "NODE_ENV=production webpack --progress --colors",
+    "client-dev": "webpack-dev-server --colors --hot --inline --host 0.0.0.0 --port 8080",
+    "test": "mocha --require babel-core/register --reporter spec",
+    "coverage": "NODE_ENV=test nyc --include src --all -r text -r lcov -r text --require babel-core/register mocha ",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "watch": "webpack --watch",
+    "serve": "webpack serve",
+    "start:dev": "cd server && npm run dev",
+    "start": "cd server && npm start"
+  },
+  "nyc": {
+    "exclude": [
+      "build"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ]
+  },
+  "devDependencies": {
+    "@webpack-cli/generators": "^3.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.8.4",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "process": "^0.11.10"
+  }
 }

@@ -33,13 +33,7 @@ const middleware =
         }),
         socketMiddleWare(socket),
       ]
-    : [
-        thunk,
-        createLogger({
-          level: 'info',
-        }),
-        socketMiddleWare(socket),
-      ];
+    : [thunk, socketMiddleWare(socket)];
 
 export const store = createStore(
   reducer,
