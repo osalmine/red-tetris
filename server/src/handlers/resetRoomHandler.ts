@@ -7,6 +7,7 @@ import { GameAlreadyStartedError, GameNotFoundError } from '../models/Error';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
 const logerror = debug('tetris:error');
+const loginfo = debug('tetris:info');
 
 const resetRoomHandler =
   ({
@@ -19,6 +20,9 @@ const resetRoomHandler =
     controller: Controller;
   }) =>
   ({ roomName, initiator }: { roomName: string; initiator: string }) => {
+    loginfo(
+      `Reset room emit received from room ${roomName} initiated by ${initiator}`
+    );
     try {
       if (controller.isGameOngoing(roomName)) {
         logerror('Game already started');
@@ -27,15 +31,10 @@ const resetRoomHandler =
       const game = controller.getGame(roomName);
       if (game.getPlayer(initiator).isAdmin) {
         controller.resetGame(roomName);
-        io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
+        io.to(roomName).emit(outgoingEvents.RESET, game.state);
       } else {
         logerror(`Can't reset the game: ${initiator} is not admin`);
       }
-
-      io.to(roomName).emit(
-        outgoingEvents.UPDATE,
-        controller.getGame(roomName).state
-      );
     } catch (error) {
       if (error instanceof GameNotFoundError) {
         logerror(`GameNotFoundError catched: ${error}`);

@@ -14,6 +14,10 @@ type ServerUpdateAction = BaseAction<'serverUpdateState'> & {
   state: GameState;
 };
 
+type ServerResetGame = BaseAction<'serverResetGame'> & {
+  state: GameState;
+};
+
 type ClientUpdateAction = BaseAction<'clientUpdateState'> & {
   roomName: string;
   playerState: Player;
@@ -63,6 +67,7 @@ type DropPieceAction = BaseAction<typeof internalEvents.DROP_PIECE> & {
 type AllActions =
   | JoinRoomAction
   | ServerUpdateAction
+  | ServerResetGame
   | ClientUpdateAction
   | StartGameAction
   | ClientEndGameAction
@@ -80,6 +85,7 @@ export type {
   AllActions,
   JoinRoomAction,
   ServerUpdateAction,
+  ServerResetGame,
   ClientUpdateAction,
   StartGameAction,
   ClientEndGameAction,

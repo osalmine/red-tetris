@@ -2,6 +2,6 @@ const UPDATE = 'serverUpdateState';
 
 const ERROR = 'serverError';
 
-const END = 'endGame';
+const RESET = 'serverResetGame';
 
-export { UPDATE, ERROR, END };
+export { UPDATE, ERROR, RESET };

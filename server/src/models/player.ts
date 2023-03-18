@@ -1,3 +1,4 @@
+import params from '../../params';
 import { FILLED, BLOCKED } from '../constants/cellType';
 import { PieceName } from '../constants/pieces';
 import Board from './Board';
@@ -46,8 +47,7 @@ export default class Player {
   resetPlayer() {
     this.setState('pending');
     this.pieces = [];
-
-    // this.board.resetBoard();
+    this.board = new Board(params.board.rows, params.board.cols);
   }
 
   addBlockedRows(blockedRows: number) {

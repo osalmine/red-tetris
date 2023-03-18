@@ -10,6 +10,7 @@ import {
   ClientEndGameAction,
   ResetGameAction,
   BlockOpponentRowsAction,
+  ServerResetGame,
 } from './types';
 
 export const joinRoom = ({
@@ -26,6 +27,11 @@ export const joinRoom = ({
 
 export const serverUpdateState = (state: GameState): ServerUpdateAction => ({
   type: incomingEvents.UPDATE,
+  state,
+});
+
+export const serverResetGame = (state: GameState): ServerResetGame => ({
+  type: incomingEvents.RESET,
   state,
 });
 

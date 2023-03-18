@@ -11,7 +11,7 @@ import {
 } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { serverUpdateState } from '../actions/server';
+import { serverResetGame, serverUpdateState } from '../actions/server';
 import { AllActions } from '../actions/types';
 import { GameState } from '../types';
 import handleError from '../handlers/errorHandler';
@@ -26,6 +26,10 @@ export const socketMiddleWare =
 
     socket.on(incomingEvents.ERROR, (error: Errors) => {
       handleError(error);
+    });
+
+    socket.on(incomingEvents.RESET, (data: GameState) => {
+      dispatch(serverResetGame(data));
     });
 
     return (next: Dispatch<AllActions>) => (action: AllActions) => {

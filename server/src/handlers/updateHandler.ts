@@ -20,7 +20,7 @@ const updateHandler =
     controller: Controller;
   }) =>
   ({ roomName, playerState }: { roomName: string; playerState: PlayerT }) => {
-    loginfo(`ROOM ${roomName}: RECEIVE GAME STATE`, playerState);
+    loginfo(`ROOM ${roomName}: RECEIVE GAME STATE`);
     const game = controller.getGame(roomName);
     try {
       if (!game) {
@@ -31,7 +31,7 @@ const updateHandler =
       if (playerState.pieces.length <= minimumAmountOfPieces) {
         game.addPiecesToPlayers(game.pieceHandler.generateBatch());
       }
-      loginfo('New player state', game.getPlayer(playerState.name));
+
       io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
     } catch (error) {
       if (error instanceof GameNotFoundError) {

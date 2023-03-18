@@ -69,6 +69,5 @@ export default class Controller {
       throw new GameNotFoundError(roomName);
     }
     this.getGame(roomName).resetGame();
-    this.games.delete(roomName);
   }
 }

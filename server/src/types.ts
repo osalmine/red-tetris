@@ -36,6 +36,7 @@ export type ServerToClientEvents = {
     players,
     finishedPlayers,
   }: GameState) => void;
+  serverResetGame: ({ roomState, players, finishedPlayers }: GameState) => void;
   serverError: ({
     error,
   }: {

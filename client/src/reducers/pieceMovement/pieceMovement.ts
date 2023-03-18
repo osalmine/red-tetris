@@ -1,3 +1,4 @@
+/* eslint-disable no-undefined */
 import {
   DropPieceAction,
   MovePieceDownAction,
@@ -6,9 +7,11 @@ import {
   RotatePieceLeftAction,
   RotatePieceRightAction,
   AddNewActivePieceAction,
+  ServerResetGame,
 } from '../../actions/types';
 import { PieceState } from '../../types';
 import * as internalEvents from '../../constants/internalEvents';
+import * as incomingEvents from '../../constants/incomingEvents';
 import { pieceCanRotate, rotatePieceRight } from './rotatePiece';
 import { pieceCanMoveDown } from './utils';
 import { pieceCanMoveRight } from './pieceRightMovement';
@@ -22,13 +25,22 @@ type PieceMovementAction =
   | RotatePieceRightAction
   | RotatePieceLeftAction
   | DropPieceAction
-  | AddNewActivePieceAction;
+  | AddNewActivePieceAction
+  | ServerResetGame;
 
 const pieceMovementReducer = (
   state: PieceState = {},
   action: PieceMovementAction
 ): PieceState => {
   switch (action.type) {
+    case incomingEvents.RESET: {
+      const newState = {
+        ...state,
+        activePiece: undefined,
+        previousPiece: undefined,
+      };
+      return newState;
+    }
     case internalEvents.ACTIVE_PIECE: {
       const newState = {
         ...state,

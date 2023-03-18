@@ -1,6 +1,8 @@
-import { ServerUpdateAction } from '../actions/types';
+import { ServerResetGame, ServerUpdateAction } from '../actions/types';
 import { GameState } from '../types';
 import * as incomingEvents from '../constants/incomingEvents';
+
+type ServerAction = ServerUpdateAction | ServerResetGame;
 
 const defaultState: GameState = {
   roomState: 'pending',
@@ -10,12 +12,17 @@ const defaultState: GameState = {
 
 const updateStateReducer = (
   state: GameState = defaultState,
-  action: ServerUpdateAction
+  action: ServerAction
 ): GameState => {
   switch (action.type) {
-    case incomingEvents.UPDATE:
+    case incomingEvents.UPDATE: {
       const newState = { ...state, ...action.state };
       return newState;
+    }
+    case incomingEvents.RESET: {
+      const newState = { ...state, ...action.state };
+      return newState;
+    }
     default:
       return state;
   }
