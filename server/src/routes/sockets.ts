@@ -5,7 +5,7 @@ import {
   ServerToClientEvents,
   SocketClients,
 } from '../types';
-import Controller from '../models/controller';
+import Controller from '../models/Controller';
 import * as incomingEvents from '../constants/incomingEvents';
 import joinHandler from '../handlers/joinHandler';
 import startHandler from '../handlers/startHandler';

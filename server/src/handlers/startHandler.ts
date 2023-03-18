@@ -2,7 +2,7 @@ import * as socketio from 'socket.io';
 import debug from 'debug';
 
 import { ClientToServerEvents, ServerToClientEvents } from '../types';
-import Controller from '../models/controller';
+import Controller from '../models/Controller';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
 const logerror = debug('tetris:error'),

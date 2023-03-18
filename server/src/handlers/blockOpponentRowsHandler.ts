@@ -2,9 +2,9 @@ import * as socketio from 'socket.io';
 import debug from 'debug';
 
 import { ClientToServerEvents, ServerToClientEvents } from '../types';
-import Controller from '../models/controller';
+import Controller from '../models/Controller';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { GameNotFoundError } from '../models/error';
+import { GameNotFoundError } from '../models/Error';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');

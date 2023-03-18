@@ -6,11 +6,11 @@ import {
   ServerToClientEvents,
   SocketClients,
 } from '../types';
-import Controller from '../models/controller';
+import Controller from '../models/Controller';
 import {
   GameAlreadyStartedError,
   PlayerAlreadyExistsError,
-} from '../models/error';
+} from '../models/Error';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
 const logerror = debug('tetris:error'),

@@ -1,8 +1,8 @@
 import debug from 'debug';
 import { PieceName } from '../constants/pieces';
 import { PlayerT } from '../types';
-import Piece from './piece';
-import Player from './player';
+import Piece from './Piece';
+import Player from './Player';
 
 type GameType = {
   getPlayer(playerName: string): Player;

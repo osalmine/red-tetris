@@ -1,9 +1,9 @@
 import debug from 'debug';
 
-import Game from './game';
-import Player from './player';
+import Game from './Game';
+import Player from './Player';
 import params from '../../params';
-import { GameNotFoundError, PlayerAlreadyExistsError } from './error';
+import { GameNotFoundError, PlayerAlreadyExistsError } from './Error';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');

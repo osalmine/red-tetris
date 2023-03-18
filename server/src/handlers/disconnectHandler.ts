@@ -6,9 +6,9 @@ import {
   ServerToClientEvents,
   SocketClients,
 } from '../types';
-import Controller from '../models/controller';
+import Controller from '../models/Controller';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { GameNotFoundError } from '../models/error';
+import { GameNotFoundError } from '../models/Error';
 
 const loginfo = debug('tetris:info');
 const logerror = debug('tetris:error');

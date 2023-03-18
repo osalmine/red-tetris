@@ -1,11 +1,11 @@
 import { PieceName } from './constants/pieces';
-import Board from './models/board';
+import Board from './models/Board';
 import {
   PlayerAlreadyExistsError,
   PlayerNotFoundError,
   GameAlreadyStartedError,
   GameNotFoundError,
-} from './models/error';
+} from './models/Error';
 
 export type PlayerT = {
   name: string;

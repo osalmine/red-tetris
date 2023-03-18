@@ -1,6 +1,6 @@
 import { FILLED, BLOCKED } from '../constants/cellType';
 import { PieceName } from '../constants/pieces';
-import Board from './board';
+import Board from './Board';
 
 export default class Player {
   name: string;
