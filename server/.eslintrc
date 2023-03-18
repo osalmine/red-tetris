@@ -1,12 +1,14 @@
 {
 	"env": {
 	  "browser": true,
-	  "node": true
+	  "node": true,
+    "jest/globals": true
 	},
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
 	  "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "jest"
 	],
   "extends": [
 		"eslint:recommended",
@@ -135,7 +137,7 @@
 	  "no-shadow": 0, //disallow declaration of variables already declared in the outer scope
 	  "no-undef-init": 1, //disallow use of undefined when initializing variables
 	  "no-undef": 1, //disallow use of undeclared variables unless mentioned in a /*global */ block (recommended)
-	  "no-undefined": 1, //disallow use of undefined variable
+	  // "no-undefined": 1, //disallow use of undefined variable
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
 	  "no-use-before-define": 1, //disallow use of variables before they are defined
@@ -226,7 +228,7 @@
 	  "arrow-parens": [0, "always"], // require parens in arrow function arguments
 	  "arrow-spacing": [1, { "before": true, "after": true }], //require space before/after arrow function's arrow (fixable)
 	  "constructor-super": 1, //verify calls of super() in constructors
-	  "no-confusing-arrow": 1, // disallow arrow functions where a condition is expected
+	  // "no-confusing-arrow": 1, // disallow arrow functions where a condition is expected
 	  "generator-star-spacing": [1, "after"], // enforce spacing around the * in generator functions (fixable)
 	  "no-class-assign": 1, //disallow modifying variables of class declarations
 	  "no-const-assign": 1, //disallow modifying variables that are declared using const

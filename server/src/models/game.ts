@@ -77,7 +77,6 @@ export default class Game implements GameType {
   }
 
   resetGame() {
-    this.pieceHandler.resetPieces();
     this.players.forEach((player) => player.resetPlayer());
     this.finishedPlayers = [];
     this.setGameState('pending');

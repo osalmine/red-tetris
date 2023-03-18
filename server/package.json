@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node src/main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "DEBUG=tetris:* NODE_ENV=development nodemon --config nodemon.json src/main.ts",
     "dev:debug": "NODE_ENV=development nodemon --config nodemon.json --inspect-brk src/main.ts",
     "lint": "eslint --fix --ext .js,.ts src/"
@@ -14,6 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/debug": "^4.1.7",
+    "@types/jest": "^29.5.0",
     "@types/lodash": "^4.14.182",
     "@types/node": "^17.0.8",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
@@ -21,15 +22,20 @@
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^29.5.0",
+    "jest-extended": "^3.2.4",
     "nodemon": "^2.0.19",
     "prettier": "2.6.2",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },
   "dependencies": {
     "debug": "^4.3.3",
     "lodash": "^4.17.21",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.6.1"
   }
 }
