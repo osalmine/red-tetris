@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import * as cellType from './cellType';
 
 describe('cellTypes', () => {

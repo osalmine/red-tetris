@@ -1,3 +1,4 @@
-import { emptyBoard, boardWithFilledCells } from './board';
-
-export { emptyBoard, boardWithFilledCells };
+/* eslint-disable no-restricted-syntax */
+export * from './board';
+export * from './pieces';
+export * from './player';

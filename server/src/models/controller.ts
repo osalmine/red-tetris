@@ -57,10 +57,8 @@ export default class Controller {
       throw new PlayerAlreadyExistsError(playerName);
     }
     room.addPlayer(new Player(playerName, roomName, params.board));
-    loginfo(`Room hasAdmin: ${room.hasAdmin}`);
     if (!room.hasAdmin) {
       room.getPlayer(playerName).assignAdmin();
-      loginfo(`Room hasAdmin: ${room.hasAdmin}`);
     }
   }
 

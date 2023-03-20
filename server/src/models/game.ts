@@ -1,14 +1,12 @@
-import debug from 'debug';
 import { PieceName } from '../constants/pieces';
 import { PlayerT } from '../types';
+import { PlayerNotFoundError } from './Error';
 import Piece from './Piece';
 import Player from './Player';
 
 type GameType = {
   getPlayer(playerName: string): Player;
 };
-
-const loginfo = debug('tetris:info');
 
 export default class Game implements GameType {
   roomName: string;
@@ -33,21 +31,15 @@ export default class Game implements GameType {
     return this.players.some((player) => player.name === playerName);
   }
 
-  getPlayer(playerName: string) {
+  getPlayer(playerName: string): Player | undefined {
     return this.players.find((player) => player.name === playerName);
   }
 
   removePlayer(playerName: string) {
-    loginfo(`GAME METHOD removePlayer ${playerName}`);
-    loginfo(
-      `GAME METHOD this.playerExists(playerName) ${this.playerExists(
-        playerName
-      )}`
-    );
     if (this.playerExists(playerName)) {
       this.players.splice(this.players.indexOf(this.getPlayer(playerName)), 1);
     } else {
-      throw new Error(`Could not remove ${playerName}, player not found`);
+      throw new PlayerNotFoundError(`Could not remove ${playerName}`);
     }
   }
 
@@ -71,9 +63,13 @@ export default class Game implements GameType {
   updatePlayerState(playerState: PlayerT) {
     const player = this.getPlayer(playerState.name);
 
-    player.setState(playerState.state);
-    player.updateBoard(playerState.board);
-    player.updatePieces(playerState.pieces);
+    if (player) {
+      player.setState(playerState.state);
+      player.updateBoard(playerState.board);
+      player.updatePieces(playerState.pieces);
+    } else {
+      throw new PlayerNotFoundError(`Could not update ${playerState.name}`);
+    }
   }
 
   resetGame() {

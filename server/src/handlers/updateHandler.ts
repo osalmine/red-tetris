@@ -4,7 +4,7 @@ import debug from 'debug';
 import { ClientToServerEvents, PlayerT, ServerToClientEvents } from '../types';
 import Controller from '../models/Controller';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { GameNotFoundError } from '../models/Error';
+import { GameNotFoundError, PlayerNotFoundError } from '../models/Error';
 
 const logerror = debug('tetris:error'),
   loginfo = debug('tetris:info');
@@ -21,8 +21,8 @@ const updateHandler =
   }) =>
   ({ roomName, playerState }: { roomName: string; playerState: PlayerT }) => {
     loginfo(`ROOM ${roomName}: RECEIVE GAME STATE`);
-    const game = controller.getGame(roomName);
     try {
+      const game = controller.getGame(roomName);
       if (!game) {
         throw new GameNotFoundError(roomName);
       }
@@ -36,6 +36,9 @@ const updateHandler =
     } catch (error) {
       if (error instanceof GameNotFoundError) {
         logerror(`GameNotFoundError catched: ${error}`);
+        socket.emit(outgoingEvents.ERROR, { error });
+      } else if (error instanceof PlayerNotFoundError) {
+        logerror(`PlayerNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
         logerror(error);
