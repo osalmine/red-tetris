@@ -8,16 +8,14 @@ import httpRoutesHandler from './routes/httpHandler';
 
 type ServerParams = typeof params.server;
 
-const logerror = debug('tetris:error'),
-  loginfo = debug('tetris:info');
+const loginfo = debug('tetris:info');
 
 const initApp = (app: http.Server, server: ServerParams, cb: () => void) => {
-  const { host, port, url } = server;
+  const { host, port } = server;
 
   app.on('request', httpRoutesHandler);
 
   app.listen({ host, port }, () => {
-    loginfo(`tetris listen on ${url}`);
     cb();
   });
 };
