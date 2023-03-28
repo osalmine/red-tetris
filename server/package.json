@@ -1,13 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node src/main.ts",
+    "start": "NODE_ENV=production node src/index.ts",
     "test": "jest",
-    "dev": "DEBUG=tetris:* NODE_ENV=development nodemon --config nodemon.json src/main.ts",
-    "dev:debug": "NODE_ENV=development nodemon --config nodemon.json --inspect-brk src/main.ts",
+    "dev": "DEBUG=tetris:* NODE_ENV=development nodemon --config nodemon.json src/index.ts",
+    "dev:debug": "NODE_ENV=development nodemon --config nodemon.json --inspect-brk src/index.ts",
     "lint": "eslint --fix --ext .js,.ts src/"
   },
   "author": "osalmine",
