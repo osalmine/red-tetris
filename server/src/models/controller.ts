@@ -33,6 +33,10 @@ export default class Controller {
     }
   }
 
+  removeAllGames() {
+    this.games.clear();
+  }
+
   isGameOngoing(roomName: string) {
     if (this.gameExists(roomName)) {
       return this.getGame(roomName).roomState === 'playing';

@@ -17,8 +17,8 @@ import blockOpponentRowsHandler from '../handlers/blockOpponentRowsHandler';
 
 const loginfo = debug('tetris:info');
 
-const controller = new Controller();
-const socketClients: SocketClients = new Map<
+export const controller = new Controller();
+export const socketClients: SocketClients = new Map<
   string,
   { roomName: string; playerName: string }
 >();

@@ -16,7 +16,7 @@ export type PlayerT = {
   board: Board;
 };
 
-type GameState = {
+export type GameState = {
   roomState: 'pending' | 'playing' | 'finished';
   players: PlayerT[];
   finishedPlayers: PlayerT[];
