@@ -18,7 +18,7 @@ const distFolder = path.resolve(__dirname, '..', '..', '..', 'dist');
 
 const toBool = [() => true, () => false];
 
-const getFile = async (url: string) => {
+export const getFile = async (url: string) => {
   const paths = [distFolder, url];
   console.log('url:', url);
   if (url.endsWith('/')) {
