@@ -29,6 +29,9 @@ const resetRoomHandler =
         throw new GameAlreadyStartedError(roomName);
       }
       const game = controller.getGame(roomName);
+      if (!game) {
+        throw new GameNotFoundError(roomName);
+      }
       if (game.getPlayer(initiator).isAdmin) {
         controller.resetGame(roomName);
         io.to(roomName).emit(outgoingEvents.RESET, game.state);
@@ -36,14 +39,13 @@ const resetRoomHandler =
         logerror(`Can't reset the game: ${initiator} is not admin`);
       }
     } catch (error) {
+      logerror(error);
       if (error instanceof GameNotFoundError) {
-        logerror(`GameNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else if (error instanceof GameAlreadyStartedError) {
-        logerror(`GameAlreadyStartedError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
-        logerror(error);
+        throw error;
       }
     }
   };
