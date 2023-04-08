@@ -39,11 +39,11 @@ const blockOpponentRowsHandler =
       game.addBlockedRowsToOpponents(playerName, numberOfBlockRows);
       io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
     } catch (error) {
+      logerror(error);
       if (error instanceof GameNotFoundError) {
-        logerror(`GameNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
-        logerror(error);
+        throw error;
       }
     }
   };
