@@ -6,7 +6,9 @@
     "test": "jest",
     "dev": "DEBUG=tetris:* NODE_ENV=development nodemon --config nodemon.json src/index.ts",
     "dev:debug": "NODE_ENV=development nodemon --config nodemon.json --inspect-brk src/index.ts",
-    "lint": "eslint --fix --ext .js,.ts src/"
+    "lint": "eslint --fix --ext .js,.ts src/",
+    "ts": "tsc",
+    "build": "tsc --project tsconfig.build.json"
   },
   "author": "osalmine",
   "license": "ISC",
