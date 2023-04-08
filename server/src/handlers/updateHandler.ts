@@ -34,14 +34,13 @@ const updateHandler =
 
       io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
     } catch (error) {
+      logerror(error);
       if (error instanceof GameNotFoundError) {
-        logerror(`GameNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else if (error instanceof PlayerNotFoundError) {
-        logerror(`PlayerNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
-        logerror(error);
+        throw error;
       }
     }
   };
