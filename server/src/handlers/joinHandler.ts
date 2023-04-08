@@ -29,6 +29,7 @@ const joinHandler =
     socketClients: SocketClients;
   }) =>
   ({ roomName, playerName }: { roomName: string; playerName: string }) => {
+    loginfo(`${roomName}: player ${playerName} tries to join`);
     try {
       if (controller.isGameOngoing(roomName)) {
         logerror('Game already started');
@@ -38,26 +39,19 @@ const joinHandler =
       controller.addClientToRoom({ roomName, playerName });
       socketClients.set(socket.id, { roomName, playerName });
       socket.join(roomName);
-      loginfo(
-        `Emit to ${roomName}: ${outgoingEvents.UPDATE} state: ${JSON.stringify(
-          controller.getGame(roomName).state
-        )}`
-      );
 
       io.to(roomName).emit(
         outgoingEvents.UPDATE,
         controller.getGame(roomName).state
       );
     } catch (error) {
+      logerror(error);
       if (error instanceof PlayerAlreadyExistsError) {
-        logerror(`PlayerAlreadyExistsError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
-      }
-      if (error instanceof GameAlreadyStartedError) {
-        logerror(`GameAlreadyStartedError catched: ${error}`);
+      } else if (error instanceof GameAlreadyStartedError) {
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
-        logerror(error);
+        throw error;
       }
     }
   };
