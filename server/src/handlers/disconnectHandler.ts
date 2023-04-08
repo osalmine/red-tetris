@@ -40,19 +40,12 @@ const disconnectHandler =
         loginfo(
           `Player ${playerName} exists: ${game.playerExists(playerName)}`
         );
+
         const wasAdmin = game.getPlayer(playerName).isAdmin;
         game.removePlayer(playerName);
-        loginfo(
-          `After remove player ${playerName} exists: ${game.playerExists(
-            playerName
-          )}`
-        );
+
         socketClients.delete(socket.id);
-        loginfo(
-          `Emit after delete to ${roomName}: ${
-            outgoingEvents.UPDATE
-          } state: ${JSON.stringify(game.state)}`
-        );
+
         if (game.hasPlayers) {
           loginfo(`Game still has ${game.players.length} players`);
           if (wasAdmin) {
@@ -67,11 +60,12 @@ const disconnectHandler =
         }
       }
     } catch (error) {
+      logerror(error);
       if (error instanceof GameNotFoundError) {
         logerror(`GameNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
-        logerror(error);
+        throw error;
       }
     }
   };
