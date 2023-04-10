@@ -1,8 +1,8 @@
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import immutable from 'redux-immutable-state-invariant';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import type { PreloadedState } from '@reduxjs/toolkit';
 
 import {
   clientReducer,
@@ -20,8 +20,6 @@ const reducer = combineReducers({
   piece: pieceMovementReducer,
 });
 
-const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });
-
 const middleware =
   // eslint-disable-next-line no-negated-condition
   process.env.NODE_ENV !== 'production'
@@ -35,12 +33,16 @@ const middleware =
       ]
     : [thunk, socketMiddleWare(socket)];
 
-export const store = createStore(
-  reducer,
-  initialState,
-  composeEnhancers(applyMiddleware(...middleware))
-);
+// eslint-disable-next-line no-use-before-define
+export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
+  configureStore({
+    reducer,
+    middleware,
+    preloadedState,
+  });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const store = setupStore(initialState);
+
+export type RootState = ReturnType<typeof reducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];

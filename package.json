@@ -10,7 +10,7 @@
     "test": "mocha --require babel-core/register --reporter spec",
     "coverage": "NODE_ENV=test nyc --include src --all -r text -r lcov -r text --require babel-core/register mocha ",
     "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
+    "build:dev": "webpack --mode=development --progress",
     "watch": "webpack --watch",
     "serve": "webpack serve",
     "start:dev": "cd server && npm run dev",
