@@ -26,10 +26,15 @@ export default {
     'test/(.*)': '<rootDir>/src/test/$1',
   },
 
+  // A list of paths to directories that Jest should use to search for files in
+  roots: ['src'],
+
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['jest-extended/all'],
+  setupFilesAfterEnv: ['jest-extended/all', 'core-js'],
 
   transform: {
-    '^.+\\.ts$': ['ts-jest', {}],
+    '^.+\\.tsx?$': ['ts-jest', {}],
   },
+
+  testEnvironment: 'jsdom',
 };
