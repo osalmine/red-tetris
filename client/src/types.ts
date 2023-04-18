@@ -37,6 +37,7 @@ export type ClientState = {
   playerName?: string;
   roomName?: string;
 };
+
 export type PlayerAlreadyExistsError = {
   error: {
     name: 'PlayerAlreadyExistsError';
