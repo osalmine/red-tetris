@@ -58,4 +58,26 @@ describe('<Pending />', () => {
       initiator: playerName,
     });
   });
+  it('does not dispatch an action when pressing start if not admin', () => {
+    const player1Name = 'player1';
+    const player1 = mockPlayer({ name: player1Name });
+    const player2Name = 'player2';
+    const player2 = mockPlayer({ name: player2Name, isAdmin: false });
+    const clientState = mockClientState({ playerName: player2Name });
+    const gameState = mockGameState({}, [player1, player2]);
+
+    const useDispatchSpy = jest.spyOn(redux, 'useDispatch');
+    const mockDispatchFn = jest.fn();
+
+    useDispatchSpy.mockReturnValue(mockDispatchFn);
+
+    renderWithProviders(<Pending />, {
+      preloadedState: {
+        player: clientState,
+        state: gameState,
+      },
+    });
+
+    expect(screen.queryByText('Start')).not.toBeInTheDocument();
+  });
 });
