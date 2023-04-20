@@ -1,7 +1,7 @@
 import {
   movePieceDown,
   movePieceLeft,
-  movePieceRigth,
+  movePieceRight,
   rotatePieceRight,
   dropPiece,
 } from '../actions/client';
@@ -47,7 +47,7 @@ document.addEventListener('keydown', (e) => {
   }
 
   if (e.code === 'ArrowRight') {
-    store.dispatch(movePieceRigth());
+    store.dispatch(movePieceRight());
   }
   if (e.code === 'ArrowLeft') {
     store.dispatch(movePieceLeft());

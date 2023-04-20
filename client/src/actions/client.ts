@@ -88,7 +88,7 @@ const movePieceDown = (): MovePieceDownAction => {
   };
 };
 
-const movePieceRigth = (): MovePieceRigthAction => {
+const movePieceRight = (): MovePieceRigthAction => {
   const currentPlayerBoard = getCurrentPlayerBoard();
   return {
     type: internalEvents.MOVE_RIGHT,
@@ -127,7 +127,7 @@ const dropPiece = (): DropPieceAction => {
 export {
   addNewActivePiece,
   movePieceDown,
-  movePieceRigth,
+  movePieceRight,
   movePieceLeft,
   rotatePieceRight,
   rotatePieceLeft,
