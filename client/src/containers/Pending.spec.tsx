@@ -33,7 +33,7 @@ describe('<Pending />', () => {
     });
     expect(screen.getByText(new RegExp(playerName))).toBeInTheDocument();
   });
-  it('dispatches an action when pressing start', () => {
+  it('dispatches an action when pressing start', async () => {
     const playerName = 'onni';
     const player = mockPlayer({ name: playerName });
     const clientState = mockClientState({ playerName });
@@ -51,8 +51,8 @@ describe('<Pending />', () => {
       },
     });
 
-    userEvent.click(screen.getByText('Start'));
-    expect(useDispatchSpy).toHaveBeenCalledWith({
+    await userEvent.click(screen.getByText('Start'));
+    expect(mockDispatchFn).toHaveBeenCalledWith({
       type: outgoingEvents.START,
       roomName: 'room1',
       initiator: playerName,
