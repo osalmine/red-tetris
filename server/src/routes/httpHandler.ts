@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { IncomingMessage, ServerResponse } from 'http';
+import appRootPath from 'app-root-path';
 
 const MIME_TYPES = {
   default: 'application/octet-stream',
@@ -14,7 +15,7 @@ const MIME_TYPES = {
   svg: 'image/svg+xml',
 };
 
-const distFolder = path.resolve(__dirname, '..', '..', '..', 'dist');
+const distFolder = path.join(appRootPath.path, '..', 'dist');
 
 const toBool = [() => true, () => false];
 

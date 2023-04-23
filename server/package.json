@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "scripts": {
-    "start": "NODE_ENV=production node src/index.ts",
+    "start": "NODE_ENV=production node dist/src/index.js",
     "test": "jest",
     "dev": "DEBUG=tetris:* NODE_ENV=development nodemon --config nodemon.json src/index.ts",
-    "dev:debug": "NODE_ENV=development nodemon --config nodemon.json --inspect-brk src/index.ts",
+    "dev:debug": "DEBUG=tetris:* NODE_ENV=development nodemon --config nodemon.json --inspect-brk src/index.ts",
     "lint": "eslint --fix --ext .js,.ts src/",
     "ts": "tsc",
     "build": "tsc --project tsconfig.build.json"
@@ -34,6 +34,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "app-root-path": "^3.1.0",
     "debug": "^4.3.3",
     "lodash": "^4.17.21",
     "socket.io": "^4.4.1",
