@@ -13,7 +13,7 @@ import { EMPTY, FILLED } from '../constants/cellType';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
 import { Board, Piece, Player } from '../types';
-import { spliceArraytoArray } from '../utils';
+import { spliceArrayToArray } from '../utils';
 
 const Root = styled.div``;
 
@@ -52,11 +52,11 @@ const updateClientBoard = ({
     i < newBoard.field.length;
     i++
   ) {
-    newBoard.field[i] = spliceArraytoArray({
+    newBoard.field[i] = spliceArrayToArray({
       start: previousPiece.pieceXOffset,
       targetArray: [...newBoard.field[i]],
       arrayToInsert: [...previousPiece.values[j]],
-      ignoreInSplice: 0,
+      ignoreInInsertArray: 0,
     });
     j++;
   }

@@ -1,3 +1,3 @@
-import { spliceArraytoArray } from './spliceArrayToArray';
+import { spliceArrayToArray } from './spliceArrayToArray';
 
-export { spliceArraytoArray };
+export { spliceArrayToArray };
