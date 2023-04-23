@@ -9,13 +9,11 @@ type Props = {
   color?: GlobalColorProps;
 };
 
-type StartGameProps = {
-  btnColor?: GlobalColorProps;
-};
-
 const Button = styled.button.attrs(() => ({
   type: 'submit',
-}))<StartGameProps>`
+}))<{
+  btnColor?: GlobalColorProps;
+}>`
   background: ${(props) => props.btnColor || props.theme.green};
   border: 1px solid ${(props) => props.btnColor || props.theme.green};
   border-radius: 6px;
