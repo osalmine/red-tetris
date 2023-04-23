@@ -19,7 +19,7 @@ jest.mock('../store', () => {
   return { store };
 });
 
-describe('Actions', () => {
+describe('Client actions', () => {
   const board = { field: emptyField };
   beforeEach(() => {
     const playerName = 'testPlayer';
