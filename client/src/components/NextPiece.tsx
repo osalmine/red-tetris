@@ -33,7 +33,7 @@ const getPieceOffset = (pieceCharacter: PieceName) => {
 };
 
 const NextPiece = ({ pieceCharacter }: Props) => {
-  const renderPiece: Piece = useMemo(
+  const activePiece: Piece = useMemo(
     () => ({
       values: pieces[pieceCharacter],
       pieceXOffset: getPieceOffset(pieceCharacter),
@@ -46,7 +46,7 @@ const NextPiece = ({ pieceCharacter }: Props) => {
   return (
     <PieceContainer>
       <PlayerBoard
-        activePiece={renderPiece}
+        activePiece={activePiece}
         cellDataTestIdPrefix="next-piece-"
         cols={4}
         rows={4}

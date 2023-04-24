@@ -30,7 +30,11 @@ export default {
   roots: ['src'],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['jest-extended/all', 'core-js'],
+  setupFilesAfterEnv: [
+    'jest-extended/all',
+    'core-js',
+    '@testing-library/jest-dom/extend-expect',
+  ],
 
   transform: {
     '^.+\\.tsx?$': ['ts-jest', {}],
