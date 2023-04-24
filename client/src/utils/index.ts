@@ -1,3 +1,2 @@
-import { spliceArrayToArray } from './spliceArrayToArray';
-
-export { spliceArrayToArray };
+export { spliceArrayToArray } from './spliceArrayToArray';
+export { getHashUrl } from './getHashUrl';

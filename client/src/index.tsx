@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { ReactNotifications } from 'react-notifications-component';
 
-import ConnectPlayer from './connectPlayer';
+import ConnectPlayer from './ConnectPlayer';
 import App from './containers/App';
 import GlobalStyle, { globalColorTheme } from './containers/GlobalStyle';
 import { store } from './store';
