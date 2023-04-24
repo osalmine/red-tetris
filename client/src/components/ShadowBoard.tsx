@@ -69,6 +69,7 @@ export const ShadowBoard = ({
               removeBorderRadius: true,
               removeBoxShadow: true,
               removeMargin: true,
+              cellDataTestIdPrefix: 'shadow-board-',
             }}
             cols={cols}
             getCellValue={getCellValue}

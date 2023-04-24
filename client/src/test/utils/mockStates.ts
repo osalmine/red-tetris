@@ -1,4 +1,12 @@
-import { Board, ClientState, GameState, Player } from '../../types';
+import pieces, { PieceName } from '../../constants/pieces';
+import {
+  Board,
+  ClientState,
+  GameState,
+  Piece,
+  PieceState,
+  Player,
+} from '../../types';
 import { emptyField } from './board';
 
 export const mockGameState = (
@@ -35,4 +43,25 @@ export const mockPlayer = (
   pieces: [],
   board: mockBoard(board),
   ...state,
+});
+
+export const piecesBatch: PieceName[] = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+
+export const mockPiece = (
+  piece: Partial<Piece> = {},
+  pieceSelect?: PieceName
+): Piece => ({
+  values: pieceSelect ? pieces[pieceSelect] : pieces.J,
+  pieceXOffset: 0,
+  pieceYOffset: 0,
+  pieceType: pieceSelect ?? 'J',
+  ...piece,
+});
+
+export const mockPieceState = (
+  pieceState: Partial<PieceState> = {}
+): PieceState => ({
+  activePiece: mockPiece(),
+  previousPiece: mockPiece({}, 'L'),
+  ...pieceState,
 });

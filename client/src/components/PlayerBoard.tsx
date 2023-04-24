@@ -12,6 +12,7 @@ type Props = {
   boardValues?: CellType[][];
   width?: number;
   displayNumbers?: boolean;
+  cellDataTestIdPrefix?: string;
 };
 
 const Root = styled.div`
@@ -42,6 +43,7 @@ export const PlayerBoard = ({
   boardValues,
   width,
   displayNumbers,
+  cellDataTestIdPrefix,
 }: Props) => {
   const { values, pieceYOffset, pieceXOffset } = activePiece;
   const getPieceValue = useCallback(
@@ -73,6 +75,7 @@ export const PlayerBoard = ({
     <Root>
       <BoardContainer containerWidth={width}>
         <Board
+          cellProps={{ cellDataTestIdPrefix }}
           cols={cols}
           displayNumbers={displayNumbers}
           getCellValue={getCellValue}

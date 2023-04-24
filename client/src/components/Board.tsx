@@ -14,6 +14,7 @@ type Props = {
     removeBorderRadius?: boolean;
     removeBoxShadow?: boolean;
     removeMargin?: boolean;
+    cellDataTestIdPrefix?: string;
   };
 };
 
@@ -45,6 +46,9 @@ const Board = ({
         {displayNumbers && <RowNbContainer>{rowNb}</RowNbContainer>}
         {[...Array(cols)].map((_, colNb) => (
           <Cell
+            dataTestId={`${
+              cellProps?.cellDataTestIdPrefix ?? ''
+            }${rowNb}-${colNb}`}
             key={colNb}
             removeBorderRadius={cellProps?.removeBorderRadius}
             removeBoxShadow={cellProps?.removeBoxShadow}

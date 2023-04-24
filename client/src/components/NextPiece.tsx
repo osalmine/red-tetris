@@ -45,7 +45,13 @@ const NextPiece = ({ pieceCharacter }: Props) => {
 
   return (
     <PieceContainer>
-      <PlayerBoard activePiece={renderPiece} cols={4} rows={4} width={7} />
+      <PlayerBoard
+        activePiece={renderPiece}
+        cellDataTestIdPrefix="next-piece-"
+        cols={4}
+        rows={4}
+        width={7}
+      />
     </PieceContainer>
   );
 };

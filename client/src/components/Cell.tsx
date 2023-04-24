@@ -8,6 +8,7 @@ type Props = {
   removeMargin?: boolean;
   removeBorderRadius?: boolean;
   removeBoxShadow?: boolean;
+  dataTestId: string;
 };
 
 type CellProps = {
@@ -51,9 +52,11 @@ const Cell = ({
   removeMargin,
   removeBorderRadius,
   removeBoxShadow,
+  dataTestId,
 }: Props) => (
   <CellContainer
     cellValue={value}
+    data-testid={dataTestId}
     removeBorderRadius={removeBorderRadius}
     removeBoxShadow={removeBoxShadow}
     removeMargin={removeMargin}
