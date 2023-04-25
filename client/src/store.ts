@@ -22,7 +22,7 @@ const reducer = combineReducers({
 
 const middleware =
   // eslint-disable-next-line no-negated-condition
-  process.env.NODE_ENV !== 'production'
+  process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test'
     ? [
         immutable(),
         thunk,
@@ -39,6 +39,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
     reducer,
     middleware,
     preloadedState,
+    devTools: process.env.NODE_ENV !== 'production',
   });
 
 export const store = setupStore(initialState);
