@@ -9,6 +9,7 @@ import { ReactNotifications } from 'react-notifications-component';
 import { globalColorTheme } from '../../containers/GlobalStyle';
 import GlobalStyle from '../../containers/GlobalStyle';
 import { AppStore, RootState, setupStore } from '../../store';
+import { pieceMoveDownHandler } from '../../handlers/pieceMovement';
 
 type ExtendedRenderOptions = Omit<RenderOptions, 'queries'> & {
   preloadedState?: PreloadedState<RootState>;
@@ -17,8 +18,9 @@ type ExtendedRenderOptions = Omit<RenderOptions, 'queries'> & {
 
 const PageWrapper =
   (store: AppStore) =>
-  ({ children }: { children: React.ReactNode }) =>
-    (
+  ({ children }: { children: React.ReactNode }) => {
+    store.subscribe(pieceMoveDownHandler);
+    return (
       <Provider store={store}>
         <ThemeProvider theme={globalColorTheme}>
           <GlobalStyle>
@@ -28,6 +30,7 @@ const PageWrapper =
         </ThemeProvider>
       </Provider>
     );
+  };
 
 const renderWithProviders = (
   ui: React.ReactElement,
