@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "lint": "eslint --fix --ext .js,.ts src/"
   },
   "eslintConfig": {
