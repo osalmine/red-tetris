@@ -1,33 +1,39 @@
-import { CellType } from '../../constants/cellType';
+/* eslint-disable no-undefined */
+import { CellType, EMPTY } from '../../constants/cellType';
 
-export const pieceLastRowWithFilledCell = (pieceValues: CellType[][]) => {
-  let lastRowWithFilledCell = 0;
-  for (let i = 0; i < pieceValues.length; i++) {
-    if (pieceValues[i].some((cell) => cell !== 0)) {
-      lastRowWithFilledCell = i;
-    }
-  }
-  return lastRowWithFilledCell;
+export const pieceLastRowWithFilledCell = (pieceValues: CellType[][]): number =>
+  pieceValues.reduce(
+    (lastIndex, row, index) =>
+      row.some((cell) => cell !== EMPTY) ? index : lastIndex,
+    0
+  );
+
+export const pieceFirstColumnWithFilledCell = (
+  pieceValues: CellType[][]
+): number => {
+  const numOfCols = pieceValues[0].length;
+  const firstColumnWithFilledCell = Array.from(
+    { length: numOfCols },
+    (_, col) => col
+  ).find((column) => pieceValues.some((row) => row[column] !== EMPTY));
+  return firstColumnWithFilledCell === undefined ||
+    firstColumnWithFilledCell === -1
+    ? pieceValues.length
+    : firstColumnWithFilledCell;
 };
 
-export const pieceFirstColumnWithFilledCell = (pieceValues: CellType[][]) => {
-  for (let col = 0; col < pieceValues.length; col++) {
-    for (let row = 0; row < pieceValues[col].length; row++) {
-      if (pieceValues[row][col] !== 0) {
-        return col;
-      }
-    }
-  }
-  return pieceValues.length;
-};
-
-export const pieceLastColumnWithFilledCell = (pieceValues: CellType[][]) => {
-  for (let col = pieceValues.length - 1; col > 0; col--) {
-    for (let row = 0; row < pieceValues[col].length; row++) {
-      if (pieceValues[row][col] !== 0) {
-        return col;
-      }
-    }
-  }
-  return pieceValues.length;
+export const pieceLastColumnWithFilledCell = (
+  pieceValues: CellType[][]
+): number => {
+  const numOfCols = pieceValues[0].length;
+  const firstColumnWithFilledCell = Array.from(
+    { length: numOfCols },
+    (_, col) => col
+  )
+    .reverse()
+    .find((column) => pieceValues.some((row) => row[column] !== EMPTY));
+  return firstColumnWithFilledCell === undefined ||
+    firstColumnWithFilledCell === -1
+    ? pieceValues.length
+    : firstColumnWithFilledCell;
 };
