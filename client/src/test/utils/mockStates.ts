@@ -11,11 +11,12 @@ import { emptyField } from './board';
 
 export const mockGameState = (
   state: Partial<GameState> = {},
-  players: GameState['players'] = []
+  players: GameState['players'] = [],
+  finishedPlayers: GameState['players'] = []
 ): GameState => ({
   roomState: 'pending',
   players: [...players],
-  finishedPlayers: [],
+  finishedPlayers: [...finishedPlayers],
   ...state,
 });
 
