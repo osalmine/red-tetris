@@ -2,8 +2,9 @@ import { BLOCKED, EMPTY, FILLED } from '../../constants/cellType';
 import params from '../../params';
 import { Board } from '../../types';
 
-export const emptyField: Board['field'] = new Array(params.board.rows).fill(
-  new Array(params.board.cols).fill(EMPTY)
+export const emptyField: Board['field'] = Array.from(
+  { length: params.board.rows },
+  () => new Array(params.board.cols).fill(EMPTY)
 );
 
 export const fieldWithFilledCells: Board['field'] = emptyField.map((row, i) =>

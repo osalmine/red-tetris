@@ -15,7 +15,7 @@ import { pieceCanMoveDown } from '../reducers/pieceMovement/utils';
 
 const pieceInitialOffset = 3;
 
-const getCenterOffset = (pieceCharacter: PieceName) => {
+export const getCenterOffset = (pieceCharacter: PieceName) => {
   switch (pieceCharacter) {
     case 'O':
     case 'J':

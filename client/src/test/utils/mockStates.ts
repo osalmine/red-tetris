@@ -28,7 +28,7 @@ export const mockClientState = (
   ...state,
 });
 
-const mockBoard = (board: Partial<Board> = {}): Board => ({
+export const mockBoard = (board: Partial<Board> = {}): Board => ({
   field: emptyField,
   ...board,
 });
