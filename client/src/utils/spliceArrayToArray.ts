@@ -9,12 +9,12 @@ export const spliceArrayToArray = <T>({
   arrayToInsert: T[];
   ignoreInInsertArray?: T;
 }) => {
-  const filteredArrayToInsert =
-    // eslint-disable-next-line no-undefined
-    ignoreInInsertArray !== undefined
-      ? arrayToInsert.filter((item) => item !== ignoreInInsertArray)
-      : arrayToInsert;
+  const insertLength = arrayToInsert.length;
 
-  targetArray.splice(start, 0, ...filteredArrayToInsert);
+  for (let i = start; i < start + insertLength; i++) {
+    if (arrayToInsert[i - start] !== ignoreInInsertArray) {
+      targetArray[i] = arrayToInsert[i - start];
+    }
+  }
   return targetArray;
 };
