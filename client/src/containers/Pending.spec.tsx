@@ -13,6 +13,13 @@ import * as redux from 'react-redux';
 import Pending from './Pending';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
+jest.mock('react-redux', () => {
+  return {
+      __esModule: true,
+      ...jest.requireActual('react-redux')
+    };
+});
+
 describe('<Pending />', () => {
   it('renders without crashing', () => {
     renderWithProviders(<Pending />);

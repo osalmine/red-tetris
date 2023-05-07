@@ -13,6 +13,13 @@ import * as redux from 'react-redux';
 import Finished from './Finished';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
+jest.mock('react-redux', () => {
+    return {
+        __esModule: true,
+        ...jest.requireActual('react-redux')
+      };
+});
+
 describe('<Finished />', () => {
   it('renders without crashing and displays player name', () => {
     const roomName = 'room';
