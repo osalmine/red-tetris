@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { ReactNotifications } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 
 import ConnectPlayer from './ConnectPlayer';
 import App from './containers/App';
