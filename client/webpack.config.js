@@ -7,9 +7,9 @@ const webpack = require('webpack')
 const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
-  entry: "./client/src/index.tsx",
+  entry: "./src/index.tsx",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../dist"),
     filename: 'bundle.js'
   },
   devServer: {
@@ -19,8 +19,8 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "client", "public", "index.html"),
-      favicon: path.resolve(__dirname, "client", "public", "icons", "favicon.ico"),
+      template: path.resolve(__dirname, "public", "index.html"),
+      favicon: path.resolve(__dirname, "public", "icons", "favicon.ico"),
       inject: true,
     }),
     new webpack.ProvidePlugin({
@@ -35,7 +35,7 @@ const config = {
           {
             loader: "ts-loader",
             options: {
-              configFile: path.resolve(__dirname, 'client', 'tsconfig.json'),
+              configFile: path.resolve(__dirname, 'tsconfig.json'),
             }
           }
         ],

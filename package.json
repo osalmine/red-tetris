@@ -7,11 +7,9 @@
     "postinstall": "cd client && npm install && cd ../server && npm install",
     "lint": "cd client && npm run lint && cd ../server && npm run lint",
     "build": "npm run client:build && npm run server:build",
-    "client:build": "webpack --mode=production --node-env=production",
-    "client:build:dev": "webpack --mode=development --progress",
+    "client:build": "cd client && npm run build",
+    "client:build:dev": "cd client && npm run build:dev",
     "server:build": "cd server && npm run build",
-    "watch": "webpack --watch",
-    "serve": "webpack serve",
     "start:dev": "cd server && npm run dev",
     "start": "cd server && npm start",
     "test": "NODE_ENV=test jest"
@@ -29,16 +27,11 @@
     ]
   },
   "devDependencies": {
-    "@webpack-cli/generators": "^3.0.3",
     "css-loader": "^6.7.3",
-    "html-webpack-plugin": "^5.5.1",
     "prettier": "^2.8.8",
     "style-loader": "^3.3.2",
     "ts-loader": "^9.4.2",
-    "typescript": "^5.0.4",
-    "webpack": "^5.82.0",
-    "webpack-cli": "^5.1.0",
-    "webpack-dev-server": "^4.15.0"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@types/jest": "^29.5.1",
