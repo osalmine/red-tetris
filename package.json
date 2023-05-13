@@ -14,18 +14,6 @@
     "start": "cd server && npm start",
     "test": "NODE_ENV=test jest"
   },
-  "nyc": {
-    "exclude": [
-      "build"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-0"
-    ]
-  },
   "devDependencies": {
     "css-loader": "^6.7.3",
     "prettier": "^2.8.8",
