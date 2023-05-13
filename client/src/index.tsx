@@ -7,7 +7,7 @@ import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 
 import ConnectPlayer from './ConnectPlayer';
-import App from './views/App';
+import App from './App';
 import GlobalStyle, { globalColorTheme } from './GlobalStyle';
 import { store } from './store';
 import { pieceMoveDownHandler } from './handlers/pieceMovement';

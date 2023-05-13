@@ -1,22 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-
-import { useAppSelector } from '../hooks';
-import Pending from './Pending';
-import Game from './Game';
-import Finished from './Finished';
-
-const Root = styled.div``;
+import { useAppSelector } from './hooks';
+import Pending from './views/Pending';
+import Game from './views/Game';
+import Finished from './views/Finished';
 
 const App = () => {
   const gameState = useAppSelector((state) => state.state.roomState);
 
   return (
-    <Root>
+    <>
       {gameState === 'pending' && <Pending />}
       {gameState === 'playing' && <Game />}
       {gameState === 'finished' && <Finished />}
-    </Root>
+    </>
   );
 };
 
