@@ -1,6 +1,4 @@
-import React from 'react';
 import { Dispatch } from 'redux';
-import styled from 'styled-components';
 
 import { addNewActivePiece } from '../actions/client';
 import {
@@ -14,8 +12,6 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import params from '../params';
 import { Board, Piece, Player } from '../types';
 import { spliceArrayToArray } from '../utils';
-
-const Root = styled.div``;
 
 const handleFilledRows = (board: Player['board']): [Board, number] => {
   const newBoard: Board = JSON.parse(JSON.stringify(board));
@@ -129,9 +125,7 @@ const Game = () => {
   }
 
   return (
-    <Root>
       <Tetris activePiece={activePiece} opponents={opponents} player={player} />
-    </Root>
   );
 };
 
