@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { ReactNotifications } from 'react-notifications-component';
 
-import { globalColorTheme } from '../../containers/GlobalStyle';
-import GlobalStyle from '../../containers/GlobalStyle';
+import { globalColorTheme } from '../../GlobalStyle';
+import GlobalStyle from '../../GlobalStyle';
 import { AppStore, RootState, setupStore } from '../../store';
 import { pieceMoveDownHandler } from '../../handlers/pieceMovement';
 
