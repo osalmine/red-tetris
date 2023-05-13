@@ -7,7 +7,7 @@ Multiplayer online Tetris
 
 Ensure you use the correct node version by running
 ```
-nvm use
+nvm install && nvm use
 ```
 or install the node version if it is not installed
 
