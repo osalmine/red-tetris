@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { ReactNotifications } from 'react-notifications-component';
-import 'react-notifications-component/dist/theme.css'
+import 'react-notifications-component/dist/theme.css';
 
 import ConnectPlayer from './ConnectPlayer';
 import App from './App';
@@ -14,7 +14,9 @@ import { pieceMoveDownHandler } from './handlers/pieceMovement';
 
 store.subscribe(pieceMoveDownHandler);
 
-ReactDom.render(
+const root = createRoot(document.getElementById('root')!);
+
+root.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
@@ -29,5 +31,4 @@ ReactDom.render(
       </Provider>
     </Router>
   </React.StrictMode>,
-  document.getElementById('root')
 );
