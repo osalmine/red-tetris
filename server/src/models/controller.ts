@@ -5,8 +5,7 @@ import Player from './Player';
 import params from '../../params';
 import { GameNotFoundError, PlayerAlreadyExistsError } from './Error';
 
-const logerror = debug('tetris:error'),
-  loginfo = debug('tetris:info');
+const logerror = debug('tetris:error');
 
 export default class Controller {
   games: Map<string, Game>;
@@ -45,7 +44,6 @@ export default class Controller {
   }
 
   addClientToRoom({ roomName, playerName }: { roomName: string; playerName: string }) {
-    loginfo(`JOIN ROOM: room: ${roomName} player: ${playerName}`);
     if (!this.gameExists(roomName)) {
       this.addGame(new Game(roomName));
     }

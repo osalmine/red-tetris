@@ -8,8 +8,6 @@ export default class Piece {
   generateBatch(): PieceName[] {
     const batch: PieceName[] = shuffle(pieceNames);
     loginfo(`GAME METHOD generateBatch ${batch}`);
-
-    // batch.unshift('Z');
     return batch;
   }
 }

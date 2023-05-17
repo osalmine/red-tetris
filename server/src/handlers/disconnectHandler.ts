@@ -23,7 +23,6 @@ const disconnectHandler =
   }) =>
   () => {
     loginfo(`Socket disconnected: ${socket.id}`);
-    loginfo(`Client is stored in socketClients: ${socketClients.has(socket.id)}`);
     try {
       if (socketClients.has(socket.id)) {
         const { roomName, playerName } = socketClients.get(socket.id);
@@ -31,7 +30,6 @@ const disconnectHandler =
         if (!game) {
           throw new GameNotFoundError(roomName);
         }
-        loginfo(`Player ${playerName} exists: ${game.playerExists(playerName)}`);
 
         const wasAdmin = game.getPlayer(playerName).isAdmin;
         game.removePlayer(playerName);
@@ -39,22 +37,17 @@ const disconnectHandler =
         socketClients.delete(socket.id);
 
         if (game.hasPlayers) {
-          loginfo(`Game still has ${game.players.length} players`);
           if (wasAdmin) {
-            loginfo('Disconnected player was admin');
-            loginfo(`Assigning admin to ${game.firstPlayer.name}`);
             game.firstPlayer.assignAdmin();
           }
           io.to(roomName).emit(outgoingEvents.UPDATE, game.state);
         } else {
-          loginfo('Game does not have any more players');
           controller.removeGame(roomName);
         }
       }
     } catch (error) {
       logerror(error);
       if (error instanceof GameNotFoundError) {
-        logerror(`GameNotFoundError catched: ${error}`);
         socket.emit(outgoingEvents.ERROR, { error });
       } else {
         throw error;

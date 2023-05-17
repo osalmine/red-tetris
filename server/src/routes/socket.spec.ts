@@ -29,11 +29,7 @@ describe('one socket functionality', () => {
   });
 
   beforeEach(done => {
-    socket = io(`http://[${httpServerAddr.address}]:${httpServerAddr.port}`, {
-      // multiplex: false,
-      // reconnectionDelay: 0,
-      // transports: ['websocket'],
-    });
+    socket = io(`http://[${httpServerAddr.address}]:${httpServerAddr.port}`);
     socket.on('connect', () => {
       done();
     });

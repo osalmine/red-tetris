@@ -25,7 +25,6 @@ const joinHandler =
     loginfo(`${roomName}: player ${playerName} tries to join`);
     try {
       if (controller.isGameOngoing(roomName)) {
-        logerror('Game already started');
         throw new GameAlreadyStartedError(roomName);
       }
 
@@ -33,6 +32,7 @@ const joinHandler =
       socketClients.set(socket.id, { roomName, playerName });
       socket.join(roomName);
 
+      loginfo(`${roomName}: player ${playerName} joined`);
       io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
     } catch (error) {
       logerror(error);
