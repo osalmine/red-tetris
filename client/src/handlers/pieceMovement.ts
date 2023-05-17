@@ -18,10 +18,14 @@ const playerIsAdmin = (state: RootState) => {
   return state.player.playerName === adminPlayerName;
 };
 
-const startPieceMoveInterval = () =>
-  setInterval(() => {
-    store.dispatch(movePieceDown());
-  }, pieceMoveIntervalInMs);
+const startPieceMoveInterval = () => {
+  if (store.getState().state.roomState === 'playing') {
+    return setInterval(() => {
+      store.dispatch(movePieceDown());
+    }, pieceMoveIntervalInMs);
+  }
+  return null;
+};
 
 document.addEventListener('keydown', e => {
   const state = store.getState();
@@ -66,9 +70,16 @@ document.addEventListener('keydown', e => {
 
 const pieceMoveDownHandler = () => {
   const {
-    state: { players },
+    state: { players, roomState },
     player: { playerName },
+    piece,
   } = store.getState();
+  if (interval && roomState === 'playing' && !piece.activePiece) {
+    console.log('clear interval');
+    clearInterval(interval);
+    interval = null;
+  }
+  console.log('piece', piece);
   const playerState = players.find(player => player.name === playerName)?.state;
 
   if (playerState === 'playing' && !interval) {
