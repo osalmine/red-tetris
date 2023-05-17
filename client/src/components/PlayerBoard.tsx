@@ -31,7 +31,7 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
   padding: 1rem;
   flex-direction: column;
   border-radius: 5px;
-  flex: 1;
+  flex: 0 1;
   /* max-height: 704.1px; */
 `;
 
