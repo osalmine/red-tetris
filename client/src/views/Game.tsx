@@ -41,7 +41,9 @@ const updateClientBoard = ({
   let j = 0;
   for (
     let i = previousPiece.pieceYOffset;
-    i < previousPiece.pieceYOffset + previousPiece.values.length && i < newBoard.field.length;
+    i < previousPiece.pieceYOffset + previousPiece.values.length &&
+    i < newBoard.field.length &&
+    i >= 0;
     i++
   ) {
     newBoard.field[i] = spliceArrayToArray({
@@ -52,13 +54,12 @@ const updateClientBoard = ({
     });
     j++;
   }
-
   const [newBoardWithRemovedLines, linesRemoved] = handleFilledRows(newBoard);
 
   return [
     {
       ...newBoardWithRemovedLines,
-      isOverflown: previousPiece.pieceYOffset <= 0,
+      isOverflown: previousPiece ? previousPiece.pieceYOffset <= 0 : false,
     },
     linesRemoved,
   ];
@@ -106,9 +107,11 @@ const Game = () => {
   );
   const { activePiece, previousPiece, nextPieceType } = useAppSelector(state => state.piece);
 
-  if (!!player && !!previousPiece && previousPiece.pieceYOffset < 0) {
-    dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
-  }
+  useEffect(() => {
+    if (!!player && !!previousPiece && previousPiece.pieceYOffset < 0) {
+      dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
+    }
+  }, [dispatch, player, previousPiece]);
 
   useEffect(() => {
     if (!!player && !activePiece && !nextPieceType && player.state === 'playing') {
