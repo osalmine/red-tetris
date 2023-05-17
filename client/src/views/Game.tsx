@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
 
 import { addNextPiece } from '../actions/client';
@@ -110,9 +110,11 @@ const Game = () => {
     dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
   }
 
-  if (!!player && !activePiece && !nextPieceType && player.state === 'playing') {
-    updateBoard({ previousPiece, player, dispatch });
-  }
+  useEffect(() => {
+    if (!!player && !activePiece && !nextPieceType && player.state === 'playing') {
+      updateBoard({ previousPiece, player, dispatch });
+    }
+  }, [activePiece, dispatch, nextPieceType, player, previousPiece]);
 
   return <Tetris activePiece={activePiece} opponents={opponents} player={player} />;
 };
