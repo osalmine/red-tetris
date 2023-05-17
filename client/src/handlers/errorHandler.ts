@@ -18,7 +18,6 @@ const addErrorNotification = ({ title, message }: { title: string; message: stri
 };
 
 const handleError = ({ error }: Errors) => {
-  console.log('receive ERROR: ', error);
   if (error.name === 'PlayerAlreadyExistsError') {
     addErrorNotification({
       title: 'Player already exists',

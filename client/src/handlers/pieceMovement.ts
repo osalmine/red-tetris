@@ -75,11 +75,9 @@ const pieceMoveDownHandler = () => {
     piece,
   } = store.getState();
   if (interval && roomState === 'playing' && !piece.activePiece) {
-    console.log('clear interval');
     clearInterval(interval);
     interval = null;
   }
-  console.log('piece', piece);
   const playerState = players.find(player => player.name === playerName)?.state;
 
   if (playerState === 'playing' && !interval) {

@@ -7,6 +7,5 @@ export const dropPieceGetYOffset = ({ piece, field }: { piece: Piece; field: Cel
   while (pieceCanMoveDown({ piece: clonePiece, field })) {
     clonePiece.pieceYOffset++;
   }
-  console.log('clonePiece.pieceYOffset', clonePiece.pieceYOffset);
   return clonePiece.pieceYOffset;
 };

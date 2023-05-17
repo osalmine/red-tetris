@@ -21,19 +21,15 @@ const toBool = [() => true, () => false];
 
 export const getFile = async (url: string) => {
   const paths = [distFolder, url];
-  console.log('url:', url);
   if (url.endsWith('/')) {
     paths.push('index.html');
   }
   const filePath = path.join(...paths);
-  console.log('filePath', filePath);
   const pathTraversal = !filePath.startsWith(distFolder);
   const exists = await fs.promises.access(filePath).then(...toBool);
   const found = !pathTraversal && exists;
   const streamPath: string | null = found ? filePath : null;
-  const ext = streamPath
-    ? path.extname(streamPath).substring(1).toLowerCase()
-    : null;
+  const ext = streamPath ? path.extname(streamPath).substring(1).toLowerCase() : null;
   const stream = streamPath ? fs.createReadStream(streamPath) : null;
   return { found, ext, stream };
 };
