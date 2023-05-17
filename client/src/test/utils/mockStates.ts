@@ -1,18 +1,11 @@
 import pieces, { PieceName } from '../../constants/pieces';
-import {
-  Board,
-  ClientState,
-  GameState,
-  Piece,
-  PieceState,
-  Player,
-} from '../../types';
+import { Board, ClientState, GameState, Piece, PieceState, Player } from '../../types';
 import { emptyField } from './board';
 
 export const mockGameState = (
   state: Partial<GameState> = {},
   players: GameState['players'] = [],
-  finishedPlayers: GameState['players'] = []
+  finishedPlayers: GameState['players'] = [],
 ): GameState => ({
   roomState: 'pending',
   players: [...players],
@@ -20,9 +13,7 @@ export const mockGameState = (
   ...state,
 });
 
-export const mockClientState = (
-  state: Partial<ClientState> = {}
-): ClientState => ({
+export const mockClientState = (state: Partial<ClientState> = {}): ClientState => ({
   playerName: 'player1',
   roomName: 'room1',
   ...state,
@@ -33,10 +24,7 @@ export const mockBoard = (board: Partial<Board> = {}): Board => ({
   ...board,
 });
 
-export const mockPlayer = (
-  state: Partial<Player> = {},
-  board?: Partial<Board>
-): Player => ({
+export const mockPlayer = (state: Partial<Player> = {}, board?: Partial<Board>): Player => ({
   name: 'player1',
   roomName: 'room1',
   isAdmin: true,
@@ -48,10 +36,7 @@ export const mockPlayer = (
 
 export const piecesBatch: PieceName[] = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
 
-export const mockPiece = (
-  piece: Partial<Piece> = {},
-  pieceSelect?: PieceName
-): Piece => ({
+export const mockPiece = (piece: Partial<Piece> = {}, pieceSelect?: PieceName): Piece => ({
   values: pieceSelect ? pieces[pieceSelect] : pieces.J,
   pieceXOffset: 0,
   pieceYOffset: 0,
@@ -59,9 +44,7 @@ export const mockPiece = (
   ...piece,
 });
 
-export const mockPieceState = (
-  pieceState: Partial<PieceState> = {}
-): PieceState => ({
+export const mockPieceState = (pieceState: Partial<PieceState> = {}): PieceState => ({
   activePiece: mockPiece(),
   previousPiece: mockPiece({}, 'L'),
   ...pieceState,

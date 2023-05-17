@@ -25,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "test": "NODE_ENV=test jest",
-    "lint": "eslint --fix --ext .js,.ts src/",
+    "lint": "eslint --fix --ext .ts,.tsx src/",
     "watch": "webpack --mode=development --watch",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development --progress"

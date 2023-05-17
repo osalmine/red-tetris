@@ -4,11 +4,7 @@ import immutable from 'redux-immutable-state-invariant';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
 
-import {
-  clientReducer,
-  pieceMovementReducer,
-  updateStateReducer,
-} from './reducers';
+import { clientReducer, pieceMovementReducer, updateStateReducer } from './reducers';
 import { socketMiddleWare } from './middleware/socketMiddleWare';
 import socket from './socket/socket';
 

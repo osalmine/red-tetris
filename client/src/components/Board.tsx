@@ -33,22 +33,14 @@ const CellNbContainer = styled.div`
   }
 `;
 
-const Board = ({
-  rows,
-  cols,
-  getCellValue,
-  displayNumbers,
-  cellProps,
-}: Props) => (
+const Board = ({ rows, cols, getCellValue, displayNumbers, cellProps }: Props) => (
   <>
     {[...Array(rows)].map((_, rowNb) => (
       <Row key={rowNb}>
         {displayNumbers && <RowNbContainer>{rowNb}</RowNbContainer>}
         {[...Array(cols)].map((_, colNb) => (
           <Cell
-            dataTestId={`${
-              cellProps?.cellDataTestIdPrefix ?? ''
-            }${rowNb}-${colNb}`}
+            dataTestId={`${cellProps?.cellDataTestIdPrefix ?? ''}${rowNb}-${colNb}`}
             key={colNb}
             removeBorderRadius={cellProps?.removeBorderRadius}
             removeBoxShadow={cellProps?.removeBoxShadow}

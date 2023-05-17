@@ -3,22 +3,16 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'test/utils/renderWithProviders';
 import '@testing-library/jest-dom';
-import {
-  mockClientState,
-  mockGameState,
-  mockPlayer,
-} from 'test/utils/mockStates';
+import { mockClientState, mockGameState, mockPlayer } from 'test/utils/mockStates';
 import * as redux from 'react-redux';
 
 import Pending from './Pending';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
-jest.mock('react-redux', () => {
-  return {
-      __esModule: true,
-      ...jest.requireActual('react-redux')
-    };
-});
+jest.mock('react-redux', () => ({
+  __esModule: true,
+  ...jest.requireActual('react-redux'),
+}));
 
 describe('<Pending />', () => {
   it('renders without crashing', () => {

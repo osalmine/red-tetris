@@ -1,4 +1,5 @@
 const ACTIVE_PIECE = 'addNewActivePiece';
+const NEXT_PIECE = 'addNextPiece';
 
 const MOVE_DOWN = 'pieceMoveDown';
 const MOVE_RIGHT = 'pieceMoveRight';
@@ -11,6 +12,7 @@ const ADD_PIECE_INDEX = 'addPieceIndex';
 
 export {
   ACTIVE_PIECE,
+  NEXT_PIECE,
   MOVE_DOWN,
   MOVE_RIGHT,
   MOVE_LEFT,

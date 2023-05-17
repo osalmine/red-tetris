@@ -27,8 +27,8 @@ const ShadowBoardContainer = styled.div<{ isGameOver: boolean }>`
 
 const BoardContainer = styled.div<{ isGameOver: boolean }>`
   display: flex;
-  border: 4px solid ${(props) => props.theme.white};
-  box-shadow: 0 0 8px ${(props) => props.theme.white};
+  border: 4px solid ${props => props.theme.white};
+  box-shadow: 0 0 8px ${props => props.theme.white};
   width: 70px;
   padding: 0.5rem;
   border-radius: 3px;
@@ -43,21 +43,13 @@ const GameOver = styled.p`
   align-self: center;
 `;
 
-export const ShadowBoard = ({
-  rows,
-  cols,
-  boardValues,
-  name,
-  isGameOver,
-}: Props) => {
+export const ShadowBoard = ({ rows, cols, boardValues, name, isGameOver }: Props) => {
   const getCellValue = useCallback(
     (rowNb: number, colNb: number) =>
-      boardValues &&
-      (boardValues[rowNb][colNb] === FILLED ||
-        boardValues[rowNb][colNb] === BLOCKED)
+      boardValues && (boardValues[rowNb][colNb] === FILLED || boardValues[rowNb][colNb] === BLOCKED)
         ? boardValues[rowNb][colNb]
         : 0,
-    [boardValues]
+    [boardValues],
   );
 
   return (

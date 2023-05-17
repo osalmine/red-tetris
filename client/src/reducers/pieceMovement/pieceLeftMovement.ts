@@ -3,13 +3,7 @@ import { Piece } from '../../types';
 import { pieceFirstColumnWithFilledCell } from './pieceDimensions';
 import { isFieldBlocking } from './utils';
 
-export const pieceCanMoveLeft = ({
-  piece,
-  field,
-}: {
-  piece: Piece;
-  field: CellType[][];
-}) => {
+export const pieceCanMoveLeft = ({ piece, field }: { piece: Piece; field: CellType[][] }) => {
   const { pieceXOffset, values: pieceValues } = piece;
   const pieceRightColumn = pieceFirstColumnWithFilledCell(pieceValues);
   const hasSpaceToRotate = pieceXOffset + pieceRightColumn > 0;

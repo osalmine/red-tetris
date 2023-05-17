@@ -8,7 +8,7 @@ import Board from './Board';
 type Props = {
   rows: number;
   cols: number;
-  activePiece: Piece;
+  activePiece?: Piece | null;
   boardValues?: CellType[][];
   width?: number;
   displayNumbers?: boolean;
@@ -25,10 +25,9 @@ const Root = styled.div`
 
 const BoardContainer = styled.div<{ containerWidth?: number }>`
   display: flex;
-  border: 8px solid ${(props) => props.theme.white};
-  box-shadow: 0 0 8px ${(props) => props.theme.white};
-  width: ${({ containerWidth }) =>
-    containerWidth ? `${containerWidth}vw` : '22rem'};
+  border: 8px solid ${props => props.theme.white};
+  box-shadow: 0 0 8px ${props => props.theme.white};
+  width: ${({ containerWidth }) => (containerWidth ? `${containerWidth}vw` : '22rem')};
   padding: 1rem;
   flex-direction: column;
   border-radius: 5px;
@@ -45,30 +44,30 @@ export const PlayerBoard = ({
   displayNumbers,
   cellDataTestIdPrefix,
 }: Props) => {
-  const { values, pieceYOffset, pieceXOffset } = activePiece;
   const getPieceValue = useCallback(
     (rowNb: number, colNb: number): CellType => {
       if (
-        rowNb < values.length + pieceYOffset &&
-        rowNb - pieceYOffset >= 0 &&
-        colNb < values.length + pieceXOffset &&
-        colNb - pieceXOffset >= 0
+        activePiece &&
+        rowNb < activePiece.values.length + activePiece.pieceYOffset &&
+        rowNb - activePiece.pieceYOffset >= 0 &&
+        colNb < activePiece.values.length + activePiece.pieceXOffset &&
+        colNb - activePiece.pieceXOffset >= 0
       ) {
-        return values[rowNb - pieceYOffset][colNb - pieceXOffset];
+        return activePiece.values[rowNb - activePiece.pieceYOffset][
+          colNb - activePiece.pieceXOffset
+        ];
       }
       return 0;
     },
-    [values, pieceYOffset, pieceXOffset]
+    [activePiece],
   );
 
   const getCellValue = useCallback(
     (rowNb: number, colNb: number): CellType =>
-      boardValues &&
-      (boardValues[rowNb][colNb] === FILLED ||
-        boardValues[rowNb][colNb] === BLOCKED)
+      boardValues && (boardValues[rowNb][colNb] === FILLED || boardValues[rowNb][colNb] === BLOCKED)
         ? boardValues[rowNb][colNb]
         : getPieceValue(rowNb, colNb),
-    [boardValues, getPieceValue]
+    [boardValues, getPieceValue],
   );
 
   return (

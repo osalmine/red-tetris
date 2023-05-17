@@ -38,9 +38,7 @@ describe('isFieldBlocking', () => {
     field[1][6] = FILLED;
     console.log('field', field);
 
-    expect(isFieldBlocking({ piece, field, direction: 'right' })).toEqual(
-      false
-    );
+    expect(isFieldBlocking({ piece, field, direction: 'right' })).toEqual(false);
   });
   it('should return true when the field is blocking L when moving right', () => {
     const piece = mockPiece({ pieceXOffset: 3 }, 'L');

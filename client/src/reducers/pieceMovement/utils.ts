@@ -4,7 +4,7 @@ import { Piece } from '../../types';
 import { pieceLastRowWithFilledCell } from './pieceDimensions';
 
 const getDirectionOffset = (
-  direction: 'down' | 'right' | 'left'
+  direction: 'down' | 'right' | 'left',
 ): [rowOffset: number, colOffset: number] => {
   switch (direction) {
     case 'down':
@@ -37,27 +37,19 @@ export const isFieldBlocking = ({
         yCursor >= 0 &&
         yCursor < params.board.rows &&
         pieceCol === 1 &&
-        (field[yCursor][xCursor] === FILLED ||
-          field[yCursor][xCursor] === BLOCKED)
+        (field[yCursor][xCursor] === FILLED || field[yCursor][xCursor] === BLOCKED)
       ) {
         return true;
       }
       return false;
-    })
+    }),
   );
 };
 
-export const pieceCanMoveDown = ({
-  piece,
-  field,
-}: {
-  piece: Piece;
-  field: CellType[][];
-}) => {
+export const pieceCanMoveDown = ({ piece, field }: { piece: Piece; field: CellType[][] }) => {
   const { pieceYOffset, values: pieceValues } = piece;
   const actualPieceLength = pieceLastRowWithFilledCell(pieceValues);
-  const fieldContinues =
-    pieceYOffset + actualPieceLength < params.board.rows - 1;
+  const fieldContinues = pieceYOffset + actualPieceLength < params.board.rows - 1;
   const noBlockingPieceDown = !isFieldBlocking({
     piece,
     field,

@@ -2,13 +2,7 @@ import { Store } from 'react-notifications-component';
 
 import { Errors } from '../types';
 
-const addErrorNotification = ({
-  title,
-  message,
-}: {
-  title: string;
-  message: string;
-}) => {
+const addErrorNotification = ({ title, message }: { title: string; message: string }) => {
   Store.addNotification({
     title,
     message,

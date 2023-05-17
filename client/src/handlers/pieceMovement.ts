@@ -14,9 +14,7 @@ const pieceMoveIntervalInMs = 5000;
 let interval: NodeJS.Timer | null;
 
 const playerIsAdmin = (state: RootState) => {
-  const adminPlayerName = state.state.players.find(
-    (player) => player.isAdmin === true
-  )?.name;
+  const adminPlayerName = state.state.players.find(player => player.isAdmin === true)?.name;
   return state.player.playerName === adminPlayerName;
 };
 
@@ -25,13 +23,9 @@ const startPieceMoveInterval = () =>
     store.dispatch(movePieceDown());
   }, pieceMoveIntervalInMs);
 
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', e => {
   const state = store.getState();
-  if (
-    e.code === 'Enter' &&
-    state.state.roomState === 'pending' &&
-    playerIsAdmin(state)
-  ) {
+  if (e.code === 'Enter' && state.state.roomState === 'pending' && playerIsAdmin(state)) {
     const { playerName, roomName } = state.player;
     if (playerName && roomName) {
       store.dispatch(startGame({ playerName, roomName }));
@@ -75,9 +69,7 @@ const pieceMoveDownHandler = () => {
     state: { players },
     player: { playerName },
   } = store.getState();
-  const playerState = players.find(
-    (player) => player.name === playerName
-  )?.state;
+  const playerState = players.find(player => player.name === playerName)?.state;
 
   if (playerState === 'playing' && !interval) {
     interval = startPieceMoveInterval();

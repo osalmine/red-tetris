@@ -40,7 +40,7 @@ const NextPiece = ({ pieceCharacter }: Props) => {
       pieceYOffset: pieceCharacter === 'O' ? 1 : 0,
       pieceType: pieceCharacter,
     }),
-    [pieceCharacter]
+    [pieceCharacter],
   );
 
   return (

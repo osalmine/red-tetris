@@ -36,18 +36,13 @@ const Player = styled.p<{ isClient: boolean }>`
 const Pending = () => {
   const dispatch = useAppDispatch();
 
-  const players = useAppSelector((state) => state.state.players);
-  const { playerName: clientName, roomName } = useAppSelector(
-    (state) => state.player
-  );
+  const players = useAppSelector(state => state.state.players);
+  const { playerName: clientName, roomName } = useAppSelector(state => state.player);
   const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean>(false);
 
   useEffect(
-    () =>
-      setPlayerIsAdmin(
-        players.find((player) => player.name === clientName)?.isAdmin ?? false
-      ),
-    [players, clientName]
+    () => setPlayerIsAdmin(players.find(player => player.name === clientName)?.isAdmin ?? false),
+    [players, clientName],
   );
 
   const onStartGame = () => {

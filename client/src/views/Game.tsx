@@ -1,11 +1,7 @@
 import { Dispatch } from 'redux';
 
-import { addNewActivePiece } from '../actions/client';
-import {
-  blockOpponentRows,
-  clientUpdateState,
-  endGame,
-} from '../actions/server';
+import { addNextPiece } from '../actions/client';
+import { blockOpponentRows, clientUpdateState, endGame } from '../actions/server';
 import { Tetris } from '../components/Tetris';
 import { EMPTY, FILLED } from '../constants/cellType';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -21,7 +17,7 @@ const handleFilledRows = (board: Player['board']): [Board, number] => {
   const reversedField = newBoard.field.slice(0).reverse();
   for (let i = 0; i < reversedField.length; i++) {
     const row = reversedField[i];
-    if (row.every((cell) => cell === FILLED)) {
+    if (row.every(cell => cell === FILLED)) {
       linesRemoved++;
       reversedField.splice(i, 1);
       reversedField.push(new Array(params.board.cols).fill(EMPTY));
@@ -44,8 +40,7 @@ const updateClientBoard = ({
   let j = 0;
   for (
     let i = previousPiece.pieceYOffset;
-    i < previousPiece.pieceYOffset + previousPiece.values.length &&
-    i < newBoard.field.length;
+    i < previousPiece.pieceYOffset + previousPiece.values.length && i < newBoard.field.length;
     i++
   ) {
     newBoard.field[i] = spliceArrayToArray({
@@ -68,7 +63,7 @@ const updateClientBoard = ({
   ];
 };
 
-const nextActivePiece = ({
+const updateBoard = ({
   previousPiece,
   player,
   dispatch,
@@ -90,43 +85,35 @@ const nextActivePiece = ({
           roomName: player.roomName,
           playerName: player.name,
           numberOfBlockRows: numberOfBlockRowsToOpponents,
-        })
+        }),
       );
     }
-    dispatch(addNewActivePiece(player.pieces[0]));
+    dispatch(addNextPiece(player.pieces[0]));
     dispatch(
       clientUpdateState({
         ...player,
         pieces: [...player.pieces].slice(1),
         board: newBoard ?? player.board,
-      })
+      }),
     );
   }
 };
 
 const Game = () => {
   const dispatch = useAppDispatch();
-  const player = useAppSelector(
-    ({ state, player: { playerName: clientName } }) =>
-      state.players.find(
-        (playerFromServer) => playerFromServer.name === clientName
-      )
+  const player = useAppSelector(({ state, player: { playerName: clientName } }) =>
+    state.players.find(playerFromServer => playerFromServer.name === clientName),
   );
-  const opponents = useAppSelector(
-    ({ state, player: { playerName: clientName } }) =>
-      state.players.filter(
-        (playerFromServer) => playerFromServer.name !== clientName
-      )
+  const opponents = useAppSelector(({ state, player: { playerName: clientName } }) =>
+    state.players.filter(playerFromServer => playerFromServer.name !== clientName),
   );
-  const { activePiece, previousPiece } = useAppSelector((state) => state.piece);
+  const { activePiece, previousPiece, nextPieceType } = useAppSelector(state => state.piece);
 
-  if (!!player && !activePiece && player.state === 'playing') {
-    nextActivePiece({ previousPiece, player, dispatch });
+  if (!!player && !activePiece && !nextPieceType && player.state === 'playing') {
+    updateBoard({ previousPiece, player, dispatch });
   }
 
-  return (
-      <Tetris activePiece={activePiece} opponents={opponents} player={player} />
-  );
+  return <Tetris activePiece={activePiece} opponents={opponents} player={player} />;
 };
 
 export default Game;

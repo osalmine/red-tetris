@@ -37,14 +37,8 @@ const GameEnded = styled.div`
 `;
 
 export const Tetris = ({ player, opponents, activePiece }: Props) => {
-  const boardCols = useMemo(
-    () => player?.board.field[0].length || 0,
-    [player?.board.field]
-  );
-  const boardRows = useMemo(
-    () => player?.board.field.length || 0,
-    [player?.board.field]
-  );
+  const boardCols = useMemo(() => player?.board.field[0].length || 0, [player?.board.field]);
+  const boardRows = useMemo(() => player?.board.field.length || 0, [player?.board.field]);
   return (
     <Root>
       {opponents.length > 0 && <OpponentBoardShadows opponents={opponents} />}
@@ -54,18 +48,13 @@ export const Tetris = ({ player, opponents, activePiece }: Props) => {
             <GameEnded>Game Ended</GameEnded>
           ) : (
             <>
-              {activePiece && (
-                <PlayerBoard
-                  activePiece={activePiece}
-                  boardValues={player.board.field}
-                  cols={boardCols}
-                  rows={boardRows}
-                />
-              )}
-              <NextPieces
-                nextPieces={player.pieces}
-                style={{ maxHeight: '100vh' }}
+              <PlayerBoard
+                activePiece={activePiece}
+                boardValues={player.board.field}
+                cols={boardCols}
+                rows={boardRows}
               />
+              <NextPieces nextPieces={player.pieces} style={{ maxHeight: '100vh' }} />
             </>
           )}
         </PlayerView>

@@ -2,13 +2,7 @@ import socket from '../socket/socket';
 import { UPDATE } from '../constants/outgoingEvents';
 import { Player } from '../types';
 
-const updateState = ({
-  playerState,
-  roomName,
-}: {
-  playerState: Player;
-  roomName: string;
-}) => {
+const updateState = ({ playerState, roomName }: { playerState: Player; roomName: string }) => {
   socket.emit(UPDATE, { playerState, roomName });
 };
 

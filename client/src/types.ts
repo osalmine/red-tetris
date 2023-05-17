@@ -31,6 +31,7 @@ export type Piece = {
 export type PieceState = {
   activePiece?: Piece | null;
   previousPiece?: Piece;
+  nextPieceType?: Piece['pieceType'];
 };
 
 export type ClientState = {

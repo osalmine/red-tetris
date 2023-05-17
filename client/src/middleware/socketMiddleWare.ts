@@ -16,12 +16,18 @@ import { AllActions } from '../actions/types';
 import { GameState } from '../types';
 import handleError from '../handlers/errorHandler';
 import { Errors } from '../types';
+import { store } from '../store';
+import { addNewActivePiece } from '../actions/client';
 
 export const socketMiddleWare =
   (socket: SocketIOClient.Socket) =>
   ({ dispatch }: { dispatch: Dispatch }) => {
     socket.on(incomingEvents.UPDATE, (data: GameState) => {
       dispatch(serverUpdateState(data));
+      const { activePiece, nextPieceType } = store.getState().piece;
+      if (!activePiece && nextPieceType) {
+        dispatch(addNewActivePiece(nextPieceType));
+      }
     });
 
     socket.on(incomingEvents.ERROR, (error: Errors) => {

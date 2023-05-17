@@ -15,10 +15,7 @@ type ClientAction =
   | ResetGameAction
   | BlockOpponentRowsAction;
 
-const clientReducer = (
-  state: ClientState = {},
-  action: ClientAction
-): ClientState => {
+const clientReducer = (state: ClientState = {}, action: ClientAction): ClientState => {
   switch (action.type) {
     case outgoingEvents.JOIN: {
       const newState = {

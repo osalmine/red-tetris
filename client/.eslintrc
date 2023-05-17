@@ -1,13 +1,14 @@
 {
   "env": {
     "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
+  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks", "import"],
   "extends": [
-    "react-app",
-    "react-app/jest",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -116,17 +117,11 @@
     "no-self-compare": 1, //disallow comparisons where both sides are exactly the same
     "no-sequences": 1, //disallow use of the comma operator
     "no-throw-literal": 1, //restrict what can be thrown as an exception
-    "no-unused-expressions": [
-      1,
-      { "allowShortCircuit": true, "allowTernary": true }
-    ], //disallow usage of expressions in statement position
+    "no-unused-expressions": [1, { "allowShortCircuit": true, "allowTernary": true }], //disallow usage of expressions in statement position
     "no-useless-call": 1, //disallow unnecessary .call() and .apply()
     "no-useless-concat": 1, //disallow unnecessary concatenation of literals or template literals
     "no-void": 0, //disallow use of the void operator
-    "no-warning-comments": [
-      1,
-      { "terms": ["todo", "fixme"], "location": "start" }
-    ], //disallow usage of configurable warning terms in comments e.g. TODO or FIXME
+    "no-warning-comments": [1, { "terms": ["todo", "fixme"], "location": "start" }], //disallow usage of configurable warning terms in comments e.g. TODO or FIXME
     "no-with": 1, //disallow use of the with statement
     "radix": 0, // require use of the second argument for parseInt()
     "vars-on-top": 1, //require declaration of all vars at the top of their containing scope
@@ -147,10 +142,7 @@
     "no-undef": 1, //disallow use of undeclared variables unless mentioned in a /*global */ block (recommended)
     "no-undefined": 1, //disallow use of undefined variable
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      { "vars": "local", "args": "after-used" }
-    ], //disallow declaration of variables that are not used in the code (recommended)
+    "@typescript-eslint/no-unused-vars": ["warn", { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
     "no-use-before-define": 1, //disallow use of variables before they are defined
 
     /* Node.js */

@@ -10,10 +10,7 @@ const defaultState: GameState = {
   finishedPlayers: [],
 };
 
-const updateStateReducer = (
-  state: GameState = defaultState,
-  action: ServerAction
-): GameState => {
+const updateStateReducer = (state: GameState = defaultState, action: ServerAction): GameState => {
   switch (action.type) {
     case incomingEvents.UPDATE: {
       const newState = { ...state, ...action.state };

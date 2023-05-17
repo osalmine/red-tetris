@@ -23,22 +23,11 @@ const CellContainer = styled.div<CellProps>`
   flex: auto;
   margin: ${({ removeMargin }) => (removeMargin ? 0 : '2px')};
   background-color: ${({ cellValue, theme }) =>
-    cellValue === FILLED
-      ? theme.white
-      : cellValue === EMPTY
-      ? '#313338'
-      : '#6b6b6b'};
+    cellValue === FILLED ? theme.white : cellValue === EMPTY ? '#313338' : '#6b6b6b'};
   box-shadow: ${({ removeBoxShadow, cellValue, theme }) =>
     !removeBoxShadow &&
-    `0 0 3px ${
-      cellValue === FILLED
-        ? theme.white
-        : cellValue === EMPTY
-        ? '#313338'
-        : '#6b6b6b'
-    }`};
-  border-radius: ${({ removeBorderRadius }) =>
-    removeBorderRadius ? 0 : '3px'};
+    `0 0 3px ${cellValue === FILLED ? theme.white : cellValue === EMPTY ? '#313338' : '#6b6b6b'}`};
+  border-radius: ${({ removeBorderRadius }) => (removeBorderRadius ? 0 : '3px')};
 
   &::before {
     content: '';
@@ -47,13 +36,7 @@ const CellContainer = styled.div<CellProps>`
   }
 `;
 
-const Cell = ({
-  value,
-  removeMargin,
-  removeBorderRadius,
-  removeBoxShadow,
-  dataTestId,
-}: Props) => (
+const Cell = ({ value, removeMargin, removeBorderRadius, removeBoxShadow, dataTestId }: Props) => (
   <CellContainer
     cellValue={value}
     data-testid={dataTestId}

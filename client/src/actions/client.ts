@@ -1,6 +1,7 @@
 import pieces, { PieceName } from '../constants/pieces';
 import {
   AddNewActivePieceAction,
+  AddNextPieceAction,
   DropPieceAction,
   MovePieceDownAction,
   MovePieceLeftAction,
@@ -36,9 +37,7 @@ const getCurrentPlayerBoard = (): Board => {
     state: { players },
     player: { playerName },
   } = store.getState();
-  return (
-    players.find((player) => player.name === playerName)?.board ?? { field: [] }
-  );
+  return players.find(player => player.name === playerName)?.board ?? { field: [] };
 };
 
 const defaultYOffset = -4;
@@ -46,7 +45,7 @@ const defaultYOffset = -4;
 const getNewPieceYOffset = (
   board: Board,
   piece: Omit<Piece, 'pieceYOffset'>,
-  yOffset = defaultYOffset
+  yOffset = defaultYOffset,
 ): number => {
   if (
     yOffset === 0 ||
@@ -55,14 +54,12 @@ const getNewPieceYOffset = (
       field: board.field,
     })
   ) {
-    return yOffset;
+    return yOffset === 0 ? 0 : yOffset + 1;
   }
   return getNewPieceYOffset(board, piece, yOffset + 1);
 };
 
-const addNewActivePiece = (
-  nextPieceCharacter: PieceName
-): AddNewActivePieceAction => {
+const addNewActivePiece = (nextPieceCharacter: PieceName): AddNewActivePieceAction => {
   const currentPlayerBoard = getCurrentPlayerBoard();
   const nextActivePieceValues = pieces[nextPieceCharacter];
   const centerXOffset = getCenterOffset(nextPieceCharacter);
@@ -79,6 +76,11 @@ const addNewActivePiece = (
     pieceType: nextPieceCharacter,
   };
 };
+
+const addNextPiece = (nextPieceCharacter: PieceName): AddNextPieceAction => ({
+  type: internalEvents.NEXT_PIECE,
+  pieceType: nextPieceCharacter,
+});
 
 const movePieceDown = (): MovePieceDownAction => {
   const currentPlayerBoard = getCurrentPlayerBoard();
@@ -126,6 +128,7 @@ const dropPiece = (): DropPieceAction => {
 
 export {
   addNewActivePiece,
+  addNextPiece,
   movePieceDown,
   movePieceRight,
   movePieceLeft,

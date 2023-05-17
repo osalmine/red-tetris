@@ -8,6 +8,7 @@ import {
   RotatePieceRightAction,
   AddNewActivePieceAction,
   ServerResetGame,
+  AddNextPieceAction,
 } from '../../actions/types';
 import { PieceState } from '../../types';
 import * as internalEvents from '../../constants/internalEvents';
@@ -26,19 +27,18 @@ type PieceMovementAction =
   | RotatePieceLeftAction
   | DropPieceAction
   | AddNewActivePieceAction
+  | AddNextPieceAction
   | ServerResetGame;
 
-const pieceMovementReducer = (
-  state: PieceState = {},
-  action: PieceMovementAction
-): PieceState => {
+const pieceMovementReducer = (state: PieceState = {}, action: PieceMovementAction): PieceState => {
   switch (action.type) {
     case incomingEvents.RESET: {
       const newState = {
         ...state,
         activePiece: undefined,
         previousPiece: undefined,
-      };
+        nextPieceType: undefined,
+      } satisfies PieceState;
       return newState;
     }
     case internalEvents.ACTIVE_PIECE: {
@@ -50,7 +50,15 @@ const pieceMovementReducer = (
           pieceYOffset: action.pieceYOffset,
           pieceType: action.pieceType,
         },
-      };
+        nextPieceType: undefined,
+      } satisfies PieceState;
+      return newState;
+    }
+    case internalEvents.NEXT_PIECE: {
+      const newState = {
+        ...state,
+        nextPieceType: action.pieceType,
+      } satisfies PieceState;
       return newState;
     }
     case internalEvents.MOVE_DOWN: {
@@ -69,7 +77,7 @@ const pieceMovementReducer = (
               ...activePiece,
               pieceYOffset: activePiece.pieceYOffset + 1,
             },
-          };
+          } satisfies PieceState;
           return newState;
         }
 
@@ -82,7 +90,7 @@ const pieceMovementReducer = (
             pieceXOffset: activePiece.pieceXOffset,
             pieceType: activePiece.pieceType,
           },
-        };
+        } satisfies PieceState;
       }
       return state;
     }
@@ -100,7 +108,7 @@ const pieceMovementReducer = (
             ...state.activePiece,
             pieceXOffset: state.activePiece.pieceXOffset + 1,
           },
-        };
+        } satisfies PieceState;
         return newState;
       }
       return state;
@@ -119,7 +127,7 @@ const pieceMovementReducer = (
             ...state.activePiece,
             pieceXOffset: state.activePiece.pieceXOffset - 1,
           },
-        };
+        } satisfies PieceState;
         return newState;
       }
       return state;
@@ -132,7 +140,7 @@ const pieceMovementReducer = (
             ...state.activePiece,
             values: rotatePieceRight(state.activePiece),
           },
-        };
+        } satisfies PieceState;
         if (
           pieceCanRotate({
             piece: newState.activePiece,
@@ -158,7 +166,7 @@ const pieceMovementReducer = (
               field,
             }),
           },
-        };
+        } satisfies PieceState;
         return newState;
       }
       return state;

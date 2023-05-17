@@ -60,10 +60,7 @@ describe('<Game />', () => {
     const clientState = mockClientState({ playerName: player1Name });
     const player2Name = 'jussi';
     const player2 = mockPlayer({ name: player2Name, state: 'playing' });
-    const gameState = mockGameState({ roomState: 'playing' }, [
-      player1,
-      player2,
-    ]);
+    const gameState = mockGameState({ roomState: 'playing' }, [player1, player2]);
     const pieceState = mockPieceState();
 
     renderWithProviders(<Game />, {
@@ -83,10 +80,7 @@ describe('<Game />', () => {
     const clientState = mockClientState({ playerName: player1Name });
     const player2Name = 'jussi';
     const player2 = mockPlayer({ name: player2Name, state: 'finished' });
-    const gameState = mockGameState({ roomState: 'playing' }, [
-      player1,
-      player2,
-    ]);
+    const gameState = mockGameState({ roomState: 'playing' }, [player1, player2]);
     const pieceState = mockPieceState();
 
     renderWithProviders(<Game />, {
@@ -107,10 +101,7 @@ describe('<Game />', () => {
     const gameState = mockGameState({ roomState: 'playing' }, [player]);
     const pieceName = 'O';
     const pieceState = mockPieceState({
-      activePiece: mockPiece(
-        { pieceXOffset: getCenterOffset(pieceName) },
-        pieceName
-      ),
+      activePiece: mockPiece({ pieceXOffset: getCenterOffset(pieceName) }, pieceName),
     });
 
     // const useDispatchSpy = jest.spyOn(redux, 'useDispatch');

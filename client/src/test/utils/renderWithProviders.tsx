@@ -38,7 +38,7 @@ const renderWithProviders = (
     preloadedState = {},
     store = setupStore(preloadedState),
     ...renderOptions
-  }: ExtendedRenderOptions = {}
+  }: ExtendedRenderOptions = {},
 ) => ({
   store,
   // eslint-disable-next-line new-cap

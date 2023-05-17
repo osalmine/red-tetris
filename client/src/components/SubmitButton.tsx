@@ -14,11 +14,11 @@ const Button = styled.button.attrs(() => ({
 }))<{
   btnColor?: GlobalColorProps;
 }>`
-  background: ${(props) => props.btnColor || props.theme.green};
-  border: 1px solid ${(props) => props.btnColor || props.theme.green};
+  background: ${props => props.btnColor || props.theme.green};
+  border: 1px solid ${props => props.btnColor || props.theme.green};
   border-radius: 6px;
   box-sizing: border-box;
-  color: ${(props) => props.theme.white};
+  color: ${props => props.theme.white};
   cursor: pointer;
   display: inline-block;
   font-size: 22px;
@@ -36,7 +36,7 @@ const Button = styled.button.attrs(() => ({
   &:active {
     background-color: initial;
     background-position: 0 0;
-    color: ${(props) => props.btnColor || props.theme.green};
+    color: ${props => props.btnColor || props.theme.green};
   }
 
   &:active {

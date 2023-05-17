@@ -44,8 +44,11 @@ type BlockOpponentRowsAction = BaseAction<'blockOpponentRows'> & {
   numberOfBlockRows: number;
 };
 
-type AddNewActivePieceAction = BaseAction<typeof internalEvents.ACTIVE_PIECE> &
-  Piece;
+type AddNewActivePieceAction = BaseAction<typeof internalEvents.ACTIVE_PIECE> & Piece;
+
+type AddNextPieceAction = BaseAction<typeof internalEvents.NEXT_PIECE> & {
+  pieceType: Piece['pieceType'];
+};
 
 type MovePieceDownAction = BaseAction<typeof internalEvents.MOVE_DOWN> & {
   board: Board;
@@ -74,6 +77,7 @@ type AllActions =
   | ResetGameAction
   | BlockOpponentRowsAction
   | AddNewActivePieceAction
+  | AddNextPieceAction
   | MovePieceDownAction
   | MovePieceRigthAction
   | MovePieceLeftAction
@@ -92,6 +96,7 @@ export type {
   ResetGameAction,
   BlockOpponentRowsAction,
   AddNewActivePieceAction,
+  AddNextPieceAction,
   MovePieceDownAction,
   MovePieceRigthAction,
   MovePieceLeftAction,

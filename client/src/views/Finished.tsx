@@ -30,19 +30,14 @@ const ScoreLine = styled.p`
 const Finished = () => {
   const dispatch = useAppDispatch();
 
-  const players = useAppSelector((state) => state.state.players);
-  const { playerName: clientName, roomName } = useAppSelector(
-    (state) => state.player
-  );
+  const players = useAppSelector(state => state.state.players);
+  const { playerName: clientName, roomName } = useAppSelector(state => state.player);
   const finishedPlayers = useAppSelector(({ state }) => state.finishedPlayers);
   const [playerIsAdmin, setPlayerIsAdmin] = useState<boolean>(false);
 
   useEffect(
-    () =>
-      setPlayerIsAdmin(
-        players.find((player) => player.name === clientName)?.isAdmin ?? false
-      ),
-    [players, clientName]
+    () => setPlayerIsAdmin(players.find(player => player.name === clientName)?.isAdmin ?? false),
+    [players, clientName],
   );
 
   const onResetGame = () => {
@@ -62,9 +57,7 @@ const Finished = () => {
           </ScoreLine>
         ))}
       </ScoreBoard>
-      {playerIsAdmin && (
-        <SubmitButton onClick={onResetGame}>Main menu</SubmitButton>
-      )}
+      {playerIsAdmin && <SubmitButton onClick={onResetGame}>Main menu</SubmitButton>}
     </Root>
   );
 };

@@ -4,7 +4,7 @@ import Game from './views/Game';
 import Finished from './views/Finished';
 
 const App = () => {
-  const gameState = useAppSelector((state) => state.state.roomState);
+  const gameState = useAppSelector(state => state.state.roomState);
 
   return (
     <>
