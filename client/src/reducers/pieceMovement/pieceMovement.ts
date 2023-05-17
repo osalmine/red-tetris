@@ -9,10 +9,12 @@ import {
   AddNewActivePieceAction,
   ServerResetGame,
   AddNextPieceAction,
+  ClientEndGameAction,
 } from '../../actions/types';
 import { PieceState } from '../../types';
 import * as internalEvents from '../../constants/internalEvents';
 import * as incomingEvents from '../../constants/incomingEvents';
+import * as outgoingEvents from '../../constants/outgoingEvents';
 import { pieceCanRotate, rotatePieceRight } from './rotatePiece';
 import { pieceCanMoveDown } from './utils';
 import { pieceCanMoveRight } from './pieceRightMovement';
@@ -28,7 +30,8 @@ type PieceMovementAction =
   | DropPieceAction
   | AddNewActivePieceAction
   | AddNextPieceAction
-  | ServerResetGame;
+  | ServerResetGame
+  | ClientEndGameAction;
 
 const pieceMovementReducer = (state: PieceState = {}, action: PieceMovementAction): PieceState => {
   switch (action.type) {
@@ -170,6 +173,14 @@ const pieceMovementReducer = (state: PieceState = {}, action: PieceMovementActio
         return newState;
       }
       return state;
+    }
+    case outgoingEvents.END: {
+      const newState = {
+        ...state,
+        activePiece: undefined,
+        previousPiece: undefined,
+      } satisfies PieceState;
+      return newState;
     }
     default:
       return state;
