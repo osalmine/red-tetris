@@ -29,7 +29,7 @@ const blockOpponentRowsHandler =
     numberOfBlockRows: number;
   }) => {
     loginfo(
-      `ROOM ${roomName}: RECEIVE BLOCK OPPONENT ROWS FROM ${playerName} WITH ${numberOfBlockRows} ROWS BLOCKING`
+      `ROOM ${roomName}: RECEIVE BLOCK OPPONENT ROWS FROM ${playerName} WITH ${numberOfBlockRows} ROWS BLOCKING`,
     );
     const game = controller.getGame(roomName);
     try {

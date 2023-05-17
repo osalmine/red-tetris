@@ -17,14 +17,14 @@ describe('disconnectHandler', () => {
 
   const controller = new Controller();
 
-  beforeAll((done) => {
+  beforeAll(done => {
     httpServer = http.createServer().listen();
     ioServer = new socketio.Server(httpServer);
     httpServerAddr = httpServer.address() as AddressInfo;
     done();
   });
 
-  afterAll((done) => {
+  afterAll(done => {
     ioServer.close();
     httpServer.close();
     done();
@@ -33,11 +33,11 @@ describe('disconnectHandler', () => {
   const roomName = 'testRoom';
   const playerName = 'testPlayer';
 
-  beforeEach((done) => {
+  beforeEach(done => {
     controller.addClientToRoom({ roomName, playerName });
 
     const clientSocket = socketioClient(
-      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`
+      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`,
     );
 
     clientSocket.on('connect', () => {
@@ -50,7 +50,7 @@ describe('disconnectHandler', () => {
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     controller.removeAllGames();
     socketClients.clear();
     if (socket.connected) {
@@ -60,10 +60,7 @@ describe('disconnectHandler', () => {
   });
 
   it('should remove a player from room and from socketClients and remove the game', () => {
-    const removePlayerSpy = jest.spyOn(
-      controller.getGame(roomName),
-      'removePlayer'
-    );
+    const removePlayerSpy = jest.spyOn(controller.getGame(roomName), 'removePlayer');
     const removeGameSpy = jest.spyOn(controller, 'removeGame');
     disconnectHandler({
       io: ioServer,

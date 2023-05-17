@@ -10,13 +10,13 @@ describe('startHandler', () => {
 
   const controller = new Controller();
 
-  beforeAll((done) => {
+  beforeAll(done => {
     httpServer = http.createServer().listen();
     ioServer = new socketio.Server(httpServer);
     done();
   });
 
-  afterAll((done) => {
+  afterAll(done => {
     ioServer.close();
     httpServer.close();
     done();
@@ -25,21 +25,18 @@ describe('startHandler', () => {
   const roomName = 'testRoom';
   const playerName = 'testPlayer';
 
-  beforeEach((done) => {
+  beforeEach(done => {
     controller.addClientToRoom({ roomName, playerName });
     done();
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     controller.removeAllGames();
     done();
   });
 
   it('should start the game', () => {
-    const setGameToPlayingSpy = jest.spyOn(
-      controller.getGame(roomName),
-      'setGameToPlaying'
-    );
+    const setGameToPlayingSpy = jest.spyOn(controller.getGame(roomName), 'setGameToPlaying');
     startHandler({ io: ioServer, controller })({
       roomName,
       initiator: playerName,
@@ -47,10 +44,7 @@ describe('startHandler', () => {
     expect(setGameToPlayingSpy).toHaveBeenCalled();
   });
   it('should not start the game if initiator is not admin', () => {
-    const setGameToPlayingSpy = jest.spyOn(
-      controller.getGame(roomName),
-      'setGameToPlaying'
-    );
+    const setGameToPlayingSpy = jest.spyOn(controller.getGame(roomName), 'setGameToPlaying');
     const player2Name = 'testPlayer2';
     controller.addClientToRoom({ roomName, playerName: player2Name });
     startHandler({ io: ioServer, controller })({

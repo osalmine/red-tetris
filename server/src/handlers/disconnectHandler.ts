@@ -1,11 +1,7 @@
 import * as socketio from 'socket.io';
 import debug from 'debug';
 
-import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-  SocketClients,
-} from '../types';
+import { ClientToServerEvents, ServerToClientEvents, SocketClients } from '../types';
 import Controller from '../models/Controller';
 import * as outgoingEvents from '../constants/outgoingEvents';
 import { GameNotFoundError } from '../models/Error';
@@ -27,9 +23,7 @@ const disconnectHandler =
   }) =>
   () => {
     loginfo(`Socket disconnected: ${socket.id}`);
-    loginfo(
-      `Client is stored in socketClients: ${socketClients.has(socket.id)}`
-    );
+    loginfo(`Client is stored in socketClients: ${socketClients.has(socket.id)}`);
     try {
       if (socketClients.has(socket.id)) {
         const { roomName, playerName } = socketClients.get(socket.id);
@@ -37,9 +31,7 @@ const disconnectHandler =
         if (!game) {
           throw new GameNotFoundError(roomName);
         }
-        loginfo(
-          `Player ${playerName} exists: ${game.playerExists(playerName)}`
-        );
+        loginfo(`Player ${playerName} exists: ${game.playerExists(playerName)}`);
 
         const wasAdmin = game.getPlayer(playerName).isAdmin;
         game.removePlayer(playerName);

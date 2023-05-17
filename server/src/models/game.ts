@@ -28,11 +28,11 @@ export default class Game implements GameType {
   }
 
   playerExists(playerName: string) {
-    return this.players.some((player) => player.name === playerName);
+    return this.players.some(player => player.name === playerName);
   }
 
   getPlayer(playerName: string): Player | undefined {
-    return this.players.find((player) => player.name === playerName);
+    return this.players.find(player => player.name === playerName);
   }
 
   removePlayer(playerName: string) {
@@ -48,7 +48,7 @@ export default class Game implements GameType {
   }
 
   setAllPlayersState(state: typeof this.roomState) {
-    this.players.forEach((player) => player.setState(state));
+    this.players.forEach(player => player.setState(state));
   }
 
   setGameToPlaying() {
@@ -57,7 +57,7 @@ export default class Game implements GameType {
   }
 
   addPiecesToPlayers(pieces: PieceName[]) {
-    this.players.forEach((player) => player.addPieces(pieces));
+    this.players.forEach(player => player.addPieces(pieces));
   }
 
   updatePlayerState(playerState: PlayerT) {
@@ -73,15 +73,15 @@ export default class Game implements GameType {
   }
 
   resetGame() {
-    this.players.forEach((player) => player.resetPlayer());
+    this.players.forEach(player => player.resetPlayer());
     this.finishedPlayers = [];
     this.setGameState('pending');
   }
 
   addBlockedRowsToOpponents(blockingInitiator: string, blockedRows: number) {
     this.players
-      .filter((player) => player.name !== blockingInitiator)
-      .forEach((player) => player.addBlockedRows(blockedRows));
+      .filter(player => player.name !== blockingInitiator)
+      .forEach(player => player.addBlockedRows(blockedRows));
   }
 
   addPlayerToFinishedPlayers(player: Player) {
@@ -89,7 +89,7 @@ export default class Game implements GameType {
   }
 
   get hasAdmin() {
-    return this.players.some((player) => player.isAdmin);
+    return this.players.some(player => player.isAdmin);
   }
 
   get hasPlayers() {
@@ -104,11 +104,11 @@ export default class Game implements GameType {
   }
 
   get isFinished() {
-    return this.players.every((player) => player.state === 'finished');
+    return this.players.every(player => player.state === 'finished');
   }
 
   private static transformPlayers(players: Player[]) {
-    return players.map((player) => ({
+    return players.map(player => ({
       name: player.name,
       roomName: player.roomName,
       isAdmin: player.isAdmin,

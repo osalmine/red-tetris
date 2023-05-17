@@ -20,9 +20,7 @@ const endHandler =
     controller: Controller;
   }) =>
   ({ roomName, playerName }: { roomName: string; playerName: string }) => {
-    loginfo(
-      `End game emit received from room ${roomName} initiated by ${playerName}`
-    );
+    loginfo(`End game emit received from room ${roomName} initiated by ${playerName}`);
     const game = controller.getGame(roomName);
     try {
       if (!game) {

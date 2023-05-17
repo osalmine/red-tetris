@@ -16,14 +16,14 @@ describe('endHandler', () => {
 
   const controller = new Controller();
 
-  beforeAll((done) => {
+  beforeAll(done => {
     httpServer = http.createServer().listen();
     ioServer = new socketio.Server(httpServer);
     httpServerAddr = httpServer.address() as AddressInfo;
     done();
   });
 
-  afterAll((done) => {
+  afterAll(done => {
     ioServer.close();
     httpServer.close();
     done();
@@ -32,11 +32,11 @@ describe('endHandler', () => {
   const roomName = 'testRoom';
   const playerName = 'testPlayer';
 
-  beforeEach((done) => {
+  beforeEach(done => {
     controller.addClientToRoom({ roomName, playerName });
 
     const clientSocket = socketioClient(
-      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`
+      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`,
     );
 
     clientSocket.on('connect', () => {
@@ -48,7 +48,7 @@ describe('endHandler', () => {
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     controller.removeAllGames();
     if (socket.connected) {
       socket.disconnect();
@@ -58,10 +58,7 @@ describe('endHandler', () => {
 
   it('should end a game if all players are finished', () => {
     const game = controller.getGame(roomName);
-    const addPlayerToFinishedPlayersSpy = jest.spyOn(
-      game,
-      'addPlayerToFinishedPlayers'
-    );
+    const addPlayerToFinishedPlayersSpy = jest.spyOn(game, 'addPlayerToFinishedPlayers');
     const player = game.getPlayer(playerName);
     const setStateSpy = jest.spyOn(player, 'setState');
     const setGameStateSpy = jest.spyOn(game, 'setGameState');
@@ -79,10 +76,7 @@ describe('endHandler', () => {
     controller.addClientToRoom({ roomName, playerName: player2Name });
     controller.addClientToRoom({ roomName, playerName: player3Name });
     const game = controller.getGame(roomName);
-    const addPlayerToFinishedPlayersSpy = jest.spyOn(
-      game,
-      'addPlayerToFinishedPlayers'
-    );
+    const addPlayerToFinishedPlayersSpy = jest.spyOn(game, 'addPlayerToFinishedPlayers');
     const player1 = game.getPlayer(playerName);
     const player1SetStateSpy = jest.spyOn(player1, 'setState');
     const player2 = game.getPlayer(playerName);

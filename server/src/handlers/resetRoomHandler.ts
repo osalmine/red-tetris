@@ -20,9 +20,7 @@ const resetRoomHandler =
     controller: Controller;
   }) =>
   ({ roomName, initiator }: { roomName: string; initiator: string }) => {
-    loginfo(
-      `Reset room emit received from room ${roomName} initiated by ${initiator}`
-    );
+    loginfo(`Reset room emit received from room ${roomName} initiated by ${initiator}`);
     try {
       if (controller.isGameOngoing(roomName)) {
         logerror('Game already started');

@@ -14,7 +14,7 @@ export default class Player {
   constructor(
     playerName: string,
     roomName: string,
-    { rows, cols }: { rows: number; cols: number }
+    { rows, cols }: { rows: number; cols: number },
   ) {
     this.name = playerName;
     this.roomName = roomName;
@@ -57,9 +57,7 @@ export default class Player {
       ...new Array(blockedRows).fill(new Array(cols).fill(BLOCKED)),
     ];
     const removedRows = this.board.field.splice(0, blockedRows);
-    const removedRowsHasFilledCell = removedRows.some((row) =>
-      row.some((cell) => cell === FILLED)
-    );
+    const removedRowsHasFilledCell = removedRows.some(row => row.some(cell => cell === FILLED));
     if (removedRowsHasFilledCell) {
       this.setState('finished');
     }

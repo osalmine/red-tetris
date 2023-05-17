@@ -1,10 +1,6 @@
 import * as socketio from 'socket.io';
 import debug from 'debug';
-import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-  SocketClients,
-} from '../types';
+import { ClientToServerEvents, ServerToClientEvents, SocketClients } from '../types';
 import Controller from '../models/Controller';
 import * as incomingEvents from '../constants/incomingEvents';
 import joinHandler from '../handlers/joinHandler';
@@ -28,10 +24,7 @@ const onConnect =
   (socket: socketio.Socket<ClientToServerEvents, ServerToClientEvents>) => {
     loginfo(`Socket connected: ${socket.id}`);
 
-    socket.once(
-      incomingEvents.JOIN,
-      joinHandler({ io, socket, controller, socketClients })
-    );
+    socket.once(incomingEvents.JOIN, joinHandler({ io, socket, controller, socketClients }));
 
     socket.on(incomingEvents.START, startHandler({ io, controller }));
 
@@ -39,25 +32,14 @@ const onConnect =
 
     socket.on(incomingEvents.END, endHandler({ io, socket, controller }));
 
-    socket.on(
-      incomingEvents.RESET,
-      resetRoomHandler({ io, socket, controller })
-    );
+    socket.on(incomingEvents.RESET, resetRoomHandler({ io, socket, controller }));
 
-    socket.on(
-      incomingEvents.BLOCK,
-      blockOpponentRowsHandler({ io, socket, controller })
-    );
+    socket.on(incomingEvents.BLOCK, blockOpponentRowsHandler({ io, socket, controller }));
 
-    socket.on(
-      'disconnect',
-      disconnectHandler({ io, socket, controller, socketClients })
-    );
+    socket.on('disconnect', disconnectHandler({ io, socket, controller, socketClients }));
   };
 
-const initEngine = (
-  io: socketio.Server<ClientToServerEvents, ServerToClientEvents>
-) => {
+const initEngine = (io: socketio.Server<ClientToServerEvents, ServerToClientEvents>) => {
   io.on('connection', onConnect(io));
 };
 

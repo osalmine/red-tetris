@@ -4,10 +4,7 @@ import Controller from '../models/Controller';
 import { ClientToServerEvents, ServerToClientEvents } from '../types';
 import joinHandler from './joinHandler';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import {
-  GameAlreadyStartedError,
-  PlayerAlreadyExistsError,
-} from '../models/Error';
+import { GameAlreadyStartedError, PlayerAlreadyExistsError } from '../models/Error';
 import { socketClients } from '../routes/sockets';
 import MockSocket from 'socket.io-mock';
 
@@ -17,13 +14,13 @@ describe('joinHandler', () => {
 
   const controller = new Controller();
 
-  beforeAll((done) => {
+  beforeAll(done => {
     httpServer = http.createServer().listen();
     ioServer = new socketio.Server(httpServer);
     done();
   });
 
-  afterAll((done) => {
+  afterAll(done => {
     ioServer.close();
     httpServer.close();
     done();

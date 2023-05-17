@@ -73,9 +73,7 @@ describe('Controller', () => {
       controller.addClientToRoom({ roomName, playerName });
       expect(controller.gameExists(roomName)).toBe(true);
 
-      expect(
-        controller.addClientToRoom({ roomName, playerName })
-      ).toThrowError();
+      expect(controller.addClientToRoom({ roomName, playerName })).toThrowError();
     } catch (e) {
       expect(e).toBeInstanceOf(PlayerAlreadyExistsError);
     }

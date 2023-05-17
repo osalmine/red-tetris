@@ -3,14 +3,12 @@ import { BLOCKED, EMPTY, FILLED } from '../../constants/cellType';
 import Board from '../../models/Board';
 
 export const emptyBoard: Board = {
-  field: new Array(params.board.rows).fill(
-    new Array(params.board.cols).fill(EMPTY)
-  ),
+  field: new Array(params.board.rows).fill(new Array(params.board.cols).fill(EMPTY)),
 };
 
 export const boardWithFilledCells: Board = {
   field: emptyBoard.field.map((row, i) =>
-    i % 3 ? row.map((col, j) => (j % 2 ? FILLED : col)) : row
+    i % 3 ? row.map((col, j) => (j % 2 ? FILLED : col)) : row,
   ),
 };
 

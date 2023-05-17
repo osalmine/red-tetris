@@ -31,11 +31,7 @@ export type SocketClients = Map<
 >;
 
 export type ServerToClientEvents = {
-  serverUpdateState: ({
-    roomState,
-    players,
-    finishedPlayers,
-  }: GameState) => void;
+  serverUpdateState: ({ roomState, players, finishedPlayers }: GameState) => void;
   serverResetGame: ({ roomState, players, finishedPlayers }: GameState) => void;
   serverError: ({
     error,
@@ -49,20 +45,8 @@ export type ServerToClientEvents = {
 };
 
 export type ClientToServerEvents = {
-  joinRoom: ({
-    roomName,
-    playerName,
-  }: {
-    roomName: string;
-    playerName: string;
-  }) => void;
-  startGame: ({
-    roomName,
-    initiator,
-  }: {
-    roomName: string;
-    initiator: string;
-  }) => void;
+  joinRoom: ({ roomName, playerName }: { roomName: string; playerName: string }) => void;
+  startGame: ({ roomName, initiator }: { roomName: string; initiator: string }) => void;
   clientUpdateState: ({
     roomName,
     playerState,
@@ -70,20 +54,8 @@ export type ClientToServerEvents = {
     roomName: string;
     playerState: PlayerT;
   }) => void;
-  clientEndGame: ({
-    roomName,
-    playerName,
-  }: {
-    roomName: string;
-    playerName: string;
-  }) => void;
-  resetGame: ({
-    roomName,
-    initiator,
-  }: {
-    roomName: string;
-    initiator: string;
-  }) => void;
+  clientEndGame: ({ roomName, playerName }: { roomName: string; playerName: string }) => void;
+  resetGame: ({ roomName, initiator }: { roomName: string; initiator: string }) => void;
   blockOpponentRows: ({
     roomName,
     playerName,

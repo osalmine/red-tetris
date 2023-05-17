@@ -17,14 +17,14 @@ describe('updateHandler', () => {
 
   const controller = new Controller();
 
-  beforeAll((done) => {
+  beforeAll(done => {
     httpServer = http.createServer().listen();
     ioServer = new socketio.Server(httpServer);
     httpServerAddr = httpServer.address() as AddressInfo;
     done();
   });
 
-  afterAll((done) => {
+  afterAll(done => {
     ioServer.close();
     httpServer.close();
     done();
@@ -41,11 +41,11 @@ describe('updateHandler', () => {
     board: emptyBoard,
   };
 
-  beforeEach((done) => {
+  beforeEach(done => {
     controller.addClientToRoom({ roomName, playerName });
 
     const clientSocket = socketioClient(
-      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`
+      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`,
     );
 
     clientSocket.on('connect', () => {
@@ -57,7 +57,7 @@ describe('updateHandler', () => {
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     controller.removeAllGames();
     if (socket.connected) {
       socket.disconnect();
@@ -66,14 +66,8 @@ describe('updateHandler', () => {
   });
 
   it('should update state in room and add pieces if pieces length is under 3', () => {
-    const updatePlayerStateSpy = jest.spyOn(
-      controller.getGame(roomName),
-      'updatePlayerState'
-    );
-    const addPiecesToPlayersSpy = jest.spyOn(
-      controller.getGame(roomName),
-      'addPiecesToPlayers'
-    );
+    const updatePlayerStateSpy = jest.spyOn(controller.getGame(roomName), 'updatePlayerState');
+    const addPiecesToPlayersSpy = jest.spyOn(controller.getGame(roomName), 'addPiecesToPlayers');
     updateHandler({ io: ioServer, controller, socket })({
       roomName,
       playerState,

@@ -16,14 +16,14 @@ describe('blockOpponentRowsHandler', () => {
 
   const controller = new Controller();
 
-  beforeAll((done) => {
+  beforeAll(done => {
     httpServer = http.createServer().listen();
     ioServer = new socketio.Server(httpServer);
     httpServerAddr = httpServer.address() as AddressInfo;
     done();
   });
 
-  afterAll((done) => {
+  afterAll(done => {
     ioServer.close();
     httpServer.close();
     done();
@@ -32,11 +32,11 @@ describe('blockOpponentRowsHandler', () => {
   const roomName = 'testRoom';
   const playerName = 'testPlayer';
 
-  beforeEach((done) => {
+  beforeEach(done => {
     controller.addClientToRoom({ roomName, playerName });
 
     const clientSocket = socketioClient(
-      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`
+      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`,
     );
 
     clientSocket.on('connect', () => {
@@ -48,7 +48,7 @@ describe('blockOpponentRowsHandler', () => {
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     controller.removeAllGames();
     if (socket.connected) {
       socket.disconnect();
@@ -59,7 +59,7 @@ describe('blockOpponentRowsHandler', () => {
   it('should block rows', () => {
     const addBlockedRowsToOpponentsSpy = jest.spyOn(
       controller.getGame(roomName),
-      'addBlockedRowsToOpponents'
+      'addBlockedRowsToOpponents',
     );
     blockOpponentRowsHandler({ io: ioServer, controller, socket })({
       roomName,

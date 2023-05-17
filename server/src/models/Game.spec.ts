@@ -147,9 +147,7 @@ describe('Game', () => {
     expect(player2.board.field).toStrictEqual(emptyBoard.field);
     game.addBlockedRowsToOpponents(player1Name, 2);
     expect(player1.board.field).toStrictEqual(emptyBoard.field);
-    expect(player2.board.field).toStrictEqual(
-      emptyBoardWithTwoBlockedRows.field
-    );
+    expect(player2.board.field).toStrictEqual(emptyBoardWithTwoBlockedRows.field);
   });
   it('adds a player to finished players', () => {
     const player = new Player('testName', 'testRoom', params.board);

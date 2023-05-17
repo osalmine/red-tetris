@@ -17,9 +17,7 @@ const startHandler =
     controller: Controller;
   }) =>
   ({ roomName, initiator }: { roomName: string; initiator: string }) => {
-    loginfo(
-      `Start game emit received from room ${roomName} initiated by ${initiator}`
-    );
+    loginfo(`Start game emit received from room ${roomName} initiated by ${initiator}`);
     const game = controller.getGame(roomName);
     if (game.getPlayer(initiator).isAdmin) {
       game.setGameToPlaying();

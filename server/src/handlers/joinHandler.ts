@@ -1,16 +1,9 @@
 import * as socketio from 'socket.io';
 import debug from 'debug';
 
-import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-  SocketClients,
-} from '../types';
+import { ClientToServerEvents, ServerToClientEvents, SocketClients } from '../types';
 import Controller from '../models/Controller';
-import {
-  GameAlreadyStartedError,
-  PlayerAlreadyExistsError,
-} from '../models/Error';
+import { GameAlreadyStartedError, PlayerAlreadyExistsError } from '../models/Error';
 import * as outgoingEvents from '../constants/outgoingEvents';
 
 const logerror = debug('tetris:error'),
@@ -40,10 +33,7 @@ const joinHandler =
       socketClients.set(socket.id, { roomName, playerName });
       socket.join(roomName);
 
-      io.to(roomName).emit(
-        outgoingEvents.UPDATE,
-        controller.getGame(roomName).state
-      );
+      io.to(roomName).emit(outgoingEvents.UPDATE, controller.getGame(roomName).state);
     } catch (error) {
       logerror(error);
       if (error instanceof PlayerAlreadyExistsError) {

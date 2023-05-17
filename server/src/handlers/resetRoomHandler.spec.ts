@@ -16,14 +16,14 @@ describe('resetRoomHandler', () => {
 
   const controller = new Controller();
 
-  beforeAll((done) => {
+  beforeAll(done => {
     httpServer = http.createServer().listen();
     ioServer = new socketio.Server(httpServer);
     httpServerAddr = httpServer.address() as AddressInfo;
     done();
   });
 
-  afterAll((done) => {
+  afterAll(done => {
     ioServer.close();
     httpServer.close();
     done();
@@ -32,11 +32,11 @@ describe('resetRoomHandler', () => {
   const roomName = 'testRoom';
   const playerName = 'testPlayer';
 
-  beforeEach((done) => {
+  beforeEach(done => {
     controller.addClientToRoom({ roomName, playerName });
 
     const clientSocket = socketioClient(
-      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`
+      `http://[${httpServerAddr.address}]:${httpServerAddr.port}`,
     );
 
     clientSocket.on('connect', () => {
@@ -48,7 +48,7 @@ describe('resetRoomHandler', () => {
     });
   });
 
-  afterEach((done) => {
+  afterEach(done => {
     controller.removeAllGames();
     if (socket.connected) {
       socket.disconnect();
@@ -86,7 +86,7 @@ describe('resetRoomHandler', () => {
       resetRoomHandler({ io: ioServer, controller, socket })({
         roomName,
         initiator: player2,
-      })
+      }),
     ).not.toThrowError();
 
     expect(resetGameSpy).not.toHaveBeenCalled();
