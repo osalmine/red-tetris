@@ -32,7 +32,6 @@ const BoardContainer = styled.div<{ containerWidth?: number }>`
   flex-direction: column;
   border-radius: 5px;
   flex: 0 1;
-  /* max-height: 704.1px; */
 `;
 
 export const PlayerBoard = ({

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useAppSelector } from './hooks';
 import Pending from './views/Pending';
 import Game from './views/Game';
