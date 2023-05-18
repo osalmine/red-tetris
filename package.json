@@ -15,10 +15,7 @@
     "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
-    "css-loader": "^6.7.3",
     "prettier": "^2.8.8",
-    "style-loader": "^3.3.2",
-    "ts-loader": "^9.4.2",
     "typescript": "^5.0.4"
   },
   "dependencies": {
