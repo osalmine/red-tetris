@@ -47,6 +47,11 @@ Example: `http://localhost:3004/#42[onni]` where we are joining room 42 as playe
 
 To simulate a game against multiple people, open a second tab and join the same room with a different name
 
+Run **tests** with
+```
+npm test
+```
+
 ## How it works
 
 The client and server use **Socket.io** to communicate to enable real-time multiplayer experience. It allows for multiple games (or [rooms](https://socket.io/docs/v4/rooms/) in Socket.io terms) to be played simultaneously and for multiple players to be in one room and see each other's boards in real-time.
