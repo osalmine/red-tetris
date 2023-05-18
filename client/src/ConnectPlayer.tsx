@@ -36,7 +36,7 @@ const ConnectPlayer = ({ children }: Props) => {
         <Root>
           <RoomJoinWarning>
             Enter in the following format in the URL: #{'<'}room{'>'}[{'<'}
-            yourName{'>'}]
+            yourName{'>'}], example: {window.location.host}/#42[onni]
           </RoomJoinWarning>
           <RedTetrisTitle />
         </Root>
