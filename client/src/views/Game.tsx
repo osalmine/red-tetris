@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { endGame } from '../actions/server';
 import { Tetris } from '../components/Tetris';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { updateBoard } from '../utils';
@@ -14,10 +13,6 @@ const Game = () => {
     state.players.filter(playerFromServer => playerFromServer.name !== clientName),
   );
   const { activePiece, previousPiece, nextPieceType } = useAppSelector(state => state.piece);
-
-  if (!!player && !!previousPiece && previousPiece.pieceYOffset < 0) {
-    dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
-  }
 
   useEffect(() => {
     if (!!player && !activePiece && !nextPieceType && player.state === 'playing') {

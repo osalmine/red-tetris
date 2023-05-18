@@ -11,7 +11,7 @@ import {
 } from '../services';
 import * as incomingEvents from '../constants/incomingEvents';
 import * as outgoingEvents from '../constants/outgoingEvents';
-import { serverResetGame, serverUpdateState } from '../actions/server';
+import { endGame as endGameAction, serverResetGame, serverUpdateState } from '../actions/server';
 import { AllActions } from '../actions/types';
 import { GameState } from '../types';
 import handleError from '../handlers/errorHandler';
@@ -24,7 +24,18 @@ export const socketMiddleWare =
   ({ dispatch }: { dispatch: Dispatch }) => {
     socket.on(incomingEvents.UPDATE, (data: GameState) => {
       dispatch(serverUpdateState(data));
-      const { activePiece, nextPieceType } = store.getState().piece;
+      const {
+        piece: { activePiece, nextPieceType, previousPiece },
+        player,
+      } = store.getState();
+      if (
+        player.roomName &&
+        player.playerName &&
+        !!previousPiece &&
+        previousPiece.pieceYOffset < 0
+      ) {
+        dispatch(endGameAction({ roomName: player.roomName, playerName: player.playerName }));
+      }
       if (!activePiece && nextPieceType) {
         dispatch(addNewActivePiece(nextPieceType));
       }
