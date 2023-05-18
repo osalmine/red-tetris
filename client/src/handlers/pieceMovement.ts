@@ -8,7 +8,7 @@ import {
 import { startGame } from '../actions/server';
 import { RootState, store } from '../store';
 
-const pieceMoveIntervalInMs = 5000;
+const pieceMoveIntervalInMs = 2000;
 
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timer | null;
