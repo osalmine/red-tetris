@@ -143,6 +143,7 @@ describe('Game', () => {
     const player2 = new Player(player2Name, 'testRoom', params.board);
     game.addPlayer(player1);
     game.addPlayer(player2);
+    game.setGameToPlaying();
     expect(player1.board.field).toStrictEqual(emptyBoard.field);
     expect(player2.board.field).toStrictEqual(emptyBoard.field);
     game.addBlockedRowsToOpponents(player1Name, 2);
