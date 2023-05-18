@@ -15,11 +15,9 @@ const Game = () => {
   );
   const { activePiece, previousPiece, nextPieceType } = useAppSelector(state => state.piece);
 
-  useEffect(() => {
-    if (!!player && !!previousPiece && previousPiece.pieceYOffset < 0) {
-      dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
-    }
-  }, [dispatch, player, previousPiece]);
+  if (!!player && !!previousPiece && previousPiece.pieceYOffset < 0) {
+    dispatch(endGame({ roomName: player.roomName, playerName: player.name }));
+  }
 
   useEffect(() => {
     if (!!player && !activePiece && !nextPieceType && player.state === 'playing') {
