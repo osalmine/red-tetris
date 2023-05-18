@@ -7,7 +7,7 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks", "import"],
+  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks", "import", "jsx-a11y"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
