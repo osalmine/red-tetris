@@ -81,6 +81,7 @@ export default class Game implements GameType {
   addBlockedRowsToOpponents(blockingInitiator: string, blockedRows: number) {
     this.players
       .filter(player => player.name !== blockingInitiator)
+      .filter(player => player.state === 'playing')
       .forEach(player => player.addBlockedRows(blockedRows));
   }
 
