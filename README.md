@@ -79,3 +79,4 @@ One big thing I would do differently is that the store should not be accessed di
 Some things I would do differently for a real-world application but were out of scope for this project that is only meant to teach Socket.io and Redux:
 - Accessibility. The accessibility of the game is very very poor.
 - Responsiveness. The UI is designed only for desktop size and breaks on smaller than ipad size.
+- Webpack optimization.
