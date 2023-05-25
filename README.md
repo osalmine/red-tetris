@@ -3,6 +3,8 @@
 
 Multiplayer online Tetris
 
+[SUBJECT](ft.subject.pdf) is in French and I used Google translate extensively for the completion of this project
+
 ## To run:
 
 Ensure you use the correct node version by running
@@ -57,7 +59,7 @@ npm test
 The client and server use **Socket.io** to communicate to enable real-time multiplayer experience. It allows for multiple games (or [rooms](https://socket.io/docs/v4/rooms/) in Socket.io terms) to be played simultaneously and for multiple players to be in one room and see each other's boards in real-time.
 
 #### Server
-The server was required to be implemented in Node.js and to use object-oriented architecture. More details in the subject.
+The server was required to be implemented in Node.js and to use object-oriented architecture. More details in the [subject](fr.subject.pdf).
 
 #### Client
 The client is written in Typescript React. It was mandatory to use Redux for state management.
