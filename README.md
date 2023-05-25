@@ -3,7 +3,7 @@
 
 Multiplayer online Tetris
 
-[SUBJECT](ft.subject.pdf) is in French and I used Google translate extensively for the completion of this project
+[SUBJECT](fr.subject.pdf) is in French and I used Google translate extensively for the completion of this project
 
 ## To run:
 
