@@ -3,6 +3,10 @@
 
 Multiplayer online Tetris
 
+GRADE:
+
+[![osalmine's 42 red-tetris Score](https://badge42.vercel.app/api/v2/cl2gijtz7003009mofz5pnp5t/project/3043754)](https://github.com/JaeSeoKim/badge42)
+
 [SUBJECT](fr.subject.pdf) is in French and I used Google translate extensively for the completion of this project
 
 ## To run:
